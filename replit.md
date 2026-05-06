@@ -50,7 +50,10 @@ A fully client-side image SEO SaaS tool that helps local businesses optimize ima
 ## User preferences
 
 - Mobile responsive layout required
-- 3D modern stylish design with glassmorphism touches
+- Professional 3D design: `card-3d` lift effect on all cards, `btn-3d` gradient buttons, `glass` navbar, `hero-bg` radial gradient
+- Plus Jakarta Sans for headings, Inter for body
+- Floating feature badges in hero, gradient icon mark in navbar/footer
+- Tool section: evenly split 2-col (`lg:grid-cols-2`), tabbed right panel (Geo Tag | SEO Text)
 - Lightweight — no unnecessary dependencies
 
 ## Gotchas
