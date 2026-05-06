@@ -1,9 +1,11 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, lazy, Suspense } from "react";
 import { Upload, X, Download, Copy, Check, Archive, MapPin, ChevronDown, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import JSZip from "jszip";
+
+const GeoMap = lazy(() => import("./geo-map").then((m) => ({ default: m.GeoMap })));
 
 type OutputFormat = "image/webp" | "image/jpeg" | "image/png";
 type ResizePreset = "none" | "google-business" | "thumbnail" | "custom";
@@ -123,6 +125,8 @@ export function ToolSection() {
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
   const [geoLocation, setGeoLocation] = useState("");
+  const [geoTitle, setGeoTitle] = useState("");
+  const [geoDescription, setGeoDescription] = useState("");
   const [geoCopied, setGeoCopied] = useState(false);
   const [zipping, setZipping] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -145,7 +149,21 @@ export function ToolSection() {
     : "";
 
   const geoText = lat && lng
-    ? `Latitude: ${lat}\nLongitude: ${lng}\nLocation: ${geoLocation || "N/A"}\n\nHow to use:\n1. Download this .txt file\n2. Use ExifTool: exiftool -GPSLatitude=${lat} -GPSLongitude=${lng} your-image.jpg\n3. Or add via your CMS/platform EXIF editor before uploading to Google Business Profile`
+    ? [
+        `Latitude: ${lat}`,
+        `Longitude: ${lng}`,
+        `Location: ${geoLocation || "N/A"}`,
+        geoTitle ? `Title: ${geoTitle}` : "",
+        geoDescription ? `Description: ${geoDescription}` : "",
+        "",
+        "ExifTool command:",
+        `exiftool -GPSLatitude=${lat} -GPSLongitude=${lng} -GPSLatitudeRef=N -GPSLongitudeRef=E your-image.jpg`,
+        "",
+        "How to use:",
+        "1. Download this .txt file",
+        "2. Run the ExifTool command above (or use geoimgr.com)",
+        "3. Upload the geo-tagged image to Google Business Profile",
+      ].filter(Boolean).join("\n")
     : "";
 
   const triggerProcess = useCallback((id: string, file: File) => {
@@ -525,9 +543,28 @@ export function ToolSection() {
                   <MapPin className="h-4 w-4 text-primary" />
                   Geo Tag Helper
                 </CardTitle>
-                <p className="text-sm text-muted-foreground">Generate location metadata for your images</p>
+                <p className="text-sm text-muted-foreground">Search your city and place a pin to generate location metadata</p>
               </CardHeader>
               <CardContent className="px-5 pb-5 space-y-4">
+                {/* Map with predictive search */}
+                <Suspense fallback={
+                  <div className="h-72 rounded-xl border bg-muted/30 flex items-center justify-center text-sm text-muted-foreground">
+                    Loading map…
+                  </div>
+                }>
+                  <GeoMap
+                    lat={lat}
+                    lng={lng}
+                    locationName={geoLocation}
+                    onChange={(newLat, newLng, newName) => {
+                      setLat(newLat);
+                      setLng(newLng);
+                      setGeoLocation(newName);
+                    }}
+                  />
+                </Suspense>
+
+                {/* Coordinates display */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="text-xs font-medium block mb-1">Latitude</label>
@@ -535,8 +572,8 @@ export function ToolSection() {
                       type="text"
                       value={lat}
                       onChange={(e) => setLat(e.target.value)}
-                      placeholder="e.g. 25.2854"
-                      className="w-full text-sm border rounded-lg px-3 py-2 bg-background focus:outline-none focus:ring-2 focus:ring-primary/40"
+                      placeholder="e.g. 25.285447"
+                      className="w-full text-sm border rounded-lg px-3 py-2 bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 font-mono"
                       data-testid="input-lat"
                     />
                   </div>
@@ -546,21 +583,34 @@ export function ToolSection() {
                       type="text"
                       value={lng}
                       onChange={(e) => setLng(e.target.value)}
-                      placeholder="e.g. 51.5310"
-                      className="w-full text-sm border rounded-lg px-3 py-2 bg-background focus:outline-none focus:ring-2 focus:ring-primary/40"
+                      placeholder="e.g. 51.531040"
+                      className="w-full text-sm border rounded-lg px-3 py-2 bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 font-mono"
                       data-testid="input-lng"
                     />
                   </div>
                 </div>
+
+                {/* Title & Description */}
                 <div>
-                  <label className="text-xs font-medium block mb-1">Location Name (optional)</label>
+                  <label className="text-xs font-medium block mb-1">Image Title <span className="text-muted-foreground font-normal">(optional)</span></label>
                   <input
                     type="text"
-                    value={geoLocation}
-                    onChange={(e) => setGeoLocation(e.target.value)}
-                    placeholder="e.g. Doha, Qatar"
+                    value={geoTitle}
+                    onChange={(e) => setGeoTitle(e.target.value)}
+                    placeholder="e.g. QuickFix Plumbing Doha Branch"
                     className="w-full text-sm border rounded-lg px-3 py-2 bg-background focus:outline-none focus:ring-2 focus:ring-primary/40"
-                    data-testid="input-geo-location"
+                    data-testid="input-geo-title"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-medium block mb-1">Image Description <span className="text-muted-foreground font-normal">(optional)</span></label>
+                  <textarea
+                    value={geoDescription}
+                    onChange={(e) => setGeoDescription(e.target.value)}
+                    placeholder="e.g. Emergency plumbing services available 24/7 in Doha, Qatar"
+                    rows={2}
+                    className="w-full text-sm border rounded-lg px-3 py-2 bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none"
+                    data-testid="input-geo-description"
                   />
                 </div>
 
@@ -592,11 +642,12 @@ export function ToolSection() {
                 )}
 
                 <div className="rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-4 text-xs text-amber-800 dark:text-amber-300 leading-relaxed space-y-1">
-                  <p className="font-semibold">How to add geo tags before uploading to Google Business Profile:</p>
+                  <p className="font-semibold">How to add geo tags to Google Business Profile images:</p>
                   <ol className="list-decimal list-inside space-y-1 mt-1">
-                    <li>Enter your business coordinates above and download the .txt file</li>
-                    <li>Use a free tool like <strong>ExifTool</strong> or <strong>geoimgr.com</strong> to embed the GPS data into your image EXIF</li>
-                    <li>Upload the geo-tagged image to your Google Business Profile</li>
+                    <li>Search your city above and click to place the pin on your business location</li>
+                    <li>Add optional title and description, then download the .txt file</li>
+                    <li>Use <strong>ExifTool</strong> or <strong>geoimgr.com</strong> to embed the GPS data into your image EXIF</li>
+                    <li>Upload the geo-tagged image to Google Business Profile</li>
                   </ol>
                 </div>
               </CardContent>
