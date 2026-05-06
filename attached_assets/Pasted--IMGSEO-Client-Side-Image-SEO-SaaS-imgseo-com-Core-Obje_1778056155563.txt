@@ -1,0 +1,340 @@
+# 🚀 IMGSEO — Client-Side Image SEO SaaS (imgseo.com)
+
+## 🧠 Core Objective
+
+Build a **fully client-side SaaS web application** called **IMGSEO** that helps local businesses optimize images for better Google ranking.
+
+### ⚠️ Strict Requirements:
+- No backend
+- No APIs
+- No database
+- No login/signup
+- No server uploads
+- 100% browser-based processing
+- 100% free tool
+- Privacy-first (everything runs locally in user browser)
+
+---
+
+# 🎯 Core Features
+
+## 1. Image Upload
+
+- Drag & drop interface
+- Support multiple images (bulk upload)
+- Accept formats:
+  - JPG
+  - PNG
+  - WebP
+
+---
+
+## 2. Client-Side Image Processing
+
+Use browser technologies only:
+
+- HTML5 Canvas API for:
+  - Compression
+  - Resizing
+- Convert images to:
+  - WebP (default)
+  - JPG (optimized)
+  - PNG (compressed)
+
+### Requirements:
+- Maintain good quality
+- Reduce file size significantly
+- Fast processing in browser
+
+---
+
+## 3. SEO Optimization Tools
+
+### A. File Name Generator
+
+Auto-generate SEO-friendly file names:
+
+**Format:**
+business-name + keyword + location
+
+**Example:**
+best-plumber-doha-qatar.webp
+
+---
+
+### B. ALT Text Generator
+
+Generate SEO-friendly ALT text using user input:
+
+Inputs:
+- Business name
+- Keyword
+- Location
+
+Output example:
+"Professional plumbing service in Doha Qatar for residential repairs"
+
+---
+
+### C. Title Generator
+
+Short SEO-friendly title:
+
+Example:
+"Best Plumbing Services in Doha"
+
+---
+
+### D. Caption Generator
+
+Natural description:
+
+Example:
+"Trusted plumbing services in Doha offering fast and reliable solutions."
+
+---
+
+## 4. GEO Tagging (Client-Side Limitation Handling)
+
+Since browser cannot write EXIF metadata directly:
+
+### Provide:
+- Input fields:
+  - Latitude
+  - Longitude
+  - Location name
+
+### Output:
+- Display geo data
+- Provide downloadable `.txt` file with geo info
+- Copy-to-clipboard button
+
+### Include Guide Section:
+Explain how to add geo tags before uploading to Google Business Profile.
+
+---
+
+## 5. Output & Download
+
+After processing:
+
+### Show:
+- Original vs optimized size
+- Compression percentage
+- Image preview
+
+### Download Options:
+- Single image download
+- Bulk download as ZIP (use JSZip)
+
+---
+
+## 6. Bulk Processing
+
+- Process multiple images at once
+- Batch optimization
+- ZIP export
+
+---
+
+# 🏠 Homepage Structure (SEO Optimized)
+
+## Hero Section
+
+Headline:
+Optimize Images for Local SEO — 100% Free & Private
+
+Subheadline:
+Compress, convert, and generate SEO-ready images directly in your browser. No upload required.
+
+CTA:
+Upload Image
+
+---
+
+## Features Section
+
+- Image Compression
+- Format Conversion
+- SEO File Naming
+- ALT Text Generator
+- Bulk Processing
+
+---
+
+## How It Works
+
+1. Upload Image  
+2. Enter Business Details  
+3. Download Optimized Image  
+
+---
+
+## Benefits Section
+
+- Faster website loading
+- Better Google rankings
+- Improved local SEO
+- No privacy risks
+
+---
+
+## Use Cases
+
+- Restaurants
+- Plumbers
+- Real estate agents
+- Salons
+- Local shops
+
+---
+
+## SEO Content Section
+
+Write keyword-rich content targeting:
+
+- image SEO for local business
+- optimize images for Google ranking
+- reduce image size without losing quality
+- local SEO image optimization
+- Google Business image optimization
+
+---
+
+## FAQ Section (AEO Optimized)
+
+Include:
+
+- Does this tool upload my images?
+- Is this tool free?
+- How does image SEO help ranking?
+- What is geo tagging?
+- Can I use this for Google Business?
+
+---
+
+## Blog Section (Static)
+
+Add 3–5 sample blog cards for SEO growth.
+
+---
+
+# 🔍 SEO REQUIREMENTS
+
+## On-Page SEO
+
+- Proper H1, H2, H3 structure
+- Natural keyword usage
+- Internal linking
+- Optimized meta title & description
+
+---
+
+## Technical SEO
+
+- Fast loading (lightweight code)
+- Lazy loading images
+- Clean URLs
+- Sitemap.xml
+- Robots.txt
+- Canonical tags
+
+---
+
+## AEO (Answer Engine Optimization)
+
+- Clear Q&A format
+- Short, direct answers
+- Featured snippet friendly content
+
+---
+
+## Schema Markup
+
+Add JSON-LD:
+
+- SoftwareApplication schema
+- FAQ schema
+
+---
+
+# ⚙️ Tech Stack
+
+Use only:
+
+- HTML5
+- Tailwind CSS
+- Vanilla JavaScript
+
+### Libraries:
+- JSZip (for bulk download)
+
+---
+
+# 🎨 UI/UX
+
+- Clean SaaS design
+- Mobile responsive
+- Drag & drop upload
+- Real-time preview
+- Progress indicators
+- Before/after comparison
+
+---
+
+# 🔐 Performance & Privacy
+
+- No external API calls
+- No tracking scripts
+- No data storage
+- All processing in browser memory
+- Fast execution
+
+---
+
+# 📦 Optional Enhancements
+
+- Dark mode toggle
+- Preset image sizes:
+  - Google Business
+  - Website thumbnails
+- Copy buttons for SEO text
+
+---
+
+# 🧾 Output Requirements
+
+- Complete working frontend code
+- Clean folder structure
+- Well-commented code
+- Ready for deployment on:
+  - Replit
+  - Netlify
+  - Vercel
+
+---
+
+# 💡 Positioning (Important)
+
+Highlight clearly in UI:
+
+- No Upload Required
+- 100% Free Tool
+- Runs in Your Browser
+- Privacy محفوظ (Private & Secure)
+
+---
+
+# ⚡ Final Instruction
+
+First build a working MVP:
+1. Image upload + compression
+2. Conversion + download
+3. SEO text generator
+
+Then improve:
+- UI/UX
+- SEO structure
+- Bulk processing
+
+---
