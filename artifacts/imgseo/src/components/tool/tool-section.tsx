@@ -109,7 +109,7 @@ function CopyBtn({ text }: { text: string }) {
   return (
     <button
       onClick={() => { navigator.clipboard.writeText(text).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1800); }); }}
-      className="shrink-0 h-7 w-7 inline-flex items-center justify-center rounded-lg border border-border/60 bg-muted/40 hover:bg-muted transition-colors"
+      className="shrink-0 h-7 w-7 inline-flex items-center justify-center rounded-lg bg-muted/60 hover:bg-primary/10 hover:text-primary transition-colors"
       title="Copy"
     >
       {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5 text-muted-foreground" />}
@@ -118,13 +118,13 @@ function CopyBtn({ text }: { text: string }) {
 }
 function SEORow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border bg-muted/20 p-3 space-y-1.5">
+    <div className="rounded-2xl border border-border/50 bg-muted/20 p-3.5 space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{label}</span>
+        <span className="text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground/70">{label}</span>
         <CopyBtn text={value} />
       </div>
       <p className="text-sm font-mono break-all leading-relaxed text-foreground/80 min-h-[1.4rem]">
-        {value || <span className="text-muted-foreground/60 not-italic font-sans text-xs">Fill details above…</span>}
+        {value || <span className="text-muted-foreground/50 not-italic font-sans text-xs">Fill in details above…</span>}
       </p>
     </div>
   );
@@ -134,11 +134,11 @@ function FieldInput({ label, value, onChange, placeholder, testId }: {
 }) {
   return (
     <div>
-      <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">{label}</label>
+      <label className="block text-xs font-extrabold text-muted-foreground uppercase tracking-widest mb-1.5">{label}</label>
       <input
         type="text" value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
         data-testid={testId}
-        className="w-full text-sm border border-border/60 rounded-xl px-3.5 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 transition-all placeholder:text-muted-foreground/50"
+        className="w-full text-sm border border-border/60 rounded-2xl px-4 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/40 transition-all placeholder:text-muted-foreground/40"
       />
     </div>
   );
@@ -274,15 +274,15 @@ export function ToolSection() {
   };
 
   return (
-    <section id="tool" className="scroll-mt-16 py-20 bg-muted/20">
+    <section id="tool" className="scroll-mt-16 py-24 bg-muted/15">
       <div className="container mx-auto px-4">
 
-        {/* Section header */}
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-bold uppercase tracking-widest text-primary mb-5">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <span className="eyebrow inline-flex items-center gap-1.5 mb-4">
             <Zap className="h-3.5 w-3.5" /> Free Image SEO Tool
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+          <h2 className="text-3xl font-black tracking-tight mb-4 md:text-4xl lg:text-5xl">
             Optimize in Your Browser
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
@@ -292,35 +292,34 @@ export function ToolSection() {
 
         <div className="grid lg:grid-cols-2 gap-6 items-start max-w-6xl mx-auto">
 
-          {/* ════ LEFT COLUMN ════ */}
+          {/* ════ LEFT ════ */}
           <div className="space-y-4">
 
-            {/* Upload drop zone */}
+            {/* Drop zone */}
             <div
               data-testid="dropzone"
               onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
               onDragLeave={() => setIsDragging(false)}
               onDrop={(e) => { e.preventDefault(); setIsDragging(false); addFiles(e.dataTransfer.files); }}
               onClick={() => fileInputRef.current?.click()}
-              className={`relative cursor-pointer rounded-2xl border-2 border-dashed p-10 flex flex-col items-center justify-center text-center select-none transition-all duration-200 ${
+              className={`relative cursor-pointer rounded-3xl border-2 border-dashed p-12 flex flex-col items-center justify-center text-center select-none transition-all duration-200 ${
                 isDragging
                   ? "border-primary bg-primary/5 scale-[1.01] shadow-xl shadow-primary/10"
-                  : "border-border hover:border-primary/50 hover:bg-muted/20 bg-background"
+                  : "border-border hover:border-primary/50 hover:bg-muted/15 bg-background"
               }`}
             >
-              {/* gradient glow when dragging */}
               {isDragging && (
-                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-primary/8 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-primary/6 to-transparent" />
               )}
-              <div className="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mb-5 shadow-lg shadow-violet-500/25">
+              <div className="relative h-16 w-16 rounded-3xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mb-5 shadow-xl shadow-violet-500/25">
                 <Upload className="h-7 w-7 text-white" />
               </div>
-              <p className="text-base font-bold mb-1">{isDragging ? "Drop to upload" : "Drag & drop images"}</p>
-              <p className="text-sm text-muted-foreground mb-5">JPG · PNG · WebP · GIF · BMP · TIFF · AVIF · HEIC</p>
+              <p className="text-base font-black mb-1">{isDragging ? "Drop to upload" : "Drag & drop images here"}</p>
+              <p className="text-sm text-muted-foreground mb-6">JPG · PNG · WebP · GIF · BMP · TIFF · AVIF · HEIC</p>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                className="btn-3d inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-br from-violet-500 to-indigo-600 hover:from-violet-500 hover:to-indigo-700 transition-colors"
+                className="btn-3d shine inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-colors"
                 data-testid="button-browse"
               >
                 <FileImage className="h-4 w-4" /> Browse Files
@@ -331,20 +330,20 @@ export function ToolSection() {
               />
             </div>
 
-            {/* Settings card */}
-            <div className="card-3d rounded-2xl border bg-background p-5 space-y-5">
-              <div className="flex items-center gap-2 pb-1">
-                <div className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center">
+            {/* Settings */}
+            <div className="card-3d rounded-3xl border border-border/60 bg-background p-6 space-y-5">
+              <div className="flex items-center gap-2.5">
+                <div className="h-8 w-8 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <Settings2 className="h-4 w-4 text-primary" />
                 </div>
-                <h3 className="font-bold text-sm">Processing Settings</h3>
+                <h3 className="font-extrabold text-sm">Processing Settings</h3>
               </div>
 
-              {/* Quality slider */}
+              {/* Quality */}
               <div>
-                <div className="flex justify-between text-sm font-medium mb-3">
+                <div className="flex justify-between text-sm font-semibold mb-3">
                   <span className="text-muted-foreground">Quality</span>
-                  <span className="font-bold text-primary tabular-nums">{quality}%</span>
+                  <span className="font-black text-primary tabular-nums">{quality}%</span>
                 </div>
                 <Slider min={10} max={100} step={5} value={[quality]} onValueChange={([v]) => setQuality(v)} data-testid="slider-quality" />
                 <div className="flex justify-between text-xs text-muted-foreground mt-2">
@@ -355,12 +354,12 @@ export function ToolSection() {
               {/* Format + Preset */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground block mb-1.5">Format</label>
+                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground block mb-1.5">Format</label>
                   <div className="relative">
                     <select value={format} onChange={(e) => setFormat(e.target.value as OutputFormat)}
-                      className="w-full appearance-none text-sm border border-border/60 rounded-xl px-3.5 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 pr-8"
+                      className="w-full appearance-none text-sm border border-border/60 rounded-2xl px-4 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/25 pr-8 font-semibold"
                       data-testid="select-format">
-                      <option value="image/webp">WebP (best)</option>
+                      <option value="image/webp">WebP (recommended)</option>
                       <option value="image/jpeg">JPEG</option>
                       <option value="image/png">PNG</option>
                     </select>
@@ -368,14 +367,14 @@ export function ToolSection() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground block mb-1.5">Resize</label>
+                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground block mb-1.5">Resize</label>
                   <div className="relative">
                     <select value={preset} onChange={(e) => setPreset(e.target.value as ResizePreset)}
-                      className="w-full appearance-none text-sm border border-border/60 rounded-xl px-3.5 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 pr-8"
+                      className="w-full appearance-none text-sm border border-border/60 rounded-2xl px-4 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/25 pr-8 font-semibold"
                       data-testid="select-preset">
-                      <option value="none">Original</option>
-                      <option value="google-business">Google Biz (720×720)</option>
-                      <option value="thumbnail">Thumbnail (320×240)</option>
+                      <option value="none">Original size</option>
+                      <option value="google-business">Google Biz 720×720</option>
+                      <option value="thumbnail">Thumbnail 320×240</option>
                     </select>
                     <ChevronDown className="pointer-events-none absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
                   </div>
@@ -385,17 +384,17 @@ export function ToolSection() {
 
             {/* Image list */}
             {images.length > 0 && (
-              <div className="card-3d rounded-2xl border bg-background overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-4 border-b bg-muted/20">
+              <div className="card-3d rounded-3xl border border-border/60 bg-background overflow-hidden">
+                <div className="flex items-center justify-between px-5 py-4 border-b bg-muted/15">
                   <div className="flex items-center gap-2">
                     <ImageIcon className="h-4 w-4 text-primary" />
-                    <span className="font-bold text-sm">{images.length} image{images.length > 1 ? "s" : ""}</span>
+                    <span className="font-extrabold text-sm">{images.length} image{images.length > 1 ? "s" : ""}</span>
                   </div>
                   <div className="flex gap-2">
                     {lat && lng && images.some((i) => i.optimizedBlob) && (
                       <Button size="sm" variant="outline" onClick={applyGeoToImages}
                         disabled={applyingGeo || images.some((i) => i.processing)}
-                        className="gap-1.5 h-8 text-xs border-primary/30 text-primary hover:bg-primary/5 rounded-lg"
+                        className="gap-1.5 h-8 text-xs rounded-full border-primary/30 text-primary hover:bg-primary/5"
                         data-testid="button-apply-geo">
                         <Satellite className="h-3.5 w-3.5" />
                         {applyingGeo ? "Embedding…" : "Embed GPS"}
@@ -404,7 +403,7 @@ export function ToolSection() {
                     {images.length > 1 && (
                       <Button size="sm" variant="outline" onClick={downloadAll}
                         disabled={zipping || images.some((i) => i.processing)}
-                        className="gap-1.5 h-8 text-xs rounded-lg"
+                        className="gap-1.5 h-8 text-xs rounded-full"
                         data-testid="button-download-all">
                         <Archive className="h-3.5 w-3.5" />
                         {zipping ? "Zipping…" : "Download ZIP"}
@@ -418,20 +417,20 @@ export function ToolSection() {
                     const saved = img.optimizedSize != null ? Math.round((1 - img.optimizedSize / img.originalSize) * 100) : null;
                     return (
                       <div key={img.id} className="flex items-center gap-3 px-5 py-3.5 hover:bg-muted/10 transition-colors">
-                        <div className="h-12 w-12 shrink-0 rounded-xl overflow-hidden border bg-muted shadow-sm">
+                        <div className="h-12 w-12 shrink-0 rounded-2xl overflow-hidden border bg-muted">
                           <img src={img.originalUrl} alt="" className="h-full w-full object-cover" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold truncate">{img.file.name}</p>
+                          <p className="text-sm font-bold truncate">{img.file.name}</p>
                           <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
                             <span className="text-xs text-muted-foreground">{formatBytes(img.originalSize)}</span>
-                            {img.processing && <span className="text-xs text-primary animate-pulse font-medium">Processing…</span>}
+                            {img.processing && <span className="text-xs text-primary animate-pulse font-semibold">Processing…</span>}
                             {!img.processing && img.optimizedSize != null && (
                               <>
                                 <span className="text-muted-foreground/40 text-xs">→</span>
-                                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{formatBytes(img.optimizedSize)}</span>
+                                <span className="text-xs font-black text-emerald-600 dark:text-emerald-400">{formatBytes(img.optimizedSize)}</span>
                                 {saved != null && saved > 0 && (
-                                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 font-bold">-{saved}%</span>
+                                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 font-black">-{saved}%</span>
                                 )}
                               </>
                             )}
@@ -440,11 +439,11 @@ export function ToolSection() {
                         <div className="flex gap-1.5 shrink-0">
                           <Button size="sm" variant="outline" onClick={() => downloadSingle(img)}
                             disabled={!img.optimizedBlob || img.processing}
-                            className="h-8 w-8 p-0 rounded-lg" title="Download">
+                            className="h-8 w-8 p-0 rounded-xl" title="Download">
                             <Download className="h-3.5 w-3.5" />
                           </Button>
                           <button onClick={() => removeImage(img.id)}
-                            className="h-8 w-8 inline-flex items-center justify-center rounded-lg border hover:bg-destructive/10 hover:border-destructive transition-colors text-muted-foreground hover:text-destructive">
+                            className="h-8 w-8 inline-flex items-center justify-center rounded-xl border hover:bg-destructive/10 hover:border-destructive/50 transition-colors text-muted-foreground hover:text-destructive">
                             <X className="h-4 w-4" />
                           </button>
                         </div>
@@ -456,46 +455,49 @@ export function ToolSection() {
             )}
 
             {images.length === 0 && (
-              <div className="text-center py-4 text-sm text-muted-foreground flex items-center justify-center gap-2 opacity-60">
-                <ImageIcon className="h-5 w-5" /> Upload images above to get started
+              <div className="text-center py-3 text-sm text-muted-foreground/60 flex items-center justify-center gap-2">
+                <ImageIcon className="h-4 w-4" /> Upload images above to get started
               </div>
             )}
           </div>
 
-          {/* ════ RIGHT COLUMN ════ */}
+          {/* ════ RIGHT ════ */}
           <div className="space-y-4">
 
-            {/* Tabs */}
-            <div className="card-3d rounded-2xl border bg-background overflow-hidden">
-              {/* Tab bar */}
-              <div className="flex border-b bg-muted/30">
-                {([
-                  { key: "geo", icon: MapPin,  label: "Geo Tag" },
-                  { key: "seo", icon: Tag,     label: "SEO Text" },
-                ] as { key: RightTab; icon: typeof MapPin; label: string }[]).map(({ key, icon: Icon, label }) => (
-                  <button
-                    key={key}
-                    onClick={() => setRightTab(key)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-4 text-sm font-semibold transition-all border-b-2 ${
-                      rightTab === key
-                        ? "border-primary text-primary bg-background"
-                        : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/40"
-                    }`}
-                    data-testid={`tab-${key}`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                  </button>
-                ))}
+            {/* Tab panel */}
+            <div className="card-3d rounded-3xl border border-border/60 bg-background overflow-hidden">
+
+              {/* Pill tab bar */}
+              <div className="p-3 border-b bg-muted/15">
+                <div className="flex gap-1 bg-muted/40 rounded-2xl p-1">
+                  {([
+                    { key: "geo", icon: MapPin, label: "Geo Tag" },
+                    { key: "seo", icon: Tag,    label: "SEO Text" },
+                  ] as { key: RightTab; icon: typeof MapPin; label: string }[]).map(({ key, icon: Icon, label }) => (
+                    <button
+                      key={key}
+                      onClick={() => setRightTab(key)}
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-bold rounded-xl transition-all duration-200 ${
+                        rightTab === key
+                          ? "bg-background text-foreground shadow-sm"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                      data-testid={`tab-${key}`}
+                    >
+                      <Icon className="h-4 w-4" />
+                      {label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* ── GEO TAB ── */}
               {rightTab === "geo" && (
                 <div className="p-5 space-y-4">
-                  <p className="text-xs text-muted-foreground">Search your city or click the map to pin your business location, then embed GPS into your images.</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">Search your city or click the map to pin your business location, then embed GPS into your images.</p>
 
                   <Suspense fallback={
-                    <div className="h-56 rounded-xl border bg-muted/30 flex items-center justify-center text-sm text-muted-foreground animate-pulse">
+                    <div className="h-56 rounded-2xl border bg-muted/20 flex items-center justify-center text-sm text-muted-foreground animate-pulse">
                       Loading map…
                     </div>
                   }>
@@ -504,19 +506,18 @@ export function ToolSection() {
                     />
                   </Suspense>
 
-                  {/* Coordinates */}
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground block mb-1.5">Latitude</label>
+                      <label className="text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground block mb-1.5">Latitude</label>
                       <input type="text" value={lat} onChange={(e) => setLat(e.target.value)} placeholder="25.285447"
                         data-testid="input-lat"
-                        className="w-full text-sm border border-border/60 rounded-xl px-3.5 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" />
+                        className="w-full text-sm border border-border/60 rounded-2xl px-4 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/25 font-mono" />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground block mb-1.5">Longitude</label>
+                      <label className="text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground block mb-1.5">Longitude</label>
                       <input type="text" value={lng} onChange={(e) => setLng(e.target.value)} placeholder="51.531040"
                         data-testid="input-lng"
-                        className="w-full text-sm border border-border/60 rounded-xl px-3.5 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" />
+                        className="w-full text-sm border border-border/60 rounded-2xl px-4 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/25 font-mono" />
                     </div>
                   </div>
 
@@ -524,20 +525,19 @@ export function ToolSection() {
                     placeholder="e.g. QuickFix Plumbing Doha Branch" testId="input-geo-title" />
 
                   <div>
-                    <label className="block text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1.5">Description (optional)</label>
+                    <label className="block text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground mb-1.5">Description (optional)</label>
                     <textarea value={geoDescription} onChange={(e) => setGeoDescription(e.target.value)}
                       placeholder="e.g. Emergency plumbing in Doha, Qatar" rows={2} data-testid="input-geo-description"
-                      className="w-full text-sm border border-border/60 rounded-xl px-3.5 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
+                      className="w-full text-sm border border-border/60 rounded-2xl px-4 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/25 resize-none" />
                   </div>
 
-                  {/* Embed GPS CTA */}
                   <button
                     onClick={applyGeoToImages}
                     disabled={applyingGeo || !lat || !lng || !images.some((i) => i.optimizedBlob)}
                     data-testid="button-embed-gps"
-                    className="btn-3d shine w-full flex items-center justify-center gap-2.5 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-br from-violet-500 to-indigo-600 hover:from-violet-500 hover:to-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none transition-colors"
+                    className="btn-3d shine w-full flex items-center justify-center gap-2.5 py-3 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none transition-colors"
                   >
-                    <Satellite className="h-4.5 w-4.5" />
+                    <Satellite className="h-4 w-4" />
                     {applyingGeo
                       ? "Embedding GPS…"
                       : !lat || !lng
@@ -550,18 +550,18 @@ export function ToolSection() {
 
                   {geoText && (
                     <div className="space-y-2.5">
-                      <div className="rounded-xl bg-muted/30 border p-3.5 font-mono text-xs text-muted-foreground whitespace-pre-wrap leading-relaxed">
+                      <div className="rounded-2xl bg-muted/30 border border-border/50 p-4 font-mono text-xs text-muted-foreground whitespace-pre-wrap leading-relaxed">
                         {geoText}
                       </div>
                       <div className="grid grid-cols-2 gap-2">
                         <Button size="sm" variant="outline" onClick={() => {
                           const b = new Blob([geoText], { type: "text/plain" });
                           const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "geo-metadata.txt"; a.click();
-                        }} className="gap-1.5 rounded-xl h-9 text-xs" data-testid="button-download-geo">
+                        }} className="gap-1.5 rounded-2xl h-9 text-xs font-bold" data-testid="button-download-geo">
                           <Download className="h-3.5 w-3.5" /> Download .txt
                         </Button>
                         <Button size="sm" variant="outline" onClick={() => { navigator.clipboard.writeText(geoText); setGeoCopied(true); setTimeout(() => setGeoCopied(false), 1800); }}
-                          className="gap-1.5 rounded-xl h-9 text-xs" data-testid="button-copy-geo">
+                          className="gap-1.5 rounded-2xl h-9 text-xs font-bold" data-testid="button-copy-geo">
                           {geoCopied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                           {geoCopied ? "Copied!" : "Copy"}
                         </Button>
@@ -569,8 +569,8 @@ export function ToolSection() {
                     </div>
                   )}
 
-                  <div className="rounded-xl bg-amber-50 dark:bg-amber-950/25 border border-amber-200/70 dark:border-amber-800/50 px-4 py-3 text-xs text-amber-800 dark:text-amber-300 leading-relaxed space-y-1">
-                    <p className="font-bold">GPS is written directly into image EXIF:</p>
+                  <div className="rounded-2xl bg-amber-50 dark:bg-amber-950/25 border border-amber-200/60 dark:border-amber-800/40 px-4 py-3 text-xs text-amber-800 dark:text-amber-300 leading-relaxed space-y-1">
+                    <p className="font-extrabold">GPS is written directly into image EXIF:</p>
                     <ul className="space-y-0.5 list-disc list-inside text-amber-700/90 dark:text-amber-300/80">
                       <li>JPEG: full GPS EXIF embedded in-browser</li>
                       <li>PNG / WebP / GIF: auto-converted to JPEG first</li>
@@ -583,7 +583,7 @@ export function ToolSection() {
               {/* ── SEO TAB ── */}
               {rightTab === "seo" && (
                 <div className="p-5 space-y-5">
-                  <p className="text-xs text-muted-foreground">Enter your business details — SEO-optimized file names, ALT text, title, and captions are generated instantly.</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">Enter your business details — SEO-optimized file names, ALT text, title, and captions generated instantly.</p>
 
                   <div className="space-y-3">
                     <FieldInput label="Business Name" value={businessName} onChange={setBusinessName}
@@ -594,7 +594,7 @@ export function ToolSection() {
                       placeholder="e.g. Doha Qatar" testId="input-location" />
                   </div>
 
-                  <div className="space-y-3 pt-2">
+                  <div className="space-y-3 pt-1">
                     <SEORow label="File Name"  value={seoFileName} />
                     <SEORow label="ALT Text"   value={altText} />
                     <SEORow label="Page Title" value={titleText} />
@@ -604,17 +604,25 @@ export function ToolSection() {
               )}
             </div>
 
-            {/* Quick tips */}
-            <div className="rounded-2xl border border-primary/15 bg-primary/3 p-4 space-y-2">
-              <p className="text-xs font-bold text-primary uppercase tracking-widest">Pro Tips</p>
-              <ul className="space-y-1.5 text-xs text-muted-foreground">
-                <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">→</span> Use WebP format for 30–40% smaller files, which improves Google Core Web Vitals</li>
-                <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">→</span> Keyword + city in the file name is the strongest local SEO signal for Google Business Profile</li>
-                <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">→</span> Embed GPS into images before uploading to GBP for stronger location relevance</li>
+            {/* Pro tips */}
+            <div className="rounded-3xl border border-primary/15 bg-primary/3 p-5 space-y-3">
+              <p className="text-xs font-extrabold text-primary uppercase tracking-widest">Pro Tips</p>
+              <ul className="space-y-2 text-xs text-muted-foreground">
+                <li className="flex items-start gap-2.5">
+                  <span className="h-4 w-4 mt-0.5 shrink-0 rounded-full bg-primary/10 text-primary text-[9px] font-black flex items-center justify-center">1</span>
+                  Use WebP format for 30–40% smaller files and better Google Core Web Vitals scores
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="h-4 w-4 mt-0.5 shrink-0 rounded-full bg-primary/10 text-primary text-[9px] font-black flex items-center justify-center">2</span>
+                  Keyword + city in the file name is the strongest local SEO signal for Google Business Profile
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="h-4 w-4 mt-0.5 shrink-0 rounded-full bg-primary/10 text-primary text-[9px] font-black flex items-center justify-center">3</span>
+                  Embed GPS into images before uploading to GBP for stronger location relevance
+                </li>
               </ul>
             </div>
           </div>
-
         </div>
       </div>
     </section>
