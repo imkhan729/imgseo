@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect, lazy, Suspense } from "react";
 import {
   Upload, X, Download, Copy, Check, Archive, MapPin, ChevronDown,
-  ImageIcon, Tag, Satellite, Zap, Settings2, FileImage,
+  ImageIcon, Tag, Satellite, Zap, Settings2, FileImage, CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -25,6 +25,14 @@ interface ProcessedImage {
   processing: boolean;
 }
 
+interface GeoTaggedResult {
+  id: string;
+  name: string;
+  blob: Blob;
+  previewUrl: string;
+  size: number;
+}
+
 /* ─── helpers ─── */
 function formatBytes(b: number) {
   if (b < 1024) return b + " B";
@@ -45,20 +53,29 @@ function degToDms(d: number): [[number, number], [number, number], [number, numb
 }
 async function blobToDataUrl(b: Blob): Promise<string> {
   return new Promise((res, rej) => {
-    const r = new FileReader(); r.onloadend = () => res(r.result as string); r.onerror = rej; r.readAsDataURL(b);
+    const r = new FileReader();
+    r.onloadend = () => res(r.result as string);
+    r.onerror = rej;
+    r.readAsDataURL(b);
   });
 }
 async function blobToJpeg(b: Blob, q = 0.92): Promise<Blob> {
   if (b.type === "image/jpeg") return b;
   return new Promise((res, rej) => {
-    const img = new Image(); const url = URL.createObjectURL(b);
+    const img = new Image();
+    const url = URL.createObjectURL(b);
     img.onload = () => {
-      const c = document.createElement("canvas"); c.width = img.naturalWidth; c.height = img.naturalHeight;
-      const ctx = c.getContext("2d"); if (!ctx) { rej(new Error("No canvas")); return; }
-      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0);
-      URL.revokeObjectURL(url); c.toBlob((bl) => bl ? res(bl) : rej(new Error("fail")), "image/jpeg", q);
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth; c.height = img.naturalHeight;
+      const ctx = c.getContext("2d");
+      if (!ctx) { rej(new Error("No canvas")); return; }
+      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height);
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      c.toBlob((bl) => bl ? res(bl) : rej(new Error("fail")), "image/jpeg", q);
     };
-    img.onerror = () => rej(new Error("load fail")); img.src = url;
+    img.onerror = () => rej(new Error("load fail"));
+    img.src = url;
   });
 }
 async function embedGPS(blob: Blob, lat: number, lng: number, title?: string, desc?: string): Promise<Blob> {
@@ -87,20 +104,159 @@ async function embedGPS(blob: Blob, lat: number, lng: number, title?: string, de
 }
 async function processImage(file: File, quality: number, format: OutputFormat, preset: ResizePreset): Promise<Blob> {
   return new Promise((resolve, reject) => {
-    const img = new Image(); const url = URL.createObjectURL(file);
+    const img = new Image();
+    const url = URL.createObjectURL(file);
     img.onload = () => {
       let { width, height } = img;
       if (preset === "google-business") { width = 720; height = 720; }
       else if (preset === "thumbnail") { width = 320; height = 240; }
-      const canvas = document.createElement("canvas"); canvas.width = width; canvas.height = height;
-      const ctx = canvas.getContext("2d"); if (!ctx) { reject(new Error("No canvas")); return; }
+      const canvas = document.createElement("canvas");
+      canvas.width = width; canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) { reject(new Error("No canvas")); return; }
       if (format === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, width, height); }
-      ctx.drawImage(img, 0, 0, width, height); URL.revokeObjectURL(url);
+      ctx.drawImage(img, 0, 0, width, height);
+      URL.revokeObjectURL(url);
       const q = format === "image/png" ? undefined : quality / 100;
       canvas.toBlob((b) => b ? resolve(b) : reject(new Error("fail")), format, q);
     };
-    img.onerror = () => reject(new Error("load fail")); img.src = url;
+    img.onerror = () => reject(new Error("load fail"));
+    img.src = url;
   });
+}
+
+/* ─── GPS Result Popup ─── */
+function GeoTagPopup({
+  results,
+  lat, lng, locationName,
+  onClose,
+}: {
+  results: GeoTaggedResult[];
+  lat: string; lng: string; locationName: string;
+  onClose: () => void;
+}) {
+  const [zipping, setZipping] = useState(false);
+
+  const downloadOne = (r: GeoTaggedResult) => {
+    const a = document.createElement("a");
+    a.href = r.previewUrl;
+    a.download = r.name;
+    a.click();
+  };
+
+  const downloadAll = async () => {
+    if (results.length === 1) { downloadOne(results[0]); return; }
+    setZipping(true);
+    try {
+      const zip = new JSZip();
+      results.forEach((r) => zip.file(r.name, r.blob));
+      const blob = await zip.generateAsync({ type: "blob" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "imgseo-geotagged.zip";
+      a.click();
+    } finally { setZipping(false); }
+  };
+
+  return (
+    /* Backdrop */
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      data-testid="geo-popup"
+    >
+      {/* Panel */}
+      <div className="relative bg-background rounded-3xl border border-border shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b bg-muted/20">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-md">
+              <CheckCircle2 className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-extrabold text-base">GPS Coordinates Embedded</h3>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {results.length} image{results.length > 1 ? "s" : ""} ready · {locationName || `${lat}, ${lng}`}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="h-8 w-8 flex items-center justify-center rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+            data-testid="geo-popup-close"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* GPS info strip */}
+        <div className="px-6 py-3 bg-emerald-50 dark:bg-emerald-950/30 border-b border-emerald-200/60 dark:border-emerald-800/40 flex items-center gap-3 text-xs text-emerald-800 dark:text-emerald-300">
+          <MapPin className="h-3.5 w-3.5 shrink-0" />
+          <span className="font-mono font-semibold">{lat}, {lng}</span>
+          {locationName && <span className="text-emerald-600/70 dark:text-emerald-400/70 truncate">— {locationName}</span>}
+        </div>
+
+        {/* Image list */}
+        <div className="max-h-72 overflow-y-auto divide-y">
+          {results.map((r) => (
+            <div key={r.id} className="flex items-center gap-3 px-6 py-3.5 hover:bg-muted/10 transition-colors">
+              <div className="h-11 w-11 shrink-0 rounded-xl overflow-hidden border bg-muted">
+                <img src={r.previewUrl} alt="" className="h-full w-full object-cover" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold truncate">{r.name}</p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="text-xs text-muted-foreground">{formatBytes(r.size)}</span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 font-bold">GPS ✓</span>
+                </div>
+              </div>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => downloadOne(r)}
+                className="h-8 w-8 p-0 rounded-xl shrink-0"
+                title="Download this image"
+                data-testid={`geo-download-single-${r.id}`}
+              >
+                <Download className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer actions */}
+        <div className="px-6 py-5 border-t bg-muted/10 flex items-center justify-between gap-3">
+          <p className="text-xs text-muted-foreground">
+            Output: JPEG with GPS EXIF embedded
+          </p>
+          <div className="flex gap-2 shrink-0">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onClose}
+              className="rounded-2xl px-4 h-9 text-sm"
+            >
+              Close
+            </Button>
+            <button
+              onClick={downloadAll}
+              disabled={zipping}
+              className="btn-3d shine inline-flex items-center gap-2 px-5 h-9 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 disabled:opacity-50 transition-colors"
+              data-testid="geo-download-all"
+            >
+              {zipping
+                ? <><Archive className="h-4 w-4 animate-pulse" /> Zipping…</>
+                : results.length === 1
+                  ? <><Download className="h-4 w-4" /> Save Image</>
+                  : <><Archive className="h-4 w-4" /> Save All as ZIP</>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ─── sub-components ─── */
@@ -160,6 +316,10 @@ export function ToolSection() {
   const [geoDescription, setGeoDescription] = useState("");
   const [geoCopied, setGeoCopied] = useState(false);
   const [applyingGeo, setApplyingGeo] = useState(false);
+
+  // GPS popup state
+  const [geoTaggedResults, setGeoTaggedResults] = useState<GeoTaggedResult[]>([]);
+  const [showGeoPopup, setShowGeoPopup] = useState(false);
 
   const [businessName, setBusinessName] = useState("");
   const [keyword, setKeyword] = useState("");
@@ -250,31 +410,53 @@ export function ToolSection() {
     } finally { setZipping(false); }
   };
 
-  const applyGeoToImages = async () => {
+  /* ── NEW: embed GPS into memory → show popup ── */
+  const embedGPSAndShowPopup = async () => {
     if (!lat || !lng) return;
     const ready = images.filter((i) => i.optimizedBlob);
     if (!ready.length) return;
     setApplyingGeo(true);
     try {
-      const latN = parseFloat(lat); const lngN = parseFloat(lng);
-      if (ready.length === 1) {
-        const tagged = await embedGPS(ready[0].optimizedBlob!, latN, lngN, geoTitle, geoDescription);
-        const a = document.createElement("a"); a.href = URL.createObjectURL(tagged);
-        a.download = ready[0].file.name.replace(/\.[^.]+$/, "_geotagged.jpg"); a.click();
-      } else {
-        const zip = new JSZip();
-        await Promise.all(ready.map(async (i) => {
-          const tagged = await embedGPS(i.optimizedBlob!, latN, lngN, geoTitle, geoDescription);
-          zip.file(i.file.name.replace(/\.[^.]+$/, "_geotagged.jpg"), tagged);
-        }));
-        const blob = await zip.generateAsync({ type: "blob" });
-        const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "imgseo-geotagged.zip"; a.click();
-      }
-    } finally { setApplyingGeo(false); }
+      const latN = parseFloat(lat);
+      const lngN = parseFloat(lng);
+      const results: GeoTaggedResult[] = await Promise.all(
+        ready.map(async (img) => {
+          const tagged = await embedGPS(img.optimizedBlob!, latN, lngN, geoTitle, geoDescription);
+          const name = img.file.name.replace(/\.[^.]+$/, "_geotagged.jpg");
+          const previewUrl = URL.createObjectURL(tagged);
+          return { id: img.id, name, blob: tagged, previewUrl, size: tagged.size };
+        })
+      );
+      // Clean up previous popup URLs
+      setGeoTaggedResults((prev) => {
+        prev.forEach((r) => URL.revokeObjectURL(r.previewUrl));
+        return results;
+      });
+      setShowGeoPopup(true);
+    } finally {
+      setApplyingGeo(false);
+    }
   };
+
+  const closeGeoPopup = () => {
+    setShowGeoPopup(false);
+  };
+
+  const canEmbedGPS = lat && lng && images.some((i) => i.optimizedBlob) && !images.some((i) => i.processing);
 
   return (
     <section id="tool" className="scroll-mt-16 py-24 bg-muted/15">
+      {/* GPS Result Popup */}
+      {showGeoPopup && geoTaggedResults.length > 0 && (
+        <GeoTagPopup
+          results={geoTaggedResults}
+          lat={lat}
+          lng={lng}
+          locationName={geoLocation}
+          onClose={closeGeoPopup}
+        />
+      )}
+
       <div className="container mx-auto px-4">
 
         {/* Header */}
@@ -391,15 +573,6 @@ export function ToolSection() {
                     <span className="font-extrabold text-sm">{images.length} image{images.length > 1 ? "s" : ""}</span>
                   </div>
                   <div className="flex gap-2">
-                    {lat && lng && images.some((i) => i.optimizedBlob) && (
-                      <Button size="sm" variant="outline" onClick={applyGeoToImages}
-                        disabled={applyingGeo || images.some((i) => i.processing)}
-                        className="gap-1.5 h-8 text-xs rounded-full border-primary/30 text-primary hover:bg-primary/5"
-                        data-testid="button-apply-geo">
-                        <Satellite className="h-3.5 w-3.5" />
-                        {applyingGeo ? "Embedding…" : "Embed GPS"}
-                      </Button>
-                    )}
                     {images.length > 1 && (
                       <Button size="sm" variant="outline" onClick={downloadAll}
                         disabled={zipping || images.some((i) => i.processing)}
@@ -494,7 +667,9 @@ export function ToolSection() {
               {/* ── GEO TAB ── */}
               {rightTab === "geo" && (
                 <div className="p-5 space-y-4">
-                  <p className="text-xs text-muted-foreground leading-relaxed">Search your city or click the map to pin your business location, then embed GPS into your images.</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Search your city or click the map to pin your business location. Click <strong>Embed GPS</strong> to write coordinates into your images, then save from the popup.
+                  </p>
 
                   <Suspense fallback={
                     <div className="h-56 rounded-2xl border bg-muted/20 flex items-center justify-center text-sm text-muted-foreground animate-pulse">
@@ -531,9 +706,10 @@ export function ToolSection() {
                       className="w-full text-sm border border-border/60 rounded-2xl px-4 py-2.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary/25 resize-none" />
                   </div>
 
+                  {/* EMBED GPS button — now stores in memory, opens popup */}
                   <button
-                    onClick={applyGeoToImages}
-                    disabled={applyingGeo || !lat || !lng || !images.some((i) => i.optimizedBlob)}
+                    onClick={embedGPSAndShowPopup}
+                    disabled={applyingGeo || !canEmbedGPS}
                     data-testid="button-embed-gps"
                     className="btn-3d shine w-full flex items-center justify-center gap-2.5 py-3 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none transition-colors"
                   >
@@ -548,8 +724,21 @@ export function ToolSection() {
                     }
                   </button>
 
+                  {/* Re-open popup if results exist */}
+                  {!showGeoPopup && geoTaggedResults.length > 0 && (
+                    <button
+                      onClick={() => setShowGeoPopup(true)}
+                      data-testid="button-reopen-popup"
+                      className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl text-sm font-bold border border-emerald-400/50 text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors"
+                    >
+                      <CheckCircle2 className="h-4 w-4" />
+                      {geoTaggedResults.length} image{geoTaggedResults.length > 1 ? "s" : ""} ready — click to download
+                    </button>
+                  )}
+
                   {geoText && (
                     <div className="space-y-2.5">
+                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground">GPS Reference</p>
                       <div className="rounded-2xl bg-muted/30 border border-border/50 p-4 font-mono text-xs text-muted-foreground whitespace-pre-wrap leading-relaxed">
                         {geoText}
                       </div>
@@ -583,7 +772,7 @@ export function ToolSection() {
               {/* ── SEO TAB ── */}
               {rightTab === "seo" && (
                 <div className="p-5 space-y-5">
-                  <p className="text-xs text-muted-foreground leading-relaxed">Enter your business details — SEO-optimized file names, ALT text, title, and captions generated instantly.</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">Enter your business details — SEO-optimised file names, ALT text, title, and captions generated instantly.</p>
 
                   <div className="space-y-3">
                     <FieldInput label="Business Name" value={businessName} onChange={setBusinessName}
