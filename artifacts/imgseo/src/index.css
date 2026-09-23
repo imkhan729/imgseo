@@ -363,3 +363,21 @@
   .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
   .border.active-elevate-2:not(.no-active-interaction-elevate)::after { inset: -1px; }
 }
+
+/* ─── RTL (Arabic) Support Styles ─── */
+[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .dropdown-menu,
+[dir="rtl"] [role="menu"] {
+  text-align: right;
+}
+
+[dir="rtl"] input[type="text"],
+[dir="rtl"] input[type="search"],
+[dir="rtl"] textarea {
+  text-align: right;
+}
+

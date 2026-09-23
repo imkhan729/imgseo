@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ImageIcon, Menu, X } from "lucide-react";
 import { toolPageList } from "@/lib/tool-pages";
+import { LanguageSelector } from "./language-selector";
 
 const navLinks = [
   { href: "/#features", label: "Features" },
@@ -101,6 +102,7 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <LanguageSelector />
 
             <a
               href="/#tool"

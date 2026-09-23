@@ -343,6 +343,404 @@ const pages = {
         <p>Review the terms of use for IMGSEO browser-based utilities. All tools are provided free of charge for personal and commercial website optimization.</p>
       </main>
     `
+  },
+  // ─── Spanish (es) Pilot Pages ───
+  "/es": {
+    title: "Herramientas SEO para Imágenes Gratis y Privadas | ImageSEO",
+    description: "Optimiza, comprime, convierte a WebP y geolocaliza imágenes directamente en tu navegador. 100% privado, rápido y sin límites de subida en ImageSEO.cc.",
+    schemaType: "WebApplication",
+    lang: "es",
+    body: `
+      <main>
+        <h1>Herramientas SEO para Imágenes Gratuitas y 100% Privadas en el Navegador</h1>
+        <p>Optimiza imágenes para tu sitio web directamente en tu navegador. Convierte a WebP, comprime fotos JPG y PNG, incrusta metadatos EXIF GPS y genera nombres de archivo para SEO sin subir archivos a servidores.</p>
+        <section>
+          <h2>Herramientas Principales</h2>
+          <ul>
+            <li><a href="/es/free-webp-converter">Convertidor WebP Gratis</a> — Transforma imágenes a formato WebP ligero al instante.</li>
+            <li><a href="/es/free-online-image-compressor">Compresor de Imágenes Online</a> — Reduce el peso de fotos con control total de calidad.</li>
+            <li><a href="/es/free-geo-tagger">Geolocalizador GPS de Fotos</a> — Añade coordenadas GPS en cabeceras EXIF de forma privada.</li>
+            <li><a href="/es/image-seo">Guía de SEO para Imágenes</a> — Consejos de optimización, texto alt y Core Web Vitals.</li>
+          </ul>
+        </section>
+      </main>
+    `
+  },
+  "/es/free-webp-converter": {
+    title: "Convertidor WebP Gratis Online — Sin Límites | ImageSEO",
+    description: "Convierte imágenes a formato WebP moderno al instante en tu navegador. Reduce el peso de tus fotos conservando máxima calidad visual sin subir archivos a servidores.",
+    schemaType: "WebApplication",
+    lang: "es",
+    body: `
+      <main>
+        <h1>Convertidor WebP Gratis y Rápido en el Navegador</h1>
+        <p>Convierte fotos JPG, PNG y AVIF al formato WebP de Google sin enviarlas a la nube. Acelera tu tienda o blog conservando total nitidez.</p>
+        <section>
+          <h2>Opciones de Conversión</h2>
+          <ul>
+            <li><a href="/es/jpg-to-webp">Convertir JPG a WebP</a> — Optimización fotográfica de última generación.</li>
+            <li><a href="/es/png-to-webp">Convertir PNG a WebP</a> — Mantén transparencia con un 80% menos de peso.</li>
+          </ul>
+        </section>
+      </main>
+    `
+  },
+  "/es/jpg-to-webp": {
+    title: "Convertir JPG a WebP Online Gratis — Rápido y Privado | ImageSEO",
+    description: "Convierte fotos JPG a formato WebP ligero al instante. Acelera tu sitio web con compresión de última generación 100% procesada en tu navegador.",
+    schemaType: "WebApplication",
+    lang: "es",
+    body: `
+      <main>
+        <h1>Convertir JPG a WebP Gratis Online</h1>
+        <p>Transforma archivos JPEG a WebP sin esperas. Reduce los tiempos de carga móvil y mejora tus métricas de Google PageSpeed.</p>
+      </main>
+    `
+  },
+  "/es/png-to-webp": {
+    title: "Convertir PNG a WebP Online Gratis — Conserva Transparencia | ImageSEO",
+    description: "Convierte archivos PNG a WebP conservando fondos transparentes y reduciendo el tamaño del archivo hasta un 80% sin pérdida perceptible.",
+    schemaType: "WebApplication",
+    lang: "es",
+    body: `
+      <main>
+        <h1>Convertir PNG a WebP con Transparencia</h1>
+        <p>Optimiza gráficos, ilustraciones y logotipos transparentes convirtiéndolos a WebP con canal alfa intacto.</p>
+      </main>
+    `
+  },
+  "/es/free-geo-tagger": {
+    title: "Geolocalizar Fotos Online Gratis — Editor EXIF GPS | ImageSEO",
+    description: "Añade coordenadas GPS y metadatos EXIF a tus fotos para potenciar el SEO local y Google Business Profile. Mapa interactivo 100% privado en el navegador.",
+    schemaType: "WebApplication",
+    lang: "es",
+    body: `
+      <main>
+        <h1>Geolocalizador de Fotos y Editor EXIF GPS Gratis</h1>
+        <p>Incrusta latitud y longitud en fotos JPEG para verificar la relevancia geográfica de tu negocio local ante Google.</p>
+      </main>
+    `
+  },
+  "/es/free-online-image-compressor": {
+    title: "Compresor de Imágenes Online Gratis — Rápido y Seguro | ImageSEO",
+    description: "Comprime fotos JPG, PNG y WebP por lotes sin perder calidad visual. Optimización 100% local en tu navegador sin registro ni almacenamiento en servidores.",
+    schemaType: "WebApplication",
+    lang: "es",
+    body: `
+      <main>
+        <h1>Compresor de Imágenes Online Gratis y Sin Límites</h1>
+        <p>Comprime lotes enteros de fotos JPG, PNG y WebP sin colas ni límites de archivo. Procesamiento local instantáneo.</p>
+      </main>
+    `
+  },
+  "/es/compress-jpg": {
+    title: "Comprimir JPG Online Gratis — Reduce Tamaño sin Perder Calidad | ImageSEO",
+    description: "Reduce el peso en KB de tus imágenes JPG manteniendo una nitidez impecable. Procesamiento por lotes instantáneo y totalmente seguro.",
+    schemaType: "WebApplication",
+    lang: "es",
+    body: `
+      <main>
+        <h1>Comprimir Fotos JPG Gratis Online</h1>
+        <p>Optimiza fotografías JPG reduciendo el espacio en disco sin degradar los colores ni los detalles visuales.</p>
+      </main>
+    `
+  },
+  "/es/compress-image-to-kb": {
+    title: "Comprimir Fotos a 20KB, 50KB, 100KB, 200KB Online | ImageSEO",
+    description: "Comprime fotos JPG, PNG y WebP a límites exactos en KB directamente en tu navegador. 100% privado, gratis y sin subir archivos.",
+    schemaType: "WebApplication",
+    lang: "es",
+    body: `
+      <main>
+        <h1>Comprimir Fotos a KB Exactos Online</h1>
+        <p>Reduce el tamaño de tus fotos a límites estrictos como 20KB, 50KB, 100KB o 200KB para portales de empleo, trámites públicos y tiendas online.</p>
+      </main>
+    `
+  },
+  "/es/image-seo": {
+    title: "Guía Definitiva de SEO para Imágenes (2025) — Posicionamiento y Velocidad | ImageSEO",
+    description: "Aprende a optimizar imágenes para Google: formatos WebP, compresión sin pérdida, etiquetas alt, nombres de archivo descriptivos y geolocalización EXIF.",
+    schemaType: "Article",
+    lang: "es",
+    body: `
+      <main>
+        <article>
+          <h1>Guía Completa de SEO para Imágenes y Optimización Web</h1>
+          <p>El SEO para imágenes consiste en proporcionar el contexto adecuado a los motores de búsqueda mediante texto alternativo descriptivo, nombres de archivo estructurados y formatos ligeros de nueva generación.</p>
+          <section>
+            <h2>1. Escribe texto alternativo útil (Alt Text)</h2>
+            <p>Describe el contenido relevante de la imagen con naturalidad, evitando la acumulación de palabras clave forzadas.</p>
+          </section>
+          <section>
+            <h2>2. Nombres de archivo descriptivos</h2>
+            <p>Reemplaza nombres genéricos por términos descriptivos separados con guiones (por ejemplo: reparacion-tejados-madrid.webp).</p>
+          </section>
+          <section>
+            <h2>3. Utiliza WebP para mayor velocidad</h2>
+            <p>WebP acelera la carga de tus páginas en dispositivos móviles, optimizando la métrica Core Web Vitals (LCP).</p>
+          </section>
+        </article>
+      </main>
+    `
+  },
+  // ─── Portuguese (pt) Pages ───
+  "/pt": {
+    title: "Ferramentas de SEO para Imagens Grátis e Rápidas | ImageSEO",
+    description: "Otimize, comprima, converta para WebP e adicione geotags às suas fotos direto no navegador. 100% privado, ilimitado e sem enviar arquivos a servidores.",
+    schemaType: "WebApplication",
+    lang: "pt",
+    body: `<main><h1>Ferramentas de SEO para Imagens Grátis e 100% Privadas</h1><p>Otimize fotos para a web no seu navegador. Converta para WebP, diminua o tamanho em KB de JPG e PNG e adicione coordenadas EXIF GPS.</p></main>`
+  },
+  "/pt/free-webp-converter": {
+    title: "Conversor WebP Grátis Online — Rápido e Sem Limites | ImageSEO",
+    description: "Converta fotos para o formato WebP moderno instantaneamente. Reduza o peso do seu site mantendo excelente qualidade visual com processamento local seguro.",
+    schemaType: "WebApplication",
+    lang: "pt",
+    body: `<main><h1>Conversor WebP Grátis Online no Navegador</h1><p>Transforme fotos JPG e PNG em WebP com velocidade instantânea sem subir arquivos a servidores.</p></main>`
+  },
+  "/pt/jpg-to-webp": {
+    title: "Converter JPG em WebP Online Grátis — Rápido e Seguro | ImageSEO",
+    description: "Transforme imagens JPG em WebP super leves. Melhore o Core Web Vitals e o tempo de carregamento da sua loja ou blog com processamento 100% no navegador.",
+    schemaType: "WebApplication",
+    lang: "pt",
+    body: `<main><h1>Converter JPG em WebP Grátis Online</h1><p>Conversão fotográfica rápida de JPEG para WebP.</p></main>`
+  },
+  "/pt/png-to-webp": {
+    title: "Converter PNG em WebP Online Grátis — Mantém Fundo Transparente | ImageSEO",
+    description: "Converta imagens PNG para WebP mantendo a transparência alfa e diminuindo drasticamente o tamanho do arquivo sem perda de nitidez.",
+    schemaType: "WebApplication",
+    lang: "pt",
+    body: `<main><h1>Converter PNG em WebP com Transparência</h1><p>Mantenha transparência com até 80% menos peso.</p></main>`
+  },
+  "/pt/free-geo-tagger": {
+    title: "Adicionar Localização em Fotos Grátis — Editor EXIF GPS | ImageSEO",
+    description: "Insira coordenadas GPS e metadatos EXIF em fotos para impulsionar o SEO local e o Perfil da Empresa no Google. Mapa interativo 100% privado.",
+    schemaType: "WebApplication",
+    lang: "pt",
+    body: `<main><h1>Geotag de Fotos e Editor EXIF GPS Grátis</h1><p>Adicione coordenadas de latitude e longitude às suas fotos locais.</p></main>`
+  },
+  "/pt/free-online-image-compressor": {
+    title: "Compressor de Imagens Online Grátis — Diminuir Tamanho de Fotos | ImageSEO",
+    description: "Comprima fotos JPG, PNG e WebP em lote mantendo alta qualidade. Ferramenta rápida, segura e sem limites de upload com processamento local no navegador.",
+    schemaType: "WebApplication",
+    lang: "pt",
+    body: `<main><h1>Compressor de Imagens Online Grátis e Ilimitado</h1><p>Reduza o tamanho em KB de fotos mantendo nitidez visual.</p></main>`
+  },
+  "/pt/compress-jpg": {
+    title: "Comprimir JPG Online Grátis — Reduzir Tamanho de Foto | ImageSEO",
+    description: "Diminua o tamanho em KB de imagens JPG sem perder detalhes visuais. Processamento em lote super veloz e totalmente confidencial.",
+    schemaType: "WebApplication",
+    lang: "pt",
+    body: `<main><h1>Comprimir Fotos JPG Grátis Online</h1><p>Comprima arquivos JPG sem perder detalhes visuais.</p></main>`
+  },
+  "/pt/compress-image-to-kb": {
+    title: "Comprimir Foto para 20KB, 50KB, 100KB, 200KB Online | ImageSEO",
+    description: "Diminua o tamanho de fotos JPG, PNG e WebP para metas exatas em KB diretamente no navegador. 100% gratuito e seguro.",
+    schemaType: "WebApplication",
+    lang: "pt",
+    body: `<main><h1>Comprimir Foto para KB Exato Online</h1><p>Reduza o tamanho para limites de formulários e cadastros governamentais.</p></main>`
+  },
+  "/pt/image-seo": {
+    title: "Guia Completo de SEO para Imagens (2025) — Otimização e Velocidade | ImageSEO",
+    description: "Domine a otimização de imagens para o Google: formato WebP, compressão sem perda, texto alternativo (alt), nomes de arquivo e metadados EXIF de localização.",
+    schemaType: "Article",
+    lang: "pt",
+    body: `<main><article><h1>Guia Completo de SEO para Imagens e Performance Web</h1><p>Boas práticas de alt text, nomes de arquivos, WebP e Core Web Vitals.</p></article></main>`
+  },
+
+  // ─── Arabic (ar) Pages (RTL) ───
+  "/ar": {
+    title: "أدوات سيو الصور وتحسين السرعة مجانًا وبخصوصية كاملة | ImageSEO",
+    description: "اضغط الصور، حولها إلى صيغة WebP الحديثة، وأضف إحداثيات GPS مباشرة من متصفحك. أداة مجانية 100% وبخصوصية تامة دون رفع ملفاتك إلى خوادم خارجية.",
+    schemaType: "WebApplication",
+    lang: "ar",
+    body: `<main><h1>أدوات سيو الصور وتحسين السرعة مجانًا وبخصوصية تامة</h1><p>أدوات احترافية لتحسين وضغط وتحويل الصور إلى WebP وإضافة إحداثيات GPS في المتصفح دون رفعها لأي خادم.</p></main>`
+  },
+  "/ar/free-webp-converter": {
+    title: "محول صور WebP مجاني أونلاين — بدون قيود حجم | ImageSEO",
+    description: "حول الصور إلى صيغة WebP فائقة الخفة على الفور. سرّع موقعك الإلكتروني مع الحفاظ على دقة وجودة الصورة بمعالجة محلية آمنة داخل متصفحك.",
+    schemaType: "WebApplication",
+    lang: "ar",
+    body: `<main><h1>محول صور WebP مجاني وسريع في المتصفح</h1><p>تحويل فوري إلى صيغة WebP لتسريع تحميل المواقع وتحسين نتائج محركات البحث.</p></main>`
+  },
+  "/ar/jpg-to-webp": {
+    title: "تحويل JPG إلى WebP أونلاين مجانًا — سريع وخاص | ImageSEO",
+    description: "حول صور JPG إلى WebP لتقليل حجم الصفحات وتحسين سرعة تحميل موقعك وترتيبك في محرك بحث جوجل بدون إعلانات مزعجة.",
+    schemaType: "WebApplication",
+    lang: "ar",
+    body: `<main><h1>تحويل JPG إلى WebP مجانًا أونلاين</h1><p>تحويل صور JPG إلى WebP فائقة الخفة.</p></main>`
+  },
+  "/ar/png-to-webp": {
+    title: "تحويل PNG إلى WebP أونلاين مجانًا — الحفاظ على الخلفية الشفافة | ImageSEO",
+    description: "حول ملفات PNG إلى WebP مع الحفاظ الكامل على الخلفية الشفافة وتقليل الحجم بنسبة تصل إلى 80% لتسريع تجربة المستخدم.",
+    schemaType: "WebApplication",
+    lang: "ar",
+    body: `<main><h1>تحويل PNG إلى WebP مع الحفاظ على الشفافية</h1><p>تقليل حجم صور PNG مع الحفاظ على الشفافية.</p></main>`
+  },
+  "/ar/free-geo-tagger": {
+    title: "إضافة إحداثيات GPS للصور أونلاين مجانًا — معدل EXIF | ImageSEO",
+    description: "أضف إحداثيات جغرافية وبيانات الموقع لصورك لتعزيز السيو المحلي ونتائج Google Business Profile عبر خريطة تفاعلية آمنة في المتصفح.",
+    schemaType: "WebApplication",
+    lang: "ar",
+    body: `<main><h1>إضافة إحداثيات GPS وتعديل بيانات EXIF للصور مجانًا</h1><p>تثبيت بيانات الموقع الجغرافي داخل الصور لدعم السيو المحلي.</p></main>`
+  },
+  "/ar/free-online-image-compressor": {
+    title: "ضغط الصور أونلاين مجانًا — تقليل حجم الصور بدون فقدان الجودة | ImageSEO",
+    description: "اضغط صور JPG و PNG و WebP دفعة واحدة مع الاحتفاظ بأعلى جودة بصرية. معالجة سريعة وآمنة 100% داخل المتصفح دون حفظ أي بيانات.",
+    schemaType: "WebApplication",
+    lang: "ar",
+    body: `<main><h1>برنامج ضغط الصور أونلاين مجانًا وبلا حدود</h1><p>تصغير حجم صور JPG و PNG مع الحفاظ على الجودة البصرية.</p></main>`
+  },
+  "/ar/compress-jpg": {
+    title: "ضغط صور JPG مجانًا — تصغير حجم صور JPEG | ImageSEO",
+    description: "قلل حجم ملفات صور JPG بالكيلوبايت مع الحفاظ على وضوح التفاصيل وسرعة الفتح على الهواتف وأجهزة الكمبيوتر.",
+    schemaType: "WebApplication",
+    lang: "ar",
+    body: `<main><h1>ضغط صور JPG أونلاين مجانًا</h1><p>تقليل حجم صور JPG بالكيلوبايت.</p></main>`
+  },
+  "/ar/compress-image-to-kb": {
+    title: "تقليل حجم الصورة بالكيلوبايت (20KB, 50KB, 100KB) أونلاين | ImageSEO",
+    description: "اضغط الصور إلى أحجام دقيقة بالكيلوبايت مثل 20KB أو 50KB أو 100KB مباشرة في متصفحك مجانًا.",
+    schemaType: "WebApplication",
+    lang: "ar",
+    body: `<main><h1>تقليل حجم الصور بالكيلوبايت أونلاين</h1><p>ضغط دقيق للصور لمواقع التقديم والمعاملات الحكومية.</p></main>`
+  },
+  "/ar/image-seo": {
+    title: "دليل سيو الصور الكامل (2025) — تحسين ترتيب الصور وسرعة المواقع | ImageSEO",
+    description: "تعلم كيفية تصدر نتائج بحث الصور في جوجل: صيغة WebP، ضغط الصور، النص البديل Alt Text، أسماء الملفات، وإضافة بيانات الموقع الجغرافي EXIF.",
+    schemaType: "Article",
+    lang: "ar",
+    body: `<main><article><h1>الدليل الشامل لتحسين سيو الصور وسرعة المواقع</h1><p>دليل تحسين النص البديل وأسماء الملفات واستخدام WebP لتحسين ترتيب محركات البحث.</p></article></main>`
+  },
+
+  // ─── Indonesian (id) Pages ───
+  "/id": {
+    title: "Tools SEO Gambar Gratis & Kompres Foto Cepat | ImageSEO",
+    description: "Optimasi, kompres foto, ubah format ke WebP, dan tambahkan geotag GPS langsung di browser Anda. Cepat, tanpa batas ukuran, dan 100% aman tanpa simpan ke server.",
+    schemaType: "WebApplication",
+    lang: "id",
+    body: `<main><h1>Tools SEO Gambar Gratis & 100% Privasi di Browser</h1><p>Optimasi gambar website langsung di browser Anda. Ubah ke WebP, kompres foto, dan pasang geotag EXIF GPS.</p></main>`
+  },
+  "/id/free-webp-converter": {
+    title: "Konverter WebP Gratis Online — Ubah Gambar ke WebP | ImageSEO",
+    description: "Ubah gambar menjadi format WebP modern secara instan. Perkacil ukuran file gambar dan percepat loading website toko online atau blog Anda.",
+    schemaType: "WebApplication",
+    lang: "id",
+    body: `<main><h1>Konverter WebP Gratis & Cepat di Browser</h1><p>Ubah foto JPG dan PNG ke WebP instan tanpa upload ke server.</p></main>`
+  },
+  "/id/jpg-to-webp": {
+    title: "Ubah JPG ke WebP Online Gratis — Cepat & Privasi Aman | ImageSEO",
+    description: "Konversi foto JPG ke WebP super ringan dalam hitungan detik. Tingkatkan performa Core Web Vitals tanpa upload file ke server eksternal.",
+    schemaType: "WebApplication",
+    lang: "id",
+    body: `<main><h1>Ubah JPG ke WebP Gratis Online</h1><p>Konversi foto JPG ke format WebP ringan.</p></main>`
+  },
+  "/id/png-to-webp": {
+    title: "Ubah PNG ke WebP Online Gratis — Pertahankan Transparansi | ImageSEO",
+    description: "Ubah gambar PNG ke WebP dengan latar belakang transparan tetap terjaga sempurna dan ukuran file jauh lebih kecil.",
+    schemaType: "WebApplication",
+    lang: "id",
+    body: `<main><h1>Ubah PNG ke WebP Transparan</h1><p>Ubah PNG ke WebP dengan latar belakang transparan tetap utuh.</p></main>`
+  },
+  "/id/free-geo-tagger": {
+    title: "Tambah Lokasi Foto Online Gratis — Edit EXIF GPS | ImageSEO",
+    description: "Tambahkan koordinat GPS dan lokasi akurat pada foto untuk memperkuat SEO lokal dan profil Google Bisnisku. Menggunakan peta interaktif yang aman di browser.",
+    schemaType: "WebApplication",
+    lang: "id",
+    body: `<main><h1>Geotag Foto & Edit Metadata EXIF GPS Gratis</h1><p>Sematkan koordinat latitude dan longitude pada foto untuk SEO lokal.</p></main>`
+  },
+  "/id/free-online-image-compressor": {
+    title: "Kompres Foto Online Gratis — Perkecil Ukuran Foto Cepat | ImageSEO",
+    description: "Kompres banyak foto JPG, PNG, dan WebP sekaligus tanpa mengurangi ketajaman visual. 100% diproses di browser tanpa antrean dan tanpa batas upload.",
+    schemaType: "WebApplication",
+    lang: "id",
+    body: `<main><h1>Kompres Foto Online Gratis & Tanpa Batas</h1><p>Perkecil ukuran KB foto secara instan di browser.</p></main>`
+  },
+  "/id/compress-jpg": {
+    title: "Kompres JPG Online Gratis — Perkecil Ukuran File JPG | ImageSEO",
+    description: "Kecilkan ukuran KB foto JPG dengan kualitas visual tetap tajam. Sangat cepat, gratis, dan menjaga privasi penuh foto Anda.",
+    schemaType: "WebApplication",
+    lang: "id",
+    body: `<main><h1>Kompres JPG Online Gratis</h1><p>Kecilkan ukuran file foto JPG tanpa pecah.</p></main>`
+  },
+  "/id/compress-image-to-kb": {
+    title: "Kompres Foto 100KB, 200KB Online Gratis | ImageSEO",
+    description: "Kompres foto ke ukuran target 20KB, 50KB, 100KB, 200KB langsung di browser untuk daftar CPNS, marketplace, dan formulir.",
+    schemaType: "WebApplication",
+    lang: "id",
+    body: `<main><h1>Kompres Foto ke KB Target Online</h1><p>Kecilkan foto ke 100KB atau 200KB untuk pendaftaran online.</p></main>`
+  },
+  "/id/image-seo": {
+    title: "Panduan Lengkap SEO Gambar (2025) — Cara Optimasi Gambar Website | ImageSEO",
+    description: "Pelajari cara optimasi gambar untuk Google: format WebP, kompresi tanpa pecah, teks alt, penamaan file ramah SEO, dan metadata lokasi geotag EXIF.",
+    schemaType: "Article",
+    lang: "id",
+    body: `<main><article><h1>Panduan Lengkap SEO Gambar & Optimasi Performa Web</h1><p>Panduan lengkap alt text, WebP, penamaan file, dan geotag GPS di Indonesia.</p></article></main>`
+  },
+
+  // ─── Hindi (hi) Pages ───
+  "/hi": {
+    title: "मुफ़्त इमेज एसईओ टूल्स और फोटो कम्प्रेसर | ImageSEO",
+    description: "ब्राउज़र में सीधे फ़ोटो कम्प्रेस करें, WebP में बदलें और GPS लोकेशन जोड़ें। 100% मुफ़्त, बिना सर्वर अपलोड और बिना किसी साइज़ लिमिट के उपयोग करें।",
+    schemaType: "WebApplication",
+    lang: "hi",
+    body: `<main><h1>मुफ़्त इमेज एसईओ टूल्स — 100% सुरक्षित और तेज़ ब्राउज़र टूल्स</h1><p>बिना सर्वर अपलोड के अपनी तस्वीरों को WebP में बदलें, फ़ोटो कम्प्रेस करें और GPS लोकेशन जोड़ें।</p></main>`
+  },
+  "/hi/free-webp-converter": {
+    title: "WebP कनवर्टर मुफ़्त ऑनलाइन — इमेज को WebP में बदलें | ImageSEO",
+    description: "अपनी तस्वीरों को आधुनिक WebP फॉर्मेट में तुरंत बदलें। बिना क्वालिटी खोए वेबसाइट और ब्लॉग की लोडिंग स्पीड को सुपरफास्ट बनाएं।",
+    schemaType: "WebApplication",
+    lang: "hi",
+    body: `<main><h1>फ़ोटो को WebP में बदलने का मुफ़्त कनवर्टर</h1><p>JPG और PNG फ़ोटो को हल्के WebP फॉर्मेट में तुरंत बदलें।</p></main>`
+  },
+  "/hi/jpg-to-webp": {
+    title: "JPG से WebP कनवर्टर ऑनलाइन — फ़ोटो का साइज़ घटाएं | ImageSEO",
+    description: "JPG इमेज को हल्के WebP फॉर्मेट में तुरंत बदलें। 100% सुरक्षित ब्राउज़र प्रोसेसिंग के साथ वेबसाइट रैंकिंग और स्पीड बेहतर करें।",
+    schemaType: "WebApplication",
+    lang: "hi",
+    body: `<main><h1>JPG से WebP कनवर्टर मुफ़्त ऑनलाइन</h1><p>JPG फ़ोटो को WebP में बदलें।</p></main>`
+  },
+  "/hi/png-to-webp": {
+    title: "PNG से WebP कनवर्टर ऑनलाइन मुफ़्त — पारदर्शी फ़ाइलें बनाएं | ImageSEO",
+    description: "PNG फ़ोटो को WebP में कन्वर्ट करें और ट्रांसपेरेंट बैकग्राउंड सुरक्षित रखते हुए फ़ाइल साइज़ 80% तक कम करें।",
+    schemaType: "WebApplication",
+    lang: "hi",
+    body: `<main><h1>PNG से WebP कनवर्टर (पारदर्शी बैकग्राउंड के साथ)</h1><p>पारदर्शी बैकग्राउंड के साथ PNG को WebP में बदलें।</p></main>`
+  },
+  "/hi/free-geo-tagger": {
+    title: "फ़ोटो में GPS लोकेशन जोड़ें — मुफ़्त EXIF जियोटैगर | ImageSEO",
+    description: "लोकल एसईओ और Google Business Profile के लिए फ़ोटो में सटीक GPS कोऑर्डिनेट्स और EXIF डेटा जोड़ें। इंटरएक्टिव मैप के साथ 100% सुरक्षित।",
+    schemaType: "WebApplication",
+    lang: "hi",
+    body: `<main><h1>फ़ोटो में लोकेशन डालने और EXIF GPS एडिट करने का मुफ़्त टूल</h1><p>लोकल एसईओ और गूगल मैप्स के लिए तस्वीरों में लोकेशन जोड़ें।</p></main>`
+  },
+  "/hi/free-online-image-compressor": {
+    title: "फोटो का साइज कम करें — मुफ़्त इमेज कम्प्रेसर ऑनलाइन | ImageSEO",
+    description: "JPG, PNG और WebP तस्वीरों को एक साथ कम्प्रेस करें बिना क्लेरिटी खोए। सरकारी फॉर्म, जॉब पोर्टल और वेबसाइट के लिए तुरंत साइज़ कम करें।",
+    schemaType: "WebApplication",
+    lang: "hi",
+    body: `<main><h1>फोटो का साइज कम करने का मुफ़्त ऑनलाइन टूल</h1><p>सरकारी फॉर्म और वेबसाइट के लिए फ़ोटो का साइज़ KB में कम करें।</p></main>`
+  },
+  "/hi/compress-jpg": {
+    title: "JPG फ़ोटो कम्प्रेसर ऑनलाइन — बिना क्वालिटी खोए साइज़ घटाएं | ImageSEO",
+    description: "JPG इमेज का साइज़ KB में कम करें। तेज़, सुरक्षित और सीधे आपके ब्राउज़र में चलने वाला बिना किसी लिमिट का टूल।",
+    schemaType: "WebApplication",
+    lang: "hi",
+    body: `<main><h1>JPG फ़ोटो कम्प्रेस करें मुफ़्त ऑनलाइन</h1><p>JPG तस्वीरों का साइज़ कम करें बिना धुंधला किए।</p></main>`
+  },
+  "/hi/compress-image-to-kb": {
+    title: "फोटो का साइज 20KB, 50KB, 100KB कैसे करें ऑनलाइन | ImageSEO",
+    description: "ऑनलाइन सरकारी फॉर्म और परीक्षाओं के लिए फ़ोटो का साइज़ 20KB, 50KB, 100KB में बदलें। 100% मुफ़्त और सुरक्षित।",
+    schemaType: "WebApplication",
+    lang: "hi",
+    body: `<main><h1>फोटो का साइज 20KB, 50KB, 100KB करें</h1><p>सरकारी परीक्षाओं (SSC, UPSC, रेलवे) के लिए फ़ोटो और सिग्नेचर का साइज़ सेट करें।</p></main>`
+  },
+  "/hi/image-seo": {
+    title: "इमेज एसईओ गाइड (2025) — गूगल में फ़ोटो रैंक कैसे करें | ImageSEO",
+    description: "सिखिए गूगल सर्च में इमेज कैसे रैंक करें: WebP फॉर्मेट, इमेज कम्प्रेशन, ऑल्ट टेक्स्ट (Alt Text), सही फ़ाइल नाम और EXIF जियोटैगिंग का पूरा तरीका।",
+    schemaType: "Article",
+    lang: "hi",
+    body: `<main><article><h1>इमेज एसईओ और वेबसाइट स्पीड ऑप्टिमाइजेशन की पूरी गाइड</h1><p>गूगल में फोटो रैंक कराने के तरीके: ऑल्ट टेक्स्ट, फ़ाइल का सही नाम और WebP फॉर्मेट।</p></article></main>`
   }
 };
 
@@ -375,6 +773,8 @@ const cleanTemplate = template
   .replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/i, "{{SCHEMA}}")
   .replace(/<div\s+id=["']root["']>[\s\S]*?<\/div>/i, "{{ROOT_CONTENT}}");
 
+const supportedLangCodes = ["en", "es", "pt", "ar", "id", "hi"];
+
 for (const [route, page] of Object.entries(pages)) {
   const canonical = `${origin}${route === "/" ? "/" : route}`;
   const titleTag = `<title>${escapeHtml(page.title)}</title>`;
@@ -386,6 +786,20 @@ for (const [route, page] of Object.entries(pages)) {
   const twitterUrlTag = `<meta name="twitter:url" content="${canonical}" />`;
   const twitterTitleTag = `<meta name="twitter:title" content="${escapeHtml(page.title)}" />`;
   const twitterDescTag = `<meta name="twitter:description" content="${escapeHtml(page.description)}" />`;
+
+  // Language & Direction
+  const pageLang = page.lang || (route.startsWith("/es") ? "es" : route.startsWith("/pt") ? "pt" : route.startsWith("/ar") ? "ar" : route.startsWith("/id") ? "id" : route.startsWith("/hi") ? "hi" : "en");
+  const pageDir = pageLang === "ar" ? "rtl" : "ltr";
+
+  // Reciprocal Hreflang Tag Generation
+  const baseRoute = route.replace(/^\/(es|pt|ar|id|hi)/, "") || "/";
+  let hreflangTags = "";
+  for (const langCode of supportedLangCodes) {
+    const langRoute = langCode === "en" ? baseRoute : (baseRoute === "/" ? `/${langCode}` : `/${langCode}${baseRoute}`);
+    hreflangTags += `\n    <link rel="alternate" hreflang="${langCode}" href="${origin}${langRoute === "/" ? "/" : langRoute}" />`;
+  }
+  const defaultRoute = baseRoute;
+  hreflangTags += `\n    <link rel="alternate" hreflang="x-default" href="${origin}${defaultRoute === "/" ? "/" : defaultRoute}" />`;
 
   let schemaObj;
   if (page.schemaType === "Article") {
@@ -445,10 +859,10 @@ for (const [route, page] of Object.entries(pages)) {
   const schemaTag = `<script type="application/ld+json">\n${JSON.stringify(schemaObj, null, 2)}\n</script>`;
   const rootContent = `<div id="root">${page.body}</div>`;
 
-  const html = cleanTemplate
+  let html = cleanTemplate
     .replace("{{TITLE}}", titleTag)
     .replace("{{DESCRIPTION}}", descTag)
-    .replace("{{CANONICAL}}", canonicalTag)
+    .replace("{{CANONICAL}}", `${canonicalTag}${hreflangTags}`)
     .replace("{{OG_URL}}", ogUrlTag)
     .replace("{{OG_TITLE}}", ogTitleTag)
     .replace("{{OG_DESC}}", ogDescTag)
@@ -457,6 +871,9 @@ for (const [route, page] of Object.entries(pages)) {
     .replace("{{TWITTER_DESC}}", twitterDescTag)
     .replace("{{SCHEMA}}", schemaTag)
     .replace("{{ROOT_CONTENT}}", rootContent);
+
+  // Set html lang and dir attribute
+  html = html.replace(/<html[^>]*>/i, `<html lang="${pageLang}" dir="${pageDir}">`);
 
   const relativeDir = route === "/" ? "" : route.replace(/^\//, "");
   const targetDir = join(outputDir, relativeDir);

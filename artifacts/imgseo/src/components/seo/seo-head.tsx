@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { supportedLanguages, getLanguageFromPath, getEquivalentPath } from "@/data/languages";
 
 interface SeoHeadProps {
   title: string;
@@ -33,6 +34,14 @@ export function SeoHead({ title, description, path = "/", noindex = false, schem
     const previousTwitterCard = twitterCardMeta?.getAttribute("content") ?? "";
     const previousCanonical = canonicalLink?.getAttribute("href") ?? "";
     const previousRobots = robotsMeta?.getAttribute("content");
+
+    // RTL & Language Management
+    const currentLang = getLanguageFromPath(path);
+    const previousHtmlLang = document.documentElement.getAttribute("lang") || "en";
+    const previousHtmlDir = document.documentElement.getAttribute("dir") || "ltr";
+
+    document.documentElement.setAttribute("lang", currentLang.code);
+    document.documentElement.setAttribute("dir", currentLang.dir);
 
     document.title = title;
 
@@ -108,6 +117,30 @@ export function SeoHead({ title, description, path = "/", noindex = false, schem
     link.setAttribute("href", canonicalHref);
     if (!canonicalLink) document.head.appendChild(link);
 
+    // Hreflang Tags
+    const existingHreflangs = document.head.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][hreflang]');
+    existingHreflangs.forEach((el) => el.remove());
+
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://imageseo.cc";
+    
+    // Inject hreflangs for all supported languages
+    for (const lang of supportedLanguages) {
+      const eqPath = getEquivalentPath(path, lang.code);
+      const hreflangLink = document.createElement("link");
+      hreflangLink.setAttribute("rel", "alternate");
+      hreflangLink.setAttribute("hreflang", lang.code);
+      hreflangLink.setAttribute("href", `${origin}${eqPath === "/" ? "/" : eqPath}`);
+      document.head.appendChild(hreflangLink);
+    }
+
+    // x-default hreflang pointing to default English version
+    const defaultPath = getEquivalentPath(path, "en");
+    const xDefaultLink = document.createElement("link");
+    xDefaultLink.setAttribute("rel", "alternate");
+    xDefaultLink.setAttribute("hreflang", "x-default");
+    xDefaultLink.setAttribute("href", `${origin}${defaultPath === "/" ? "/" : defaultPath}`);
+    document.head.appendChild(xDefaultLink);
+
     if (noindex) {
       upsertMeta(
         'meta[name="robots"]',
@@ -137,6 +170,9 @@ export function SeoHead({ title, description, path = "/", noindex = false, schem
 
     return () => {
       document.title = previousTitle;
+      document.documentElement.setAttribute("lang", previousHtmlLang);
+      document.documentElement.setAttribute("dir", previousHtmlDir);
+
       if (descriptionMeta) descriptionMeta.setAttribute("content", previousDescription);
       if (ogTitleMeta) ogTitleMeta.setAttribute("content", previousOgTitle);
       if (ogDescriptionMeta) ogDescriptionMeta.setAttribute("content", previousOgDescription);
@@ -167,3 +203,4 @@ export function SeoHead({ title, description, path = "/", noindex = false, schem
 
   return null;
 }
+
