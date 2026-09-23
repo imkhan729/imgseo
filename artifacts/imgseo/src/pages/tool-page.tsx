@@ -350,6 +350,17 @@ function WebpConverterPage({ config }: { config: ToolPageConfig }) {
 
       {config.howToSteps ? <HowToCards steps={config.howToSteps} /> : null}
 
+      {isLocalized && (config.featureBullets || config.stats) ? (
+        <article className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-10">
+          {config.featureBullets && <BulletRows items={config.featureBullets} />}
+          {config.stats && <div className="mt-8"><StatsRow stats={config.stats} /></div>}
+        </article>
+      ) : null}
+
+      {isLocalized && config.sections ? (
+        <SectionCards config={config} />
+      ) : null}
+
       {!isLocalized ? (
         <>
           <RichCard
@@ -499,6 +510,17 @@ function ImageCompressorPage({ config }: { config: ToolPageConfig }) {
 
       {config.howToSteps ? <HowToCards steps={config.howToSteps} /> : null}
 
+      {isLocalized && (config.featureBullets || config.stats) ? (
+        <article className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-10">
+          {config.featureBullets && <BulletRows items={config.featureBullets} />}
+          {config.stats && <div className="mt-8"><StatsRow stats={config.stats} /></div>}
+        </article>
+      ) : null}
+
+      {isLocalized && config.sections ? (
+        <SectionCards config={config} />
+      ) : null}
+
       {!isLocalized ? (
         <>
           <RichCard
@@ -600,6 +622,17 @@ function GeoTaggerPage({ config }: { config: ToolPageConfig }) {
       </div>
 
       {config.howToSteps ? <HowToCards steps={config.howToSteps} /> : null}
+
+      {isLocalized && (config.featureBullets || config.stats) ? (
+        <article className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-10">
+          {config.featureBullets && <BulletRows items={config.featureBullets} />}
+          {config.stats && <div className="mt-8"><StatsRow stats={config.stats} /></div>}
+        </article>
+      ) : null}
+
+      {isLocalized && config.sections ? (
+        <SectionCards config={config} />
+      ) : null}
 
       {!isLocalized ? (
         <>

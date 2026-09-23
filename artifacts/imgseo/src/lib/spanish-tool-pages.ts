@@ -1,5 +1,6 @@
 import { translationsEs } from "@/data/translations-es";
 import { ToolPageConfig } from "@/lib/tool-pages";
+import { FileArchive, Globe2, Layers3, MapPinned, Sparkles, Zap, ShieldCheck } from "lucide-react";
 
 export const spanishToolConfigs: Record<string, ToolPageConfig> = {
   "webp-converter": {
@@ -14,9 +15,44 @@ export const spanishToolConfigs: Record<string, ToolPageConfig> = {
     defaultTargetFormat: "WEBP",
     accent: "bg-gradient-to-b from-sky-50 via-background to-background dark:from-sky-950/20",
     badgeClass: "border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-800 dark:bg-sky-950/40 dark:text-sky-300",
+    icon: FileArchive,
     primaryKeyword: "convertidor webp gratis",
     secondaryKeywords: ["convertir imagen a webp", "convertir jpg a webp", "convertir png a webp"],
     schemaType: "WebApplication",
+    featureBullets: [
+      "Conversión 100% local en tu navegador sin límite de archivos",
+      "Exporta a WebP de última generación conservando transparencia alfa",
+      "Ahorra hasta un 80% de ancho de banda móvil y acelera la carga",
+    ],
+    stats: [
+      { label: "Ahorro de peso", value: "Hasta -80%" },
+      { label: "Procesamiento", value: "100% en navegador" },
+      { label: "Compatibilidad", value: "97%+ global" },
+    ],
+    sections: [
+      {
+        id: "por-que-webp",
+        title: "¿Por qué WebP es imprescindible para el SEO y la velocidad web?",
+        body: "Google recomienda oficialmente el uso de formatos de imagen de última generación como WebP. Las imágenes tradicionales en JPG y PNG suelen representar más del 65% del peso total de una página web, lo que ralentiza el tiempo de carga en dispositivos móviles y perjudica las métricas Core Web Vitals (especialmente Largest Contentful Paint o LCP).",
+        points: [
+          "Archivos hasta un 35% más ligeros que JPEG con la misma calidad visual percibida.",
+          "Soporte nativo para fondos transparentes (canal alfa) con un 70% menos de peso que los archivos PNG-24.",
+          "Mejora directa de las puntuaciones de velocidad en Google PageSpeed Insights y reducción del porcentaje de rebote.",
+        ],
+        icon: Globe2,
+      },
+      {
+        id: "casos-uso",
+        title: "Dónde aplicar la optimización con formato WebP",
+        body: "Cualquier sitio web con tráfico comercial o editorial se beneficia de WebP: tiendas online (Shopify, WooCommerce), blogs de WordPress, páginas de aterrizaje locales y galerías de productos.",
+        points: [
+          "Banners principales y fotos hero para lograr un LCP inferior a 2,5 segundos.",
+          "Imágenes de catálogos y tiendas online para acelerar la navegación móvil y aumentar conversiones.",
+          "Ilustraciones y capturas de pantalla en artículos para mantener un consumo de datos ligero.",
+        ],
+        icon: Layers3,
+      },
+    ],
     howToSteps: [
       {
         title: "Selecciona o arrastra tus imágenes",
@@ -65,9 +101,44 @@ export const spanishToolConfigs: Record<string, ToolPageConfig> = {
     mode: "geo-tagger",
     accent: "bg-gradient-to-b from-emerald-50 via-background to-background dark:from-emerald-950/20",
     badgeClass: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300",
+    icon: MapPinned,
     primaryKeyword: "geolocalizar fotos gratis",
     secondaryKeywords: ["etiquetar fotos con gps", "añadir gps a fotos", "editor exif gps"],
     schemaType: "WebApplication",
+    featureBullets: [
+      "Incrusta latitud y longitud GPS directamente en los metadatos EXIF de tus fotos",
+      "Mapa interactivo de precisión para buscar cualquier dirección o área de servicio",
+      "100% privado en memoria del navegador: sin subida de fotos a servidores remotos",
+    ],
+    stats: [
+      { label: "Impacto Local", value: "Google Pack 3" },
+      { label: "Privacidad", value: "0 Envíos a nube" },
+      { label: "Formato", value: "JPEG / EXIF" },
+    ],
+    sections: [
+      {
+        id: "importancia-geotagging",
+        title: "¿Cómo impulsa el geoetiquetado de fotos el SEO local?",
+        body: "Cuando Google rastrea tu ficha de Google Business Profile o tus páginas de aterrizaje locales, analiza múltiples señales de relevancia geográfica. Las imágenes con coordenadas GPS reales en su cabecera EXIF corroboran físicamente la ubicación de tus trabajos, tiendas y proyectos.",
+        points: [
+          "Verificación tangible de tu área de servicio ante los algoritmos de Google Maps.",
+          "Mayor probabilidad de aparecer en el codiciado Local 3-Pack de búsquedas móviles.",
+          "Estructuración de un clúster geográfico coherente combinando coordenadas, nombres de archivo y páginas de destino.",
+        ],
+        icon: Globe2,
+      },
+      {
+        id: "mejores-practicas-locales",
+        title: "Recomendaciones estratégicas para negocios de servicios",
+        body: "Para fontaneros, electricistas, reformas o cerrajeros, no geolocalices todas las fotos en la misma oficina. Etiqueta cada fotografía en el barrio o municipio donde realmente se completó el servicio para expandir tu radio de visibilidad orgánica.",
+        points: [
+          "Geolocaliza de 3 a 5 fotos reales cada semana de trabajos recientes en tu zona.",
+          "Combina las coordenadas GPS con nombres de archivo estructurados (ej. 'reforma-banos-madrid-norte.jpg').",
+          "Publica las fotos geoetiquetadas tanto en Google Business Profile como en tu web.",
+        ],
+        icon: Sparkles,
+      },
+    ],
     howToSteps: [
       {
         title: "Ubica tu negocio en el mapa",
@@ -116,9 +187,44 @@ export const spanishToolConfigs: Record<string, ToolPageConfig> = {
     mode: "compressor",
     accent: "bg-gradient-to-b from-violet-50 via-background to-background dark:from-violet-950/20",
     badgeClass: "border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-800 dark:bg-violet-950/40 dark:text-violet-300",
+    icon: Zap,
     primaryKeyword: "comprimir imagenes online",
     secondaryKeywords: ["reducir tamaño de foto", "comprimir fotos gratis", "reducir kb de imagen"],
     schemaType: "WebApplication",
+    featureBullets: [
+      "Compresión por lotes ultrarrápida con descarga instantánea en archivo ZIP",
+      "Control deslizante de calidad para equilibrar reducción de KB y nitidez perfecta",
+      "Sin límites de tamaño, sin marcas de agua y 100% confidencial en tu dispositivo",
+    ],
+    stats: [
+      { label: "Reducción", value: "70% a 90%" },
+      { label: "Velocidad", value: "Instantánea" },
+      { label: "Seguridad", value: "100% Local" },
+    ],
+    sections: [
+      {
+        id: "beneficios-compresion",
+        title: "¿Por qué es crucial comprimir imágenes para mejorar el posicionamiento web?",
+        body: "El algoritmo de Google clasifica la velocidad de carga de la página como un factor directo de posicionamiento. Cada segundo de retraso en la carga móvil incrementa la tasa de rebote en más de un 32% y reduce las tasas de conversión en tiendas online.",
+        points: [
+          "Reducción de hasta un 85% en el peso de fotos fotográficas JPEG y gráficos PNG.",
+          "Carga inmediata en conexiones móviles lentas 3G y 4G.",
+          "Menor consumo de transferencia de datos y ancho de banda en tu servidor de hosting.",
+        ],
+        icon: Globe2,
+      },
+      {
+        id: "estandares-kb",
+        title: "Límites y pesos recomendados en KB por tipo de imagen",
+        body: "Para maximizar la experiencia de usuario y pasar las auditorías de Google PageSpeed Insights con 90+ puntos:",
+        points: [
+          "Imágenes hero y portadas: mantener por debajo de 150 KB.",
+          "Fotografías de artículos y productos: entre 40 KB y 90 KB.",
+          "Logotipos, iconos y miniaturas: menos de 25 KB.",
+        ],
+        icon: ShieldCheck,
+      },
+    ],
     howToSteps: [
       {
         title: "Arrastra tus imágenes",
@@ -157,3 +263,4 @@ export const spanishToolConfigs: Record<string, ToolPageConfig> = {
     ],
   },
 };
+
