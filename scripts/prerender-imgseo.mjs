@@ -857,7 +857,7 @@ for (const [route, page] of Object.entries(pages)) {
   }
 
   const schemaTag = `<script type="application/ld+json">\n${JSON.stringify(schemaObj, null, 2)}\n</script>`;
-  const rootContent = `<div id="root">${page.body}</div>`;
+  const rootContent = `<div id="root"></div>\n    <noscript>\n      ${page.body}\n    </noscript>`;
 
   let html = cleanTemplate
     .replace("{{TITLE}}", titleTag)
@@ -893,7 +893,7 @@ let notFoundHtml = cleanTemplate
   .replace("{{TWITTER_TITLE}}", '<meta name="twitter:title" content="Page Not Found | IMGSEO" />')
   .replace("{{TWITTER_DESC}}", '<meta name="twitter:description" content="The requested IMGSEO page could not be found. Return to the homepage for free image tools." />')
   .replace("{{SCHEMA}}", "")
-  .replace("{{ROOT_CONTENT}}", '<div id="root"><main><h1>Page Not Found</h1><p>The requested page could not be found.</p><p><a href="/">Return to IMGSEO Home</a></p></main></div>');
+  .replace("{{ROOT_CONTENT}}", '<div id="root"></div>\n    <noscript><main><h1>Page Not Found</h1><p>The requested page could not be found.</p><p><a href="/">Return to IMGSEO Home</a></p></main></noscript>');
 
 notFoundHtml = notFoundHtml.replace(/<html[^>]*>/i, '<html lang="en" dir="ltr">');
 
