@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ArrowRight, CheckCircle2, Compass, FileArchive, MapPinned, Sparkles } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
@@ -6,7 +6,7 @@ import { SeoHead } from "@/components/seo/seo-head";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SimpleGeoTagger } from "@/components/tool/simple-geo-tagger";
 import { SimpleImageCompressor } from "@/components/tool/simple-image-compressor";
-import { SimpleFormatConverter, type OutputFormat } from "@/components/tool/simple-format-converter";
+import { SimpleFormatConverter, type OutputFormat, type SimpleFormatConverterRef } from "@/components/tool/simple-format-converter";
 import { ToolSection } from "@/components/tool/tool-section";
 import { type ToolPageConfig } from "@/lib/tool-pages";
 
@@ -209,31 +209,54 @@ function FormatChip({
     <button
       type="button"
       onClick={onClick}
-      className={`flex items-center gap-3 rounded-lg border px-4 py-2.5 text-left text-sm font-semibold transition-colors bg-white shadow-sm hover:border-slate-300 w-full ${
+      className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm font-semibold transition-all bg-white shadow-sm hover:border-blue-400 hover:shadow-md w-full dark:bg-slate-900 ${
         active
-          ? "border-blue-400 bg-blue-50/50 text-slate-900 ring-1 ring-blue-400"
-          : "border-slate-200 text-slate-700"
+          ? "border-blue-500 bg-blue-50/90 text-blue-950 ring-2 ring-blue-500/30 dark:bg-blue-950/50 dark:text-blue-200 dark:border-blue-400"
+          : "border-slate-200 text-slate-700 dark:border-slate-800 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/40"
       }`}
     >
       {isExport ? (
-        <div className="flex items-center justify-center gap-4 w-full">
-          <FileBadgeIcon text={sourceExt} exportArrow />
-          <span className="text-[15px]">{label}</span>
+        <div className="flex items-center justify-between gap-4 w-full">
+          <div className="flex items-center gap-2.5">
+            <FileBadgeIcon text={sourceExt} exportArrow />
+            <span className="text-[14px] font-bold">{label}</span>
+          </div>
           <FileBadgeIcon text={targetExt!} />
         </div>
       ) : (
-        <>
+        <div className="flex items-center gap-2.5 w-full">
           <FileBadgeIcon text={sourceExt} />
-          <span className="text-[15px]">{label}</span>
-        </>
+          <span className="text-[14px] font-bold">{label}</span>
+        </div>
       )}
     </button>
   );
 }
 
 function WebpConverterPage({ config }: { config: ToolPageConfig }) {
-  const activateConversion = () => {
-    document.getElementById("tool")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const converterRef = useRef<SimpleFormatConverterRef>(null);
+  const [selectedSource, setSelectedSource] = useState<string>("JPG");
+  const [selectedTarget, setSelectedTarget] = useState<string>("WEBP");
+  const [selectedTargetFormat, setSelectedTargetFormat] = useState<OutputFormat>("image/webp");
+
+  const handleSelectConversion = (source: string, target: string, format: OutputFormat) => {
+    setSelectedSource(source);
+    setSelectedTarget(target);
+    setSelectedTargetFormat(format);
+    
+    // Update the hero converter mode
+    converterRef.current?.setMode(source, target, format);
+    
+    // Smoothly scroll to tool section
+    const el = document.getElementById("tool");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    
+    // Promptly open the file picker so user can pick files immediately
+    setTimeout(() => {
+      converterRef.current?.openFilePicker();
+    }, 300);
   };
 
   const schema = {
@@ -268,7 +291,17 @@ function WebpConverterPage({ config }: { config: ToolPageConfig }) {
       />
 
       <div id="tool">
-        <SimpleFormatConverter />
+        <SimpleFormatConverter
+          ref={converterRef}
+          initialTargetFormat={selectedTargetFormat}
+          activeSourceExt={selectedSource}
+          activeTargetExt={selectedTarget}
+          onModeChange={(src, tgt, fmt) => {
+            setSelectedSource(src);
+            setSelectedTarget(tgt);
+            setSelectedTargetFormat(fmt);
+          }}
+        />
       </div>
 
       <RichCard
@@ -282,52 +315,60 @@ function WebpConverterPage({ config }: { config: ToolPageConfig }) {
       <RichCard
         eyebrow="CONVERSION TYPES"
         title="Use the exact WebP conversion you need"
-        body="These conversion paths are designed to match common publishing workflows. Click a conversion type below and the hero converter will scroll into view so you can start."
+        body="These conversion paths are designed to match common publishing workflows. Click a conversion type below to select the mode and immediately choose your images."
       >
         <div className="grid gap-6 md:grid-cols-2 mt-6">
-          <div className="rounded-xl border border-slate-200 bg-slate-100/50 p-6 shadow-[inset_0_1px_4px_rgba(0,0,0,0.02)]">
+          <div className="rounded-xl border border-slate-200 bg-slate-100/50 p-6 shadow-[inset_0_1px_4px_rgba(0,0,0,0.02)] dark:border-slate-800 dark:bg-slate-900/30">
             <div className="mb-6">
-              <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <FileBadgeIcon text="WEBP" exportArrow />
                 <span className="ml-1">Convert from WebP</span>
               </h3>
-              <p className="mt-3 text-[14px] leading-relaxed text-slate-700 pr-4">
+              <p className="mt-3 text-[14px] leading-relaxed text-slate-700 dark:text-slate-300 pr-4">
                 Export a WebP file into another format when a platform, editor, or client workflow still needs a JPG or PNG image.
               </p>
             </div>
             <div className="space-y-3">
-              {webpTargetFormats.map((format) => (
-                <FormatChip
-                  key={format}
-                  label={`WEBP to ${format}`}
-                  onClick={activateConversion}
-                  sourceExt="WEBP"
-                  targetExt={format}
-                  isExport
-                />
-              ))}
+              {webpTargetFormats.map((format) => {
+                const targetFmt: OutputFormat = format === "JPG" ? "image/jpeg" : "image/png";
+                const isSelected = selectedSource === "WEBP" && selectedTarget === format;
+                return (
+                  <FormatChip
+                    key={format}
+                    label={`WEBP to ${format}`}
+                    onClick={() => handleSelectConversion("WEBP", format, targetFmt)}
+                    sourceExt="WEBP"
+                    targetExt={format}
+                    isExport
+                    active={isSelected}
+                  />
+                );
+              })}
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-slate-100/50 p-6 shadow-[inset_0_1px_4px_rgba(0,0,0,0.02)]">
+          <div className="rounded-xl border border-slate-200 bg-slate-100/50 p-6 shadow-[inset_0_1px_4px_rgba(0,0,0,0.02)] dark:border-slate-800 dark:bg-slate-900/30">
             <div className="mb-6">
-              <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <FileBadgeIcon text="WEBP" importArrow />
                 <span className="ml-1">Convert to WebP</span>
               </h3>
-              <p className="mt-3 text-[14px] leading-relaxed text-slate-700">
+              <p className="mt-3 text-[14px] leading-relaxed text-slate-700 dark:text-slate-300">
                 Convert source images into WebP before uploading them to your website so pages stay faster and image assets stay leaner.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              {webpSourceFormats.map((format, index) => (
-                <FormatChip
-                  key={format}
-                  label={`${format} to WEBP`}
-                  onClick={activateConversion}
-                  sourceExt={format}
-                  active={format === "JPEG"}
-                />
-              ))}
+              {webpSourceFormats.map((format) => {
+                const isSelected = selectedSource === format && selectedTarget === "WEBP";
+                return (
+                  <FormatChip
+                    key={format}
+                    label={`${format} to WEBP`}
+                    onClick={() => handleSelectConversion(format, "WEBP", "image/webp")}
+                    sourceExt={format}
+                    active={isSelected}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -569,7 +610,9 @@ export function FormatPairPage({ sourceFormat }: { sourceFormat: "JPG" | "PNG" }
   return (
     <PageShell title={`${title} | IMGSEO`} description={description} path={path} accent="bg-slate-50 dark:bg-[#0a0a0a]" schema={schema}>
       <HeroIntro icon={FileArchive} badge={`${sourceFormat} → WEBP`} title={title} body={`Convert ${sourceFormat} files to WebP locally. Upload your images, select WebP output, tune quality when needed, and download the converted files from the same browser session.`} badgeClass="border-slate-200 bg-white text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-white" />
-      <div id="tool"><SimpleFormatConverter /></div>
+      <div id="tool">
+        <SimpleFormatConverter initialTargetFormat="image/webp" activeSourceExt={sourceFormat} activeTargetExt="WEBP" />
+      </div>
       <RichCard eyebrow="FORMAT-SPECIFIC GUIDANCE" title={`When to convert ${sourceFormat} to WebP`} body={sourceGuidance}>
         <BulletRows items={[`Select ${sourceFormat} files from your device and confirm the preview before converting.`, "Use WebP when your publishing stack supports it and keep the original if you need an archival source.", "Write descriptive filenames and alt text in the page or CMS where the image is published."]} />
       </RichCard>
