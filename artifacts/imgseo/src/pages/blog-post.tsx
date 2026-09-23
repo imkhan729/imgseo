@@ -213,30 +213,66 @@ export default function BlogPost() {
               </div>
             )}
 
-            {/* Table of Contents */}
-            <div className="rounded-2xl border border-border bg-card/60 p-6 shadow-sm">
-              <div className="flex items-center gap-2 font-bold text-base mb-4 text-foreground">
-                <ListOrdered className="h-4 w-4 text-primary" />
-                Table of Contents
+            {/* Modern Table of Contents */}
+            <div className="relative overflow-hidden rounded-3xl border border-border/80 bg-gradient-to-br from-card via-card/90 to-primary/5 p-6 md:p-8 shadow-sm backdrop-blur-sm">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-border/60">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                    <ListOrdered className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-base md:text-lg text-foreground tracking-tight">
+                      Table of Contents
+                    </h3>
+                    <p className="text-xs text-muted-foreground">
+                      {post.body.length} Core Chapters · {post.readTime}
+                    </p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                  Quick Navigation
+                </span>
               </div>
-              <nav className="grid sm:grid-cols-2 gap-2 text-sm">
+
+              <nav className="grid sm:grid-cols-2 gap-3">
                 {post.body.map((section, idx) => (
                   <a
                     key={idx}
                     href={`#section-${idx}`}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-1 hover:translate-x-1 duration-200"
+                    className="group flex items-start gap-3.5 p-3.5 rounded-2xl border border-border/50 hover:border-primary/40 hover:bg-primary/5 bg-muted/20 transition-all duration-200"
                   >
-                    <span className="text-xs font-mono font-bold text-primary/70">{idx + 1}.</span>
-                    <span className="line-clamp-1">{section.h2}</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-background border border-border/80 text-xs font-mono font-bold text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all shadow-xs">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-sm font-semibold text-foreground/90 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                        {section.h2}
+                      </span>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-0.5 transition-all mt-0.5 shrink-0 opacity-0 group-hover:opacity-100" />
                   </a>
                 ))}
+
                 {post.faqs && post.faqs.length > 0 && (
                   <a
                     href="#faqs-section"
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-1 hover:translate-x-1 duration-200 font-medium"
+                    className="group flex items-center justify-between gap-3.5 p-3.5 rounded-2xl border border-violet-500/25 bg-violet-500/5 hover:border-violet-500/50 hover:bg-violet-500/10 transition-all duration-200 sm:col-span-2"
                   >
-                    <span className="text-xs font-mono font-bold text-primary/70">FAQ.</span>
-                    <span>Frequently Asked Questions</span>
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white text-xs font-mono font-bold shadow-xs">
+                        <HelpCircle className="h-4 w-4" />
+                      </span>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-sm font-bold text-foreground group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+                          Frequently Asked Questions (PAA)
+                        </span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300">
+                          {post.faqs.length} Answers
+                        </span>
+                      </div>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-violet-500 group-hover:translate-x-0.5 transition-all shrink-0" />
                   </a>
                 )}
               </nav>
