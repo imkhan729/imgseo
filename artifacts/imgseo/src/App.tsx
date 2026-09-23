@@ -28,6 +28,7 @@ const useNormalizedLocation = () => {
 
 const queryClient = new QueryClient();
 const Home = lazy(() => import("@/pages/home"));
+const BlogIndex = lazy(() => import("@/pages/blog-index"));
 const BlogPost = lazy(() => import("@/pages/blog-post"));
 const ToolPage = lazy(() => import("@/pages/tool-page").then((module) => ({ default: module.ToolPage })));
 const FormatPairPage = lazy(() => import("@/pages/tool-page").then((module) => ({ default: module.FormatPairPage })));
@@ -67,6 +68,7 @@ function Router() {
       <Route path="/image-seo" component={ImageSeo} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
+      <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/:slug" component={BlogPost} />
 
       {/* Spanish (es) Pilot Routes */}

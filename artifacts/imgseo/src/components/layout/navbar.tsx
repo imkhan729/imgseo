@@ -5,7 +5,7 @@ import { LanguageSelector } from "./language-selector";
 
 const navLinks = [
   { href: "/#features", label: "Features" },
-  { href: "/#blog", label: "Blog" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export function Navbar() {

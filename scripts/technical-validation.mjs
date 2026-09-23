@@ -27,6 +27,7 @@ const expectedRoutes = [
   '/image-seo',
   '/privacy',
   '/terms',
+  '/blog',
   // 11 Blog Posts
   '/blog/free-geo-tagger-fast-location-seo',
   '/blog/image-file-names-local-seo',

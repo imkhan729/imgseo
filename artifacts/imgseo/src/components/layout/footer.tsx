@@ -51,6 +51,7 @@ export function Footer() {
             <h4 className="text-sm font-bold mb-4">Learn</h4>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               {[
+                { href: "/blog", label: "Blog & Guides" },
                 { href: "/image-seo", label: "Image SEO Guide" },
                 { href: "/blog/image-file-names-local-seo", label: "Image File Names for Local SEO" },
                 { href: "/blog/google-business-profile-photo-optimization", label: "Google Business Profile Photos" },

@@ -98,6 +98,23 @@ function renderBlogPostHtml(post) {
   return html;
 }
 
+function renderBlogIndexHtml(posts) {
+  let html = `<main class="max-w-6xl mx-auto px-4 py-12">`;
+  html += `<h1>Image SEO & Web Performance Blog</h1>`;
+  html += `<p class="lead">Technical guides, empirical benchmarks, and actionable frameworks to help you optimize visual assets, master Core Web Vitals, and dominate organic search.</p>`;
+  html += `<section class="grid gap-8 my-8">`;
+  for (const post of posts) {
+    html += `<article class="border p-6 rounded-2xl">`;
+    html += `<h2><a href="/blog/${post.slug}">${escapeHtml(post.title)}</a></h2>`;
+    html += `<p class="text-sm text-gray-500">${escapeHtml(post.date)} · ${escapeHtml(post.readTime)} · ${escapeHtml(post.tag)}</p>`;
+    html += `<p>${escapeHtml(post.excerpt)}</p>`;
+    html += `<p><a href="/blog/${post.slug}">Read Article &rarr;</a></p>`;
+    html += `</article>`;
+  }
+  html += `</section></main>`;
+  return html;
+}
+
 const pages = {
   // ─── English (en) Core Pages ───
   "/": {
@@ -544,6 +561,13 @@ const pages = {
     schemaType: "WebPage",
     lang: "en",
     body: `<main><h1>Terms of Use</h1><p>Review the terms of use for IMGSEO browser-based utilities. All tools are provided free of charge for personal and commercial website optimization.</p></main>`
+  },
+  "/blog": {
+    title: "Image SEO & Web Performance Blog — Guides & Tutorials | IMGSEO",
+    description: "In-depth guides, research studies, and actionable tutorials on image SEO, WebP conversion, GPS geotagging, Core Web Vitals (LCP), and Google rankings.",
+    schemaType: "Blog",
+    lang: "en",
+    body: renderBlogIndexHtml(blogPosts)
   },
 
   // ─── Spanish (es) Pages (9 routes) ───
