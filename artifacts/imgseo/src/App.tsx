@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Switch, Route, Router as WouterRouter } from "wouter";
+import { useLocationProperty, navigate } from "wouter/use-browser-location";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +12,19 @@ import {
   indonesianToolConfigs,
   hindiToolConfigs,
 } from "@/lib/multilingual-tool-pages";
+
+const normalizePath = (rawPath: string) => {
+  if (!rawPath || rawPath === "/") return "/";
+  return rawPath.replace(/\/+$/, "") || "/";
+};
+
+const useNormalizedLocation = () => {
+  const pathname = useLocationProperty(
+    () => normalizePath(window.location.pathname),
+    () => normalizePath(window.location.pathname)
+  );
+  return [pathname, navigate] as const;
+};
 
 const queryClient = new QueryClient();
 const Home = lazy(() => import("@/pages/home"));
@@ -175,7 +189,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <WouterRouter
+          hook={useNormalizedLocation}
+          base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+        >
           <Router />
         </WouterRouter>
         <Toaster />

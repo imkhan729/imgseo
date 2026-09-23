@@ -1,32 +1,48 @@
 import type { LucideIcon } from "lucide-react";
 import { Compass, FileArchive, Globe2, Layers3, MapPinned, ScanSearch, Sparkles, TimerReset } from "lucide-react";
 
-export type ToolMode = "webp-converter" | "geo-tagger" | "online-image-compressor";
+export type ToolMode = "webp-converter" | "geo-tagger" | "online-image-compressor" | "format-converter" | "compressor" | string;
+
+export interface ToolPageStep {
+  title: string;
+  body: string;
+}
 
 export interface ToolPageConfig {
   mode: ToolMode;
   path: string;
-  navLabel: string;
-  shortLabel: string;
-  title: string;
+  navLabel?: string;
+  shortLabel?: string;
+  title?: string;
+  h1?: string;
   metaTitle: string;
-  description: string;
-  heroEyebrow: string;
-  heroTitle: string;
-  heroDescription: string;
-  heroGradient: string;
-  accentClass: string;
-  icon: LucideIcon;
-  featureBullets: string[];
-  stats: { label: string; value: string }[];
-  sections: {
+  description?: string;
+  metaDescription?: string;
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+  heroBody?: string;
+  heroGradient?: string;
+  accent?: string;
+  accentClass?: string;
+  badgeClass?: string;
+  icon?: LucideIcon;
+  featureBullets?: string[];
+  stats?: { label: string; value: string }[];
+  sections?: {
     id: string;
     title: string;
     body: string;
     points: string[];
     icon: LucideIcon;
   }[];
-  faq: { question: string; answer: string }[];
+  faq?: { question: string; answer: string }[];
+  faqs?: { q: string; a: string }[];
+  howToSteps?: ToolPageStep[];
+  primaryKeyword?: string;
+  secondaryKeywords?: string[];
+  schemaType?: string;
+  defaultTargetFormat?: string;
 }
 
 export const toolPageConfigs: Record<ToolMode, ToolPageConfig> = {
