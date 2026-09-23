@@ -4,7 +4,7 @@ import path from 'node:path';
 const distDir = path.resolve('artifacts/imgseo/dist/public');
 const publicDir = path.resolve('artifacts/imgseo/public');
 
-// Ensure sitemap.xml and robots.txt are in distDir
+// Ensure sitemap.xml, robots.txt, and .htaccess are in distDir
 if (fs.existsSync(path.join(publicDir, 'sitemap.xml'))) {
   fs.copyFileSync(path.join(publicDir, 'sitemap.xml'), path.join(distDir, 'sitemap.xml'));
 }
@@ -94,6 +94,7 @@ const expectedRoutes = [
 
 function auditTechnical() {
   const report = [];
+  let allOgImagesExist = true;
 
   for (const route of expectedRoutes) {
     const filePath = route === '/' ? path.join(distDir, 'index.html') : path.join(distDir, route.replace(/^\//, ''), 'index.html');
@@ -112,6 +113,12 @@ function auditTechnical() {
     const descMatch = html.match(/<meta\s+name=["']description["']\s+content="([^"]*)"/i);
     const canonMatch = html.match(/<link\s+rel=["']canonical["']\s+href="([^"]*)"/i);
     const ogUrlMatch = html.match(/<meta\s+property=["']og:url["']\s+content="([^"]*)"/i);
+    const ogTitleMatch = html.match(/<meta\s+property=["']og:title["']\s+content="([^"]*)"/i);
+    const ogDescMatch = html.match(/<meta\s+property=["']og:description["']\s+content="([^"]*)"/i);
+    const ogImageMatch = html.match(/<meta\s+property=["']og:image["']\s+content="([^"]*)"/i);
+    const ogLocaleMatch = html.match(/<meta\s+property=["']og:locale["']\s+content="([^"]*)"/i);
+    const twitterCardMatch = html.match(/<meta\s+name=["']twitter:card["']\s+content="([^"]*)"/i);
+    const twitterImageMatch = html.match(/<meta\s+name=["']twitter:image["']\s+content="([^"]*)"/i);
     const h1Match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
     const schemas = (html.match(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi) || []);
 
@@ -119,10 +126,29 @@ function auditTechnical() {
     const desc = descMatch ? descMatch[1] : '(none)';
     const canonical = canonMatch ? canonMatch[1] : '(none)';
     const ogUrl = ogUrlMatch ? ogUrlMatch[1] : '(none)';
+    const ogImage = ogImageMatch ? ogImageMatch[1] : '(none)';
     const h1 = h1Match ? h1Match[1].replace(/<[^>]+>/g, '').trim() : '(none)';
 
     const expectedCanon = `https://imageseo.cc${route === '/' ? '/' : route}`;
     const canonPass = canonical === expectedCanon;
+    const ogPass = ogUrl === expectedCanon && !!ogTitleMatch && !!ogDescMatch && !!ogImageMatch && !!ogLocaleMatch;
+    const twitterPass = !!twitterCardMatch && !!twitterImageMatch;
+
+    // Check if og:image file exists in distDir
+    let imageExists = true;
+    if (ogImage.startsWith('https://imageseo.cc/')) {
+      const relImagePath = ogImage.replace('https://imageseo.cc/', '');
+      const localImagePath = path.join(distDir, relImagePath);
+      if (!fs.existsSync(localImagePath)) {
+        imageExists = false;
+        allOgImagesExist = false;
+      }
+    }
+
+    const hasBreadcrumbs = route === '/' || html.includes('"@type": "BreadcrumbList"');
+    const hasWebsiteOrWebPage = html.includes('"@type": "WebSite"') || html.includes('"@type": "WebPage"') || html.includes('"@type": "WebApplication"') || html.includes('"@type": "Article"');
+
+    const pass = canonPass && h1 !== '(none)' && desc.length > 40 && ogPass && twitterPass && schemas.length >= 1 && hasBreadcrumbs && hasWebsiteOrWebPage;
 
     report.push({
       route,
@@ -131,10 +157,11 @@ function auditTechnical() {
       descLength: desc.length,
       canonical,
       canonPass,
-      ogUrl,
+      ogImage,
+      imageExists,
       h1,
       schemasCount: schemas.length,
-      verdict: canonPass && h1 !== '(none)' && desc.length > 50 ? 'PASS' : 'WARN'
+      verdict: pass ? 'PASS' : 'WARN'
     });
   }
 
@@ -151,15 +178,26 @@ function auditTechnical() {
   const robotsPath = path.join(distDir, 'robots.txt');
   const robotsContent = fs.existsSync(robotsPath) ? fs.readFileSync(robotsPath, 'utf8') : '';
 
+  const missingImages = report.filter(r => !r.imageExists);
+  if (missingImages.length > 0) {
+    console.log('Missing images for routes:', missingImages.map(r => ({ route: r.route, ogImage: r.ogImage })));
+  }
+
+  const passedCount = report.filter(r => r.verdict === 'PASS').length;
   console.log(JSON.stringify({
     totalAuditedRoutes: report.length,
-    passedRoutesCount: report.filter(r => r.verdict === 'PASS').length,
-    routesReport: report,
+    passedRoutesCount: passedCount,
+    allPassed: passedCount === expectedRoutes.length,
+    allOgImagesExist,
     notFoundFile: notFoundExists,
     sitemapUrlsCount: sitemapUrls.length,
-    sitemapUrls,
-    robotsValid: robotsContent.includes('Sitemap:') && robotsContent.includes('Allow: /')
+    robotsValid: robotsContent.includes('Sitemap:') && robotsContent.includes('Allow: /') && robotsContent.includes('Disallow: /*?*')
   }, null, 2));
+
+  if (passedCount !== expectedRoutes.length) {
+    const warnings = report.filter(r => r.verdict !== 'PASS');
+    console.error('Warnings/Failures detected:', JSON.stringify(warnings, null, 2));
+  }
 }
 
 auditTechnical();

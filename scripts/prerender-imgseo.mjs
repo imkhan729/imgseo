@@ -2295,32 +2295,141 @@ const cleanTemplate = template
   .replace(/<title>[\s\S]*?<\/title>/i, "{{TITLE}}")
   .replace(/<meta\s+name=["']description["']\s+content=["'][^"']*["']\s*\/?>/i, "{{DESCRIPTION}}")
   .replace(/<link\s+rel=["']canonical["']\s+href=["'][^"']*["']\s*\/?>/i, "{{CANONICAL}}")
-  .replace(/<meta\s+property=["']og:url["']\s+content=["'][^"']*["']\s*\/?>/i, "{{OG_URL}}")
-  .replace(/<meta\s+property=["']og:title["']\s+content=["'][^"']*["']\s*\/?>/i, "{{OG_TITLE}}")
-  .replace(/<meta\s+property=["']og:description["']\s+content=["'][^"']*["']\s*\/?>/i, "{{OG_DESC}}")
-  .replace(/<meta\s+name=["']twitter:url["']\s+content=["'][^"']*["']\s*\/?>/i, "{{TWITTER_URL}}")
-  .replace(/<meta\s+name=["']twitter:title["']\s+content=["'][^"']*["']\s*\/?>/i, "{{TWITTER_TITLE}}")
-  .replace(/<meta\s+name=["']twitter:description["']\s+content=["'][^"']*["']\s*\/?>/i, "{{TWITTER_DESC}}")
+  .replace(/<!--\s*Open Graph[\s\S]*?(?=<link\s+rel=["']icon)/i, "{{SOCIAL_META}}\n    ")
   .replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/gi, "{{SCHEMA}}")
   .replace(/<div\s+id=["']root["']>[\s\S]*?<\/div>/i, "{{ROOT_CONTENT}}");
 
 const supportedLangCodes = ["en", "es", "pt", "ar", "id", "hi"];
+
+const localeMap = {
+  en: "en_US",
+  es: "es_ES",
+  pt: "pt_BR",
+  ar: "ar_AR",
+  id: "id_ID",
+  hi: "hi_IN"
+};
+
+const langNameMap = {
+  es: "Español",
+  pt: "Português",
+  ar: "العربية",
+  id: "Bahasa Indonesia",
+  hi: "हिन्दी"
+};
+
+function getBreadcrumbs(route, page) {
+  if (route === "/") {
+    return null;
+  }
+
+  const items = [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `${origin}/`
+    }
+  ];
+
+  if (route.startsWith("/blog/")) {
+    items.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": `${origin}/blog`
+    });
+    items.push({
+      "@type": "ListItem",
+      "position": 3,
+      "name": page.title.split(" | ")[0] || page.title,
+      "item": `${origin}${route}`
+    });
+  } else if (route === "/blog") {
+    items.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": `${origin}/blog`
+    });
+  } else if (/^\/(es|pt|ar|id|hi)(\/|$)/.test(route)) {
+    const langMatch = route.match(/^\/(es|pt|ar|id|hi)/);
+    const lang = langMatch ? langMatch[1] : "en";
+    items.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": langNameMap[lang] || lang.toUpperCase(),
+      "item": `${origin}/${lang}`
+    });
+
+    if (route !== `/${lang}`) {
+      items.push({
+        "@type": "ListItem",
+        "position": 3,
+        "name": page.title.split(" | ")[0] || page.title,
+        "item": `${origin}${route}`
+      });
+    }
+  } else {
+    items.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": page.title.split(" | ")[0] || page.title,
+      "item": `${origin}${route}`
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items
+  };
+}
 
 for (const [route, page] of Object.entries(pages)) {
   const canonical = `${origin}${route === "/" ? "/" : route}`;
   const titleTag = `<title>${escapeHtml(page.title)}</title>`;
   const descTag = `<meta name="description" content="${escapeHtml(page.description)}" />`;
   const canonicalTag = `<link rel="canonical" href="${canonical}" />`;
-  const ogUrlTag = `<meta property="og:url" content="${canonical}" />`;
-  const ogTitleTag = `<meta property="og:title" content="${escapeHtml(page.title)}" />`;
-  const ogDescTag = `<meta property="og:description" content="${escapeHtml(page.description)}" />`;
-  const twitterUrlTag = `<meta name="twitter:url" content="${canonical}" />`;
-  const twitterTitleTag = `<meta name="twitter:title" content="${escapeHtml(page.title)}" />`;
-  const twitterDescTag = `<meta name="twitter:description" content="${escapeHtml(page.description)}" />`;
 
   // Language & Direction
   const pageLang = page.lang || (route.startsWith("/es") ? "es" : route.startsWith("/pt") ? "pt" : route.startsWith("/ar") ? "ar" : route.startsWith("/id") ? "id" : route.startsWith("/hi") ? "hi" : "en");
   const pageDir = pageLang === "ar" ? "rtl" : "ltr";
+  const ogLocale = localeMap[pageLang] || "en_US";
+
+  // Open Graph / Twitter Tags
+  const isArticle = page.schemaType === "Article";
+  const ogType = isArticle ? "article" : "website";
+
+  let ogImage = `${origin}/opengraph.jpg`;
+  let ogImageWidth = 1200;
+  let ogImageHeight = 630;
+  let ogImageAlt = page.title;
+
+  if (page.image) {
+    ogImage = page.image.startsWith("http") ? page.image : `${origin}${page.image.startsWith("/") ? page.image : "/images/blog/" + page.image}`;
+    ogImageHeight = 675;
+  }
+
+  const socialMeta = `<!-- Open Graph / Facebook -->
+    <meta property="og:type" content="${ogType}" />
+    <meta property="og:site_name" content="IMGSEO" />
+    <meta property="og:locale" content="${ogLocale}" />
+    <meta property="og:url" content="${canonical}" />
+    <meta property="og:title" content="${escapeHtml(page.title)}" />
+    <meta property="og:description" content="${escapeHtml(page.description)}" />
+    <meta property="og:image" content="${ogImage}" />
+    <meta property="og:image:width" content="${ogImageWidth}" />
+    <meta property="og:image:height" content="${ogImageHeight}" />
+    <meta property="og:image:alt" content="${escapeHtml(ogImageAlt)}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="${canonical}" />
+    <meta name="twitter:title" content="${escapeHtml(page.title)}" />
+    <meta name="twitter:description" content="${escapeHtml(page.description)}" />
+    <meta name="twitter:image" content="${ogImage}" />
+    <meta name="twitter:image:alt" content="${escapeHtml(ogImageAlt)}" />`;
 
   // Reciprocal Hreflang Tag Generation
   const baseRoute = route.replace(/^\/(es|pt|ar|id|hi)/, "") || "/";
@@ -2333,6 +2442,43 @@ for (const [route, page] of Object.entries(pages)) {
   hreflangTags += `\n    <link rel="alternate" hreflang="x-default" href="${origin}${defaultRoute === "/" ? "/" : defaultRoute}" />`;
 
   let schemas = [];
+
+  // WebSite & Organization Schemas on root
+  if (route === "/") {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "IMGSEO",
+      "url": origin,
+      "description": page.description,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${origin}/blog?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    });
+
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "IMGSEO",
+      "url": origin,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${origin}/favicon.svg`
+      }
+    });
+  }
+
+  // BreadcrumbList Schema on subpages
+  const breadcrumbSchema = getBreadcrumbs(route, page);
+  if (breadcrumbSchema) {
+    schemas.push(breadcrumbSchema);
+  }
+
   if (page.schemaType === "Article") {
     schemas.push({
       "@context": "https://schema.org",
@@ -2340,7 +2486,7 @@ for (const [route, page] of Object.entries(pages)) {
       "headline": page.title,
       "description": page.description,
       "url": canonical,
-      "image": page.image ? `${origin}${page.image}` : `${origin}/favicon.svg`,
+      "image": ogImage,
       "datePublished": page.dateISO || "2026-09-23",
       "dateModified": page.dateISO || "2026-09-23",
       "author": {
@@ -2411,12 +2557,7 @@ for (const [route, page] of Object.entries(pages)) {
     .replace("{{TITLE}}", titleTag)
     .replace("{{DESCRIPTION}}", descTag)
     .replace("{{CANONICAL}}", `${canonicalTag}${hreflangTags}`)
-    .replace("{{OG_URL}}", ogUrlTag)
-    .replace("{{OG_TITLE}}", ogTitleTag)
-    .replace("{{OG_DESC}}", ogDescTag)
-    .replace("{{TWITTER_URL}}", twitterUrlTag)
-    .replace("{{TWITTER_TITLE}}", twitterTitleTag)
-    .replace("{{TWITTER_DESC}}", twitterDescTag)
+    .replace("{{SOCIAL_META}}", socialMeta)
     .replace("{{SCHEMA}}", schemaTag)
     .replace("{{ROOT_CONTENT}}", rootContent);
 
@@ -2430,16 +2571,34 @@ for (const [route, page] of Object.entries(pages)) {
 }
 
 // Generate 404.html
+const notFoundCanonical = `${origin}/404.html`;
+const notFoundTitle = "Page Not Found | IMGSEO";
+const notFoundDesc = "The requested IMGSEO page could not be found. Return to the homepage for free image tools.";
+const notFoundOg = `<!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="IMGSEO" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="${notFoundCanonical}" />
+    <meta property="og:title" content="${escapeHtml(notFoundTitle)}" />
+    <meta property="og:description" content="${escapeHtml(notFoundDesc)}" />
+    <meta property="og:image" content="${origin}/opengraph.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="IMGSEO - Page Not Found" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="${notFoundCanonical}" />
+    <meta name="twitter:title" content="${escapeHtml(notFoundTitle)}" />
+    <meta name="twitter:description" content="${escapeHtml(notFoundDesc)}" />
+    <meta name="twitter:image" content="${origin}/opengraph.jpg" />
+    <meta name="twitter:image:alt" content="IMGSEO - Page Not Found" />`;
+
 let notFoundHtml = cleanTemplate
-  .replace("{{TITLE}}", "<title>Page Not Found | IMGSEO</title>")
-  .replace("{{DESCRIPTION}}", '<meta name="description" content="The requested IMGSEO page could not be found. Return to the homepage for free image tools." />')
-  .replace("{{CANONICAL}}", `<link rel="canonical" href="${origin}/404.html" />`)
-  .replace("{{OG_URL}}", `<meta property="og:url" content="${origin}/404.html" />`)
-  .replace("{{OG_TITLE}}", '<meta property="og:title" content="Page Not Found | IMGSEO" />')
-  .replace("{{OG_DESC}}", '<meta property="og:description" content="The requested IMGSEO page could not be found. Return to the homepage for free image tools." />')
-  .replace("{{TWITTER_URL}}", `<meta name="twitter:url" content="${origin}/404.html" />`)
-  .replace("{{TWITTER_TITLE}}", '<meta name="twitter:title" content="Page Not Found | IMGSEO" />')
-  .replace("{{TWITTER_DESC}}", '<meta name="twitter:description" content="The requested IMGSEO page could not be found. Return to the homepage for free image tools." />')
+  .replace("{{TITLE}}", `<title>${notFoundTitle}</title>`)
+  .replace("{{DESCRIPTION}}", `<meta name="description" content="${notFoundDesc}" />`)
+  .replace("{{CANONICAL}}", `<link rel="canonical" href="${notFoundCanonical}" />`)
+  .replace("{{SOCIAL_META}}", notFoundOg)
   .replace("{{SCHEMA}}", "")
   .replace("{{ROOT_CONTENT}}", '<div id="root"></div>\n    <noscript><main><h1>Page Not Found</h1><p>The requested page could not be found.</p><p><a href="/">Return to IMGSEO Home</a></p></main></noscript>');
 
@@ -2448,3 +2607,4 @@ notFoundHtml = notFoundHtml.replace(/<html[^>]*>/i, '<html lang="en" dir="ltr">'
 await writeFile(join(outputDir, "404.html"), notFoundHtml, "utf8");
 
 console.log(`Successfully prerendered ${Object.keys(pages).length} routes + 404.html to ${outputDir}`);
+
