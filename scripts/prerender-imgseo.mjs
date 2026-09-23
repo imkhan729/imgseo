@@ -1,6 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-
 import { existsSync } from "node:fs";
 
 const outputDir = existsSync(join(process.cwd(), "artifacts", "imgseo", "dist", "public"))
@@ -8,152 +7,96 @@ const outputDir = existsSync(join(process.cwd(), "artifacts", "imgseo", "dist", 
   : join(process.cwd(), "dist", "public");
 const origin = "https://imageseo.cc";
 
-const blogPosts = [
-  {
-    slug: "free-geo-tagger-fast-location-seo",
-    title: "How to Use a Free Geo Tagger to Dominate Local SEO Fast",
-    metaTitle: "Free Geo Tagger Tool: Fast Geo Tag Images | IMGSEO",
-    description: "Learn how to embed GPS coordinates into your photos with a browser-based free geo tag tool to provide verifiable location metadata for your business.",
-    dateISO: "2025-05-15",
-    body: `
-      <article>
-        <h1>How to Use a Free Geo Tagger to Dominate Local SEO Fast</h1>
-        <p>Adding GPS metadata to your images is a practical local SEO signal. Learn how to use a free geo tagger tool to process images instantly and securely in your browser.</p>
-        <section>
-          <h2>Why Every Local Business Needs a Fast Geo Tag Workflow</h2>
-          <p>When you upload an image to Google Business Profile or your website, Google analyzes available data. One trust signal for local relevance is GPS metadata (EXIF data). If you operate a local service in a specific city, embedding accurate location coordinates provides authentic geographic context.</p>
-        </section>
-        <section>
-          <h2>The Benefits of Using a Free Geo Tagger</h2>
-          <p>IMGSEO provides an instant, map-driven interface that embeds accurate location coordinates directly into your photo's EXIF metadata. Because this is a client-side tool, your images are never uploaded to a remote server.</p>
-        </section>
-        <section>
-          <h2>How to Geo Tag Your Images for Maximum SEO Impact</h2>
-          <ol>
-            <li>Find your exact business location or service area on the interactive map.</li>
-            <li>Drop the pin to capture the precise latitude and longitude coordinates.</li>
-            <li>Upload your local business photos into the free geo tagger interface.</li>
-            <li>Embed GPS coordinates directly into the image EXIF header.</li>
-            <li>Download your geo-tagged JPEG files locally.</li>
-          </ol>
-        </section>
-      </article>
-    `
-  },
-  {
-    slug: "image-file-names-local-seo",
-    title: "Why Image File Names Are the #1 Ignored Local SEO Ranking Factor",
-    metaTitle: "Image File Naming for Local SEO: Rank Higher in Search | IMGSEO",
-    description: "Boost your local search rankings by optimizing image file names. Learn the proven SEO naming formula to outrank local competitors on Google.",
-    dateISO: "2025-05-01",
-    body: `
-      <article>
-        <h1>Why Image File Names Are the #1 Ignored Local SEO Ranking Factor</h1>
-        <p>Most businesses use generic file names like IMG_4392.jpg. Discover the exact SEO naming structure to increase organic local traffic and Google Maps visibility.</p>
-        <section>
-          <h2>Why Your Camera's File Names Are Hurting Your Rankings</h2>
-          <p>Google's image search algorithm reads the file name as one of the first signals it uses to understand what an image depicts. A file named <code>best-plumber-doha-qatar.jpg</code> tells Google exactly what the image depicts.</p>
-        </section>
-        <section>
-          <h2>The Exact Formula for SEO Image File Names</h2>
-          <p>The proven formula for local SEO image file names is: <code>keyword-city-businessname.format</code></p>
-          <ul>
-            <li>All lowercase letters with hyphens separating words</li>
-            <li>Primary service keyword first</li>
-            <li>City and location second</li>
-            <li>Business name last</li>
-          </ul>
-        </section>
-      </article>
-    `
-  },
-  {
-    slug: "google-business-profile-photo-optimization",
-    title: "How to Optimize Google Business Profile Photos for High Local Visibility",
-    metaTitle: "GBP Photo Optimization Guide: Maximize Local SEO | IMGSEO",
-    description: "Optimize your Google Business Profile (GBP) photos to improve click-through rates and local rankings. Learn the best image sizes, formats, and geo-tagging tips.",
-    dateISO: "2025-04-01",
-    body: `
-      <article>
-        <h1>How to Optimize Google Business Profile Photos for High Local Visibility</h1>
-        <p>Your GBP photos directly influence Google Maps visibility and customer conversions. Learn the exact sizes, keywords, and metadata to use for maximum visibility.</p>
-        <section>
-          <h2>Why Google Business Profile Photos Matter</h2>
-          <p>Active photo uploads signal that your business listing is verified and operational. Uploading clear photos of storefronts, services, and completed jobs builds relevance in local search.</p>
-        </section>
-        <section>
-          <h2>Recommended Image Sizes for GBP</h2>
-          <p>Google recommends minimum dimensions of 720x720px for square images. Compress images to under 1MB for fast loading across mobile connections.</p>
-        </section>
-      </article>
-    `
-  },
-  {
-    slug: "webp-vs-jpg-local-seo",
-    title: "WebP vs JPG for SEO: Which Image Format Ranks Better in Google?",
-    metaTitle: "WebP vs JPG for SEO: Improve Core Web Vitals | IMGSEO",
-    description: "Switching to WebP improves site speed and Core Web Vitals. Discover why next-gen image formats are critical for local business SEO and search engine rankings.",
-    dateISO: "2025-03-01",
-    body: `
-      <article>
-        <h1>WebP vs JPG for SEO: Which Image Format Ranks Better in Google?</h1>
-        <p>WebP images load up to 34% faster than JPG, directly improving Core Web Vitals. Find out how faster image loading speeds boost local SEO and mobile rankings.</p>
-        <section>
-          <h2>What Is WebP?</h2>
-          <p>WebP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web, significantly reducing page weight.</p>
-        </section>
-        <section>
-          <h2>Core Web Vitals Impact</h2>
-          <p>Serving WebP images directly improves Largest Contentful Paint (LCP) by minimizing image byte transfer sizes.</p>
-        </section>
-      </article>
-    `
-  },
-  {
-    slug: "alt-text-local-seo-formula",
-    title: "Writing Image ALT Text for SEO: The Formula That Actually Works",
-    metaTitle: "Image ALT Text Best Practices for Local SEO | IMGSEO",
-    description: "Write optimized image ALT text to improve local search visibility and accessibility. Learn the exact keyword formula to drive high-quality organic traffic.",
-    dateISO: "2025-02-01",
-    body: `
-      <article>
-        <h1>Writing Image ALT Text for SEO: The Formula That Actually Works</h1>
-        <p>ALT text is essential for accessibility and search engine context. Learn the formula to describe images accurately for screen readers and Google.</p>
-        <section>
-          <h2>The Role of Alt Text</h2>
-          <p>Alt text describes the visual content of an image for assistive technologies and search engine crawlers when visual elements cannot be rendered.</p>
-        </section>
-        <section>
-          <h2>Best Practice Formula</h2>
-          <p>Keep alt text descriptive, concise (under 125 characters), and naturally integrated with surrounding page context without keyword stuffing.</p>
-        </section>
-      </article>
-    `
-  },
-  {
-    slug: "image-seo-checklist-local-business",
-    title: "The Ultimate 5-Minute Image SEO Checklist for Local Businesses",
-    metaTitle: "5-Minute Image SEO Checklist for Local Business | IMGSEO",
-    description: "Boost your organic visibility with our 5-minute image SEO checklist. Cover file naming, WebP compression, ALT text, and GPS geo-tagging all in one workflow.",
-    dateISO: "2025-01-01",
-    body: `
-      <article>
-        <h1>The Ultimate 5-Minute Image SEO Checklist for Local Businesses</h1>
-        <p>Follow this comprehensive 5-step image optimization checklist before uploading photos: descriptive filenames, WebP conversion, compression, alt text, and GPS metadata.</p>
-        <section>
-          <h2>5-Step Workflow</h2>
-          <ol>
-            <li>Rename file with descriptive keywords and hyphens.</li>
-            <li>Compress image to achieve optimal file size.</li>
-            <li>Convert to WebP format for web delivery.</li>
-            <li>Write accessible, descriptive alt text.</li>
-            <li>Embed GPS metadata for location-relevant photos.</li>
-          </ol>
-        </section>
-      </article>
-    `
+const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+
+// Dynamically load blogPosts from TypeScript data file
+const blogPostsPath = existsSync(join(process.cwd(), "artifacts", "imgseo", "src", "data", "blog-posts.ts"))
+  ? join(process.cwd(), "artifacts", "imgseo", "src", "data", "blog-posts.ts")
+  : join(process.cwd(), "src", "data", "blog-posts.ts");
+
+const rawTs = await readFile(blogPostsPath, "utf8");
+const cleanedJs = rawTs
+  .replace(/export\s+interface\s+[\s\S]*?\n\}/g, "")
+  .replace(/:\s*BlogPost\[\]/g, "")
+  .replace(/export\s+function\s+[\s\S]*$/g, "")
+  .replace(/export\s+const\s+blogPosts/, "const blogPosts");
+
+const loadBlogPosts = new Function(cleanedJs + "; return blogPosts;");
+const blogPosts = loadBlogPosts();
+
+function renderBlogPostHtml(post) {
+  let html = `<article class="max-w-4xl mx-auto px-4 py-8">`;
+  html += `<h1>${escapeHtml(post.title)}</h1>`;
+  html += `<p class="lead">${escapeHtml(post.excerpt)}</p>`;
+  
+  if (post.keyTakeaways && post.keyTakeaways.length > 0) {
+    html += `<section class="key-takeaways"><h2>Key Takeaways & Executive Summary</h2><ul>`;
+    for (const item of post.keyTakeaways) {
+      html += `<li>${escapeHtml(item)}</li>`;
+    }
+    html += `</ul></section>`;
   }
-];
+
+  if (post.body) {
+    for (const section of post.body) {
+      html += `<section><h2>${escapeHtml(section.h2)}</h2>`;
+      if (section.paragraphs) {
+        for (const p of section.paragraphs) {
+          html += `<p>${escapeHtml(p)}</p>`;
+        }
+      }
+      if (section.htmlParagraphs) {
+        for (const p of section.htmlParagraphs) {
+          html += `<p>${p}</p>`;
+        }
+      }
+      if (section.table) {
+        html += `<div class="table-container">`;
+        if (section.table.caption) {
+          html += `<caption>${escapeHtml(section.table.caption)}</caption>`;
+        }
+        html += `<table><thead><tr>`;
+        for (const h of section.table.headers) {
+          html += `<th>${escapeHtml(h)}</th>`;
+        }
+        html += `</tr></thead><tbody>`;
+        for (const row of section.table.rows) {
+          html += `<tr>`;
+          for (const cell of row) {
+            html += `<td>${escapeHtml(cell)}</td>`;
+          }
+          html += `</tr>`;
+        }
+        html += `</tbody></table></div>`;
+      }
+      if (section.code) {
+        html += `<pre><code>${escapeHtml(section.code)}</code></pre>`;
+      }
+      if (section.list) {
+        html += `<ul>`;
+        for (const item of section.list) {
+          html += `<li>${escapeHtml(item)}</li>`;
+        }
+        html += `</ul>`;
+      }
+      if (section.tip) {
+        html += `<blockquote><strong>Pro Tip:</strong> ${escapeHtml(section.tip)}</blockquote>`;
+      }
+      html += `</section>`;
+    }
+  }
+
+  if (post.faqs && post.faqs.length > 0) {
+    html += `<section class="faqs"><h2>Frequently Asked Questions</h2><dl>`;
+    for (const faq of post.faqs) {
+      html += `<dt><strong>${escapeHtml(faq.q)}</strong></dt><dd>${escapeHtml(faq.a)}</dd>`;
+    }
+    html += `</dl></section>`;
+  }
+
+  html += `</article>`;
+  return html;
+}
 
 const pages = {
   "/": {
@@ -748,14 +691,15 @@ const pages = {
 for (const post of blogPosts) {
   pages[`/blog/${post.slug}`] = {
     title: post.metaTitle,
-    description: post.description,
+    description: post.metaDescription,
     schemaType: "Article",
     dateISO: post.dateISO,
-    body: `<main>${post.body}</main>`
+    image: post.image,
+    author: post.author,
+    faqs: post.faqs,
+    body: renderBlogPostHtml(post)
   };
 }
-
-const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
 const template = await readFile(join(outputDir, "index.html"), "utf8");
 
@@ -801,19 +745,20 @@ for (const [route, page] of Object.entries(pages)) {
   const defaultRoute = baseRoute;
   hreflangTags += `\n    <link rel="alternate" hreflang="x-default" href="${origin}${defaultRoute === "/" ? "/" : defaultRoute}" />`;
 
-  let schemaObj;
+  let schemaTag = "";
   if (page.schemaType === "Article") {
-    schemaObj = {
+    const articleSchema = {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": page.title,
       "description": page.description,
       "url": canonical,
+      "image": page.image ? `${origin}${page.image}` : `${origin}/favicon.svg`,
       "datePublished": page.dateISO || "2026-09-23",
-      "dateModified": "2026-09-23",
+      "dateModified": page.dateISO || "2026-09-23",
       "author": {
         "@type": "Organization",
-        "name": "IMGSEO Team",
+        "name": page.author || "IMGSEO Team",
         "url": origin
       },
       "publisher": {
@@ -830,8 +775,26 @@ for (const [route, page] of Object.entries(pages)) {
         "@id": canonical
       }
     };
+
+    const schemas = [articleSchema];
+    if (page.faqs && page.faqs.length > 0) {
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": page.faqs.map(f => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.a
+          }
+        }))
+      });
+    }
+
+    schemaTag = schemas.map(s => `<script type="application/ld+json">\n${JSON.stringify(s, null, 2)}\n</script>`).join("\n    ");
   } else if (page.schemaType === "WebApplication") {
-    schemaObj = {
+    const webAppSchema = {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": page.title,
@@ -846,17 +809,17 @@ for (const [route, page] of Object.entries(pages)) {
         "priceCurrency": "USD"
       }
     };
+    schemaTag = `<script type="application/ld+json">\n${JSON.stringify(webAppSchema, null, 2)}\n</script>`;
   } else {
-    schemaObj = {
+    const webPageSchema = {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": page.title,
       "url": canonical,
       "description": page.description
     };
+    schemaTag = `<script type="application/ld+json">\n${JSON.stringify(webPageSchema, null, 2)}\n</script>`;
   }
-
-  const schemaTag = `<script type="application/ld+json">\n${JSON.stringify(schemaObj, null, 2)}\n</script>`;
   const rootContent = `<div id="root"></div>\n    <noscript>\n      ${page.body}\n    </noscript>`;
 
   let html = cleanTemplate
