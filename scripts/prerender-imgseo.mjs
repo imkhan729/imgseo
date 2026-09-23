@@ -12,7 +12,7 @@ const blogPosts = [
   {
     slug: "free-geo-tagger-fast-location-seo",
     title: "How to Use a Free Geo Tagger to Dominate Local SEO Fast",
-    metaTitle: "Free Geo Tagger Tool: Fast Geo Tag Images for Local SEO | IMGSEO",
+    metaTitle: "Free Geo Tagger Tool: Fast Geo Tag Images | IMGSEO",
     description: "Learn how to embed GPS coordinates into your photos with a browser-based free geo tag tool to provide verifiable location metadata for your business.",
     dateISO: "2025-05-15",
     body: `
@@ -43,7 +43,7 @@ const blogPosts = [
   {
     slug: "image-file-names-local-seo",
     title: "Why Image File Names Are the #1 Ignored Local SEO Ranking Factor",
-    metaTitle: "Image File Naming for Local SEO: Rank Higher in Google Maps & Image Search | IMGSEO",
+    metaTitle: "Image File Naming for Local SEO: Rank Higher in Search | IMGSEO",
     description: "Boost your local search rankings by optimizing image file names. Learn the proven SEO naming formula to outrank local competitors on Google.",
     dateISO: "2025-05-01",
     body: `
@@ -70,7 +70,7 @@ const blogPosts = [
   {
     slug: "google-business-profile-photo-optimization",
     title: "How to Optimize Google Business Profile Photos for High Local Visibility",
-    metaTitle: "GBP Photo Optimization Guide: Maximize Local SEO & Google Maps Traffic | IMGSEO",
+    metaTitle: "GBP Photo Optimization Guide: Maximize Local SEO | IMGSEO",
     description: "Optimize your Google Business Profile (GBP) photos to improve click-through rates and local rankings. Learn the best image sizes, formats, and geo-tagging tips.",
     dateISO: "2025-04-01",
     body: `
@@ -91,7 +91,7 @@ const blogPosts = [
   {
     slug: "webp-vs-jpg-local-seo",
     title: "WebP vs JPG for SEO: Which Image Format Ranks Better in Google?",
-    metaTitle: "WebP vs JPG for SEO: Speed Up Your Site & Improve Core Web Vitals | IMGSEO",
+    metaTitle: "WebP vs JPG for SEO: Improve Core Web Vitals | IMGSEO",
     description: "Switching to WebP improves site speed and Core Web Vitals. Discover why next-gen image formats are critical for local business SEO and search engine rankings.",
     dateISO: "2025-03-01",
     body: `
@@ -112,7 +112,7 @@ const blogPosts = [
   {
     slug: "alt-text-local-seo-formula",
     title: "Writing Image ALT Text for SEO: The Formula That Actually Works",
-    metaTitle: "Image ALT Text Best Practices for Local SEO & Accessibility | IMGSEO",
+    metaTitle: "Image ALT Text Best Practices for Local SEO | IMGSEO",
     description: "Write optimized image ALT text to improve local search visibility and accessibility. Learn the exact keyword formula to drive high-quality organic traffic.",
     dateISO: "2025-02-01",
     body: `
@@ -133,7 +133,7 @@ const blogPosts = [
   {
     slug: "image-seo-checklist-local-business",
     title: "The Ultimate 5-Minute Image SEO Checklist for Local Businesses",
-    metaTitle: "Complete Image SEO Checklist: Optimize Photos for Local Search | IMGSEO",
+    metaTitle: "5-Minute Image SEO Checklist for Local Business | IMGSEO",
     description: "Boost your organic visibility with our 5-minute image SEO checklist. Cover file naming, WebP compression, ALT text, and GPS geo-tagging all in one workflow.",
     dateISO: "2025-01-01",
     body: `
@@ -323,7 +323,7 @@ const pages = {
     `
   },
   "/privacy": {
-    title: "Privacy Policy | IMGSEO",
+    title: "Privacy Policy | Client-Side Security | IMGSEO",
     description: "Learn how IMGSEO processes images locally in your browser and which third-party map and location services the geo tagger uses.",
     schemaType: "WebPage",
     body: `
@@ -334,8 +334,8 @@ const pages = {
     `
   },
   "/terms": {
-    title: "Terms of Use | IMGSEO",
-    description: "Review the terms for using IMGSEO's browser-based image conversion, compression, and metadata tools.",
+    title: "Terms of Use | Free Browser Image Utilities | IMGSEO",
+    description: "Review the official terms of use for IMGSEO's free browser-based image conversion, compression, and metadata optimization tools.",
     schemaType: "WebPage",
     body: `
       <main>
@@ -434,7 +434,7 @@ const pages = {
     `
   },
   "/es/compress-jpg": {
-    title: "Comprimir JPG Online Gratis — Reduce Tamaño sin Perder Calidad | ImageSEO",
+    title: "Comprimir JPG Online Gratis — Reduce Tamaño en KB | ImageSEO",
     description: "Reduce el peso en KB de tus imágenes JPG manteniendo una nitidez impecable. Procesamiento por lotes instantáneo y totalmente seguro.",
     schemaType: "WebApplication",
     lang: "es",
@@ -458,7 +458,7 @@ const pages = {
     `
   },
   "/es/image-seo": {
-    title: "Guía Definitiva de SEO para Imágenes (2025) — Posicionamiento y Velocidad | ImageSEO",
+    title: "Guía Completa de SEO para Imágenes (2025) | ImageSEO",
     description: "Aprende a optimizar imágenes para Google: formatos WebP, compresión sin pérdida, etiquetas alt, nombres de archivo descriptivos y geolocalización EXIF.",
     schemaType: "Article",
     lang: "es",
@@ -506,7 +506,7 @@ const pages = {
     body: `<main><h1>Converter JPG em WebP Grátis Online</h1><p>Conversão fotográfica rápida de JPEG para WebP.</p></main>`
   },
   "/pt/png-to-webp": {
-    title: "Converter PNG em WebP Online Grátis — Mantém Fundo Transparente | ImageSEO",
+    title: "Converter PNG em WebP Online Grátis — Sem Perdas | ImageSEO",
     description: "Converta imagens PNG para WebP mantendo a transparência alfa e diminuindo drasticamente o tamanho do arquivo sem perda de nitidez.",
     schemaType: "WebApplication",
     lang: "pt",
@@ -520,7 +520,7 @@ const pages = {
     body: `<main><h1>Geotag de Fotos e Editor EXIF GPS Grátis</h1><p>Adicione coordenadas de latitude e longitude às suas fotos locais.</p></main>`
   },
   "/pt/free-online-image-compressor": {
-    title: "Compressor de Imagens Online Grátis — Diminuir Tamanho de Fotos | ImageSEO",
+    title: "Compressor de Imagens Online Grátis — Diminuir Fotos | ImageSEO",
     description: "Comprima fotos JPG, PNG e WebP em lote mantendo alta qualidade. Ferramenta rápida, segura e sem limites de upload com processamento local no navegador.",
     schemaType: "WebApplication",
     lang: "pt",
@@ -541,7 +541,7 @@ const pages = {
     body: `<main><h1>Comprimir Foto para KB Exato Online</h1><p>Reduza o tamanho para limites de formulários e cadastros governamentais.</p></main>`
   },
   "/pt/image-seo": {
-    title: "Guia Completo de SEO para Imagens (2025) — Otimização e Velocidade | ImageSEO",
+    title: "Guia Completo de SEO para Imagens (2025) | ImageSEO",
     description: "Domine a otimização de imagens para o Google: formato WebP, compressão sem perda, texto alternativo (alt), nomes de arquivo e metadados EXIF de localização.",
     schemaType: "Article",
     lang: "pt",
@@ -571,7 +571,7 @@ const pages = {
     body: `<main><h1>تحويل JPG إلى WebP مجانًا أونلاين</h1><p>تحويل صور JPG إلى WebP فائقة الخفة.</p></main>`
   },
   "/ar/png-to-webp": {
-    title: "تحويل PNG إلى WebP أونلاين مجانًا — الحفاظ على الخلفية الشفافة | ImageSEO",
+    title: "تحويل PNG إلى WebP أونلاين مجانًا — بدون فقدان الشفافية | ImageSEO",
     description: "حول ملفات PNG إلى WebP مع الحفاظ الكامل على الخلفية الشفافة وتقليل الحجم بنسبة تصل إلى 80% لتسريع تجربة المستخدم.",
     schemaType: "WebApplication",
     lang: "ar",
@@ -585,7 +585,7 @@ const pages = {
     body: `<main><h1>إضافة إحداثيات GPS وتعديل بيانات EXIF للصور مجانًا</h1><p>تثبيت بيانات الموقع الجغرافي داخل الصور لدعم السيو المحلي.</p></main>`
   },
   "/ar/free-online-image-compressor": {
-    title: "ضغط الصور أونلاين مجانًا — تقليل حجم الصور بدون فقدان الجودة | ImageSEO",
+    title: "ضغط الصور أونلاين مجانًا — تقليل حجم الصور | ImageSEO",
     description: "اضغط صور JPG و PNG و WebP دفعة واحدة مع الاحتفاظ بأعلى جودة بصرية. معالجة سريعة وآمنة 100% داخل المتصفح دون حفظ أي بيانات.",
     schemaType: "WebApplication",
     lang: "ar",
@@ -599,14 +599,14 @@ const pages = {
     body: `<main><h1>ضغط صور JPG أونلاين مجانًا</h1><p>تقليل حجم صور JPG بالكيلوبايت.</p></main>`
   },
   "/ar/compress-image-to-kb": {
-    title: "تقليل حجم الصورة بالكيلوبايت (20KB, 50KB, 100KB) أونلاين | ImageSEO",
-    description: "اضغط الصور إلى أحجام دقيقة بالكيلوبايت مثل 20KB أو 50KB أو 100KB مباشرة في متصفحك مجانًا.",
+    title: "تقليل حجم الصورة بالكيلوبايت (20KB, 50KB, 100KB) | ImageSEO",
+    description: "اضغط الصور إلى أحجام دقيقة بالكيلوبايت مثل 20KB أو 50KB أو 100KB مباشرة في متصفحك مجانًا وبخصوصية تامة دون رفع ملفات.",
     schemaType: "WebApplication",
     lang: "ar",
     body: `<main><h1>تقليل حجم الصور بالكيلوبايت أونلاين</h1><p>ضغط دقيق للصور لمواقع التقديم والمعاملات الحكومية.</p></main>`
   },
   "/ar/image-seo": {
-    title: "دليل سيو الصور الكامل (2025) — تحسين ترتيب الصور وسرعة المواقع | ImageSEO",
+    title: "دليل سيو الصور الكامل (2025) — تحسين ترتيب الصور | ImageSEO",
     description: "تعلم كيفية تصدر نتائج بحث الصور في جوجل: صيغة WebP، ضغط الصور، النص البديل Alt Text، أسماء الملفات، وإضافة بيانات الموقع الجغرافي EXIF.",
     schemaType: "Article",
     lang: "ar",
@@ -671,7 +671,7 @@ const pages = {
     body: `<main><h1>Kompres Foto ke KB Target Online</h1><p>Kecilkan foto ke 100KB atau 200KB untuk pendaftaran online.</p></main>`
   },
   "/id/image-seo": {
-    title: "Panduan Lengkap SEO Gambar (2025) — Cara Optimasi Gambar Website | ImageSEO",
+    title: "Panduan Lengkap SEO Gambar (2025) | ImageSEO",
     description: "Pelajari cara optimasi gambar untuk Google: format WebP, kompresi tanpa pecah, teks alt, penamaan file ramah SEO, dan metadata lokasi geotag EXIF.",
     schemaType: "Article",
     lang: "id",
@@ -882,18 +882,20 @@ for (const [route, page] of Object.entries(pages)) {
 }
 
 // Generate 404.html
-const notFoundHtml = cleanTemplate
+let notFoundHtml = cleanTemplate
   .replace("{{TITLE}}", "<title>Page Not Found | IMGSEO</title>")
-  .replace("{{DESCRIPTION}}", '<meta name="description" content="The requested IMGSEO page could not be found." />')
+  .replace("{{DESCRIPTION}}", '<meta name="description" content="The requested IMGSEO page could not be found. Return to the homepage for free image tools." />')
   .replace("{{CANONICAL}}", `<link rel="canonical" href="${origin}/404.html" />`)
   .replace("{{OG_URL}}", `<meta property="og:url" content="${origin}/404.html" />`)
   .replace("{{OG_TITLE}}", '<meta property="og:title" content="Page Not Found | IMGSEO" />')
-  .replace("{{OG_DESC}}", '<meta property="og:description" content="The requested IMGSEO page could not be found." />')
+  .replace("{{OG_DESC}}", '<meta property="og:description" content="The requested IMGSEO page could not be found. Return to the homepage for free image tools." />')
   .replace("{{TWITTER_URL}}", `<meta name="twitter:url" content="${origin}/404.html" />`)
   .replace("{{TWITTER_TITLE}}", '<meta name="twitter:title" content="Page Not Found | IMGSEO" />')
-  .replace("{{TWITTER_DESC}}", '<meta name="twitter:description" content="The requested IMGSEO page could not be found." />')
+  .replace("{{TWITTER_DESC}}", '<meta name="twitter:description" content="The requested IMGSEO page could not be found. Return to the homepage for free image tools." />')
   .replace("{{SCHEMA}}", "")
   .replace("{{ROOT_CONTENT}}", '<div id="root"><main><h1>Page Not Found</h1><p>The requested page could not be found.</p><p><a href="/">Return to IMGSEO Home</a></p></main></div>');
+
+notFoundHtml = notFoundHtml.replace(/<html[^>]*>/i, '<html lang="en" dir="ltr">');
 
 await writeFile(join(outputDir, "404.html"), notFoundHtml, "utf8");
 
