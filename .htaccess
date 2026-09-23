@@ -2,19 +2,23 @@
   RewriteEngine On
   RewriteBase /
 
-  # 1. Force HTTPS
+  # 1. Direct pass-through for sitemap and robots
+  RewriteRule ^sitemap\.xml$ - [L]
+  RewriteRule ^robots\.txt$ - [L]
+
+  # 2. Force HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://imageseo.cc/$1 [R=301,L]
 
-  # 2. Force non-WWW
+  # 3. Force non-WWW
   RewriteCond %{HTTP_HOST} ^www\.imageseo\.cc$ [NC]
   RewriteRule ^(.*)$ https://imageseo.cc/$1 [R=301,L]
 
-  # 3. Strip index.html from URL requests
+  # 4. Strip index.html from URL requests
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^/]+/)*index\.html\ HTTP/ [NC]
   RewriteRule ^(([^/]+/)*)index\.html$ https://imageseo.cc/$1 [R=301,L]
 
-  # 4. Handle SPA fallback if direct file doesn't exist
+  # 5. Handle SPA fallback if direct file doesn't exist
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*)$ /index.html [L]
@@ -22,11 +26,24 @@
   ErrorDocument 404 /404.html
 </IfModule>
 
-# Security Headers
+# MIME Types
+<IfModule mod_mime.c>
+  AddType application/xml .xml
+  AddType text/plain .txt
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+</IfModule>
+
+# Security & Crawler Headers
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+  
+  <FilesMatch "^(sitemap\.xml|robots\.txt)$">
+    Header set Access-Control-Allow-Origin "*"
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
 </IfModule>
 
 # Gzip / Brotli Compression
@@ -47,6 +64,7 @@
   ExpiresByType text/javascript "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
   ExpiresByType application/wasm "access plus 1 year"
+  ExpiresByType application/xml "access plus 1 hour"
   ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
 
