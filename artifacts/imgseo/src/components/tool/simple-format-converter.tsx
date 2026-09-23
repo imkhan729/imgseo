@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState, useEffect, forwardRef, useImperativeHandle } from "react";
-import { Download, UploadCloud, Trash2, Clock, CheckSquare, Square, ChevronDown, Sparkles, FileArchive, CheckCircle2 } from "lucide-react";
+import { Download, UploadCloud, Trash2, Clock, CheckSquare, Square, ChevronDown, Sparkles, CheckCircle2, Sliders, ShieldCheck, Check } from "lucide-react";
 import JSZip from "jszip";
-import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -35,14 +34,18 @@ export interface SimpleFormatConverterProps {
   onModeChange?: (source: string, target: string, format: OutputFormat) => void;
 }
 
-const outputFormatOptions: { value: OutputFormat; label: string; extension: string }[] = [
-  { value: "image/webp", label: "WebP (Best for Web & SEO)", extension: "webp" },
-  { value: "image/jpeg", label: "JPEG / JPG (Universal)", extension: "jpg" },
-  { value: "image/png", label: "PNG (Lossless / Transparent)", extension: "png" },
+const outputFormatOptions: { value: OutputFormat; label: string; shortLabel: string; extension: string }[] = [
+  { value: "image/webp", label: "WebP (Recommended for SEO)", shortLabel: "WebP", extension: "webp" },
+  { value: "image/jpeg", label: "JPEG / JPG (Universal)", shortLabel: "JPEG", extension: "jpg" },
+  { value: "image/png", label: "PNG (Lossless & Alpha)", shortLabel: "PNG", extension: "png" },
 ];
 
 function getOutputExtension(format: OutputFormat) {
   return outputFormatOptions.find((option) => option.value === format)?.extension ?? "webp";
+}
+
+function getShortLabel(format: OutputFormat) {
+  return outputFormatOptions.find((option) => option.value === format)?.shortLabel ?? "WebP";
 }
 
 function formatBytes(bytes: number) {
@@ -96,7 +99,7 @@ async function convertFile(file: File, format: OutputFormat, qualityValue: numbe
 
     image.onerror = () => {
       URL.revokeObjectURL(objectUrl);
-      reject(new Error(`Could not decode ${file.name}. Please ensure it is a supported image format.`));
+      reject(new Error(`Could not decode ${file.name}. Please ensure it is a valid image file.`));
     };
 
     image.src = objectUrl;
@@ -119,19 +122,18 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
   const [isDragging, setIsDragging] = useState(false);
   const [isZipping, setIsZipping] = useState(false);
   
-  // Sidebar Settings
+  // Settings State
   const [globalQuality, setGlobalQuality] = useState(85);
   const [globalFormat, setGlobalFormat] = useState<OutputFormat>(initialTargetFormat);
   const [currentSourceExt, setCurrentSourceExt] = useState(activeSourceExt || initialSourceFormat || "JPG");
   const [currentTargetExt, setCurrentTargetExt] = useState(activeTargetExt || "WEBP");
   const [preserveMetadata, setPreserveMetadata] = useState(true);
   const [lossless, setLossless] = useState(false);
-  const [resize, setResize] = useState(false);
   
-  // Selection
+  // Selection State
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
-  // Sync when props change
+  // Synchronize when props update
   useEffect(() => {
     if (initialTargetFormat) {
       setGlobalFormat(initialTargetFormat);
@@ -192,7 +194,7 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
 
     if (!nextFiles.length) {
       toast({
-        title: "Invalid files",
+        title: "No supported images",
         description: "Please select valid image files (JPG, PNG, WebP, SVG, AVIF, GIF, BMP, TIFF, ICO).",
       });
       return;
@@ -212,7 +214,7 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
 
     setImages((current) => [...current, ...nextImages]);
     
-    // Auto select new files
+    // Auto-select newly added files
     setSelectedIds(current => {
       const newSet = new Set(current);
       nextImages.forEach(img => newSet.add(img.id));
@@ -221,7 +223,7 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
 
     toast({
       title: `${nextFiles.length} ${nextFiles.length === 1 ? 'image' : 'images'} added`,
-      description: `Target format set to ${getOutputExtension(globalFormat).toUpperCase()}. Click Convert to process.`,
+      description: `Target set to ${getShortLabel(globalFormat)}. Click Convert to process.`,
     });
   };
 
@@ -244,7 +246,6 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
   const processConversion = async (idsToConvert: string[]) => {
     if (!idsToConvert.length) return;
 
-    // Set status to converting
     setImages(current => current.map(img => 
       idsToConvert.includes(img.id) ? { ...img, status: 'converting' } : img
     ));
@@ -271,7 +272,7 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
           return img;
         }));
         
-        // Remove from selection once done
+        // Remove from selection once converted
         setSelectedIds(current => {
           const newSet = new Set(current);
           newSet.delete(id);
@@ -337,28 +338,34 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
   const currentModeDisplay = activeModeLabel || `${currentSourceExt} → ${currentTargetExt}`;
 
   return (
-    <div className="mx-auto w-full max-w-6xl font-sans text-slate-800">
-      <div className="flex flex-col lg:flex-row gap-6">
+    <div className="mx-auto w-full max-w-6xl">
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
         
-        {/* Main Content Area */}
-        <div className="flex-1 space-y-6">
+        {/* Main Workspace Area */}
+        <div className="flex-1 w-full space-y-6">
           
-          {/* Active Mode Indicator Banner */}
-          <div className="flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-sky-500/10 border border-blue-200/80 dark:border-blue-800/60 rounded-2xl px-5 py-3.5 shadow-sm">
-            <div className="flex items-center gap-2.5">
-              <div className="h-2.5 w-2.5 rounded-full bg-blue-600 animate-pulse"></div>
-              <span className="text-xs text-slate-600 dark:text-slate-300">Active Conversion:</span>
-              <span className="rounded-md bg-blue-600 text-white font-extrabold px-2.5 py-0.5 text-xs uppercase tracking-wide shadow-sm">
-                {currentModeDisplay}
-              </span>
+          {/* Active Mode Banner */}
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-sky-500/10 p-4 shadow-sm backdrop-blur">
+            <div className="flex items-center gap-3">
+              <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm">
+                <Sparkles className="h-4 w-4" />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-muted-foreground">Mode:</span>
+                <span className="rounded-lg bg-blue-600 px-3 py-1 text-xs font-black uppercase tracking-wider text-white shadow-sm">
+                  {currentModeDisplay}
+                </span>
+              </div>
             </div>
-            <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
-              <span>Exporting as:</span>
-              <strong className="text-blue-700 dark:text-blue-300 font-bold uppercase">{getOutputExtension(globalFormat)}</strong>
+            <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
+              <span>Target Format:</span>
+              <span className="rounded-lg border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-extrabold uppercase text-primary">
+                {getShortLabel(globalFormat)}
+              </span>
             </div>
           </div>
 
-          {/* Dropzone */}
+          {/* 3D Modern Dropzone */}
           <div
             onDragOver={(event) => {
               event.preventDefault();
@@ -372,84 +379,114 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
             }}
             onClick={() => inputRef.current?.click()}
             className={cn(
-              "cursor-pointer rounded-2xl border-2 border-dashed p-10 text-center transition-all relative overflow-hidden group",
+              "card-3d relative cursor-pointer overflow-hidden rounded-[2rem] border-2 border-dashed p-10 md:p-14 text-center transition-all duration-300 select-none",
               isDragging
-                ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20 scale-[1.01]"
-                : "border-blue-200 bg-blue-50/40 hover:border-blue-400 hover:bg-blue-50/70 dark:border-slate-800 dark:bg-slate-900/40"
+                ? "border-primary bg-primary/5 scale-[1.01] shadow-2xl shadow-primary/15"
+                : "border-border/80 bg-card hover:border-primary/60 hover:bg-muted/15"
             )}
           >
-            <div className="mx-auto flex flex-col items-center justify-center">
-              <div className="h-16 w-16 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                <UploadCloud className="h-8 w-8 text-blue-600" strokeWidth={1.8} />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.12),_transparent_40%),linear-gradient(180deg,rgba(255,255,255,0.6),transparent)] dark:bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.18),_transparent_40%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent)]" />
+            
+            <div className="relative mx-auto flex flex-col items-center justify-center">
+              <div className="h-18 w-18 rounded-[1.6rem] bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center mb-5 shadow-xl shadow-indigo-500/25">
+                <UploadCloud className="h-9 w-9 text-white" strokeWidth={2} />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+              
+              <h3 className="text-xl md:text-2xl font-black text-foreground mb-2">
                 Drag & Drop or Click to Upload {currentSourceExt !== "WEBP" ? currentSourceExt : "Images"}
               </h3>
-              <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                100% Client-Side Sandbox · Zero Server Uploads · Fast Batch Conversion
+              
+              <p className="text-sm font-medium text-muted-foreground max-w-md mx-auto mb-5">
+                Supports JPG, PNG, WebP, SVG, AVIF, HEIC, GIF, BMP, TIFF up to 50MB
               </p>
-              <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2 text-xs font-bold text-white shadow-sm hover:bg-blue-700 transition-colors">
-                <Sparkles className="h-3.5 w-3.5" />
-                Browse {currentSourceExt} Files
+
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-6 text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground">
+                <span className="rounded-full border border-border/80 bg-background/80 px-3 py-1 shadow-sm">100% Client-Side</span>
+                <span className="rounded-full border border-border/80 bg-background/80 px-3 py-1 shadow-sm">Zero Server Uploads</span>
+                <span className="rounded-full border border-border/80 bg-background/80 px-3 py-1 shadow-sm">Batch ZIP Export</span>
               </div>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  inputRef.current?.click();
+                }}
+                className="btn-3d shine relative inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-extrabold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-lg shadow-blue-500/25 transition-all"
+              >
+                <Sparkles className="h-4 w-4" />
+                Browse {currentSourceExt} Files
+              </button>
             </div>
+
             <input
               ref={inputRef}
               type="file"
               accept="image/*,.jpg,.jpeg,.png,.webp,.avif,.svg,.gif,.bmp,.ico,.tiff,.heic"
               multiple
-              onChange={(event) => addFiles(event.target.files)}
+              onChange={(event) => {
+                addFiles(event.target.files);
+                event.target.value = "";
+              }}
               className="hidden"
             />
           </div>
 
           {/* My Conversions Queue */}
-          <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden dark:border-slate-800 dark:bg-slate-950">
-            <div className="flex items-center justify-between border-b border-slate-100 p-5 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30">
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">My Conversions</h3>
-                <p className="text-xs text-slate-500 mt-1">Current files with real-time status</p>
+          <div className="card-3d rounded-[2rem] border border-border/70 bg-card overflow-hidden shadow-sm">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-border/60 p-5 bg-muted/20">
+              <div className="flex items-center gap-3">
+                <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                  <Clock className="h-4 w-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-foreground">My Conversions Queue</h3>
+                  <p className="text-xs text-muted-foreground">Current image status and individual options</p>
+                </div>
               </div>
-              <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
-                <Clock className="h-3.5 w-3.5 text-blue-500" />
-                <span>{queuedImages.length} Queued / {doneImages.length} Ready</span>
+              <div className="flex items-center gap-2">
+                <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-bold text-foreground shadow-sm">
+                  {queuedImages.length} Queued · {doneImages.length} Ready
+                </span>
               </div>
             </div>
 
             <div className="p-0 overflow-x-auto">
               <table className="w-full text-left text-sm whitespace-nowrap">
-                <thead className="bg-slate-50/80 text-slate-600 font-semibold border-b border-slate-100 dark:bg-slate-900/50 dark:border-slate-800 dark:text-slate-400">
+                <thead className="bg-muted/40 text-muted-foreground font-bold text-xs uppercase tracking-wider border-b border-border/60">
                   <tr>
                     <th className="p-4 w-12 text-center">
-                      <button onClick={toggleSelectAll} className="text-slate-400 hover:text-blue-600 outline-none">
+                      <button onClick={toggleSelectAll} className="text-muted-foreground hover:text-primary transition-colors outline-none">
                         {selectedIds.size > 0 && selectedIds.size === queuedImages.length ? (
-                          <CheckSquare className="h-5 w-5 text-blue-600" />
+                          <CheckSquare className="h-5 w-5 text-primary" />
                         ) : (
                           <Square className="h-5 w-5" />
                         )}
                       </button>
                     </th>
                     <th className="p-4">File</th>
-                    <th className="p-4 w-48">Status / Progress</th>
-                    <th className="p-4 w-32">Target Format</th>
-                    <th className="p-4 w-36">Quality</th>
-                    <th className="p-4 w-32 text-center">Action</th>
+                    <th className="p-4 w-40">Progress</th>
+                    <th className="p-4 w-36">Target</th>
+                    <th className="p-4 w-36">Settings</th>
+                    <th className="p-4 w-28 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                <tbody className="divide-y divide-border/50">
                   {queuedImages.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="p-8 text-center text-slate-500 dark:text-slate-400">
-                        {images.length === 0 ? "No images uploaded yet. Drop files above to begin." : "All queued images have been converted! See recently converted below."}
+                      <td colSpan={6} className="p-10 text-center text-muted-foreground">
+                        {images.length === 0 
+                          ? "No images in queue. Drop files into the upload box above to start converting." 
+                          : "All queued files have been converted! See downloaded assets below."}
                       </td>
                     </tr>
                   ) : (
                     queuedImages.map(img => (
-                      <tr key={img.id} className="hover:bg-slate-50/50 transition-colors dark:hover:bg-slate-900/30">
+                      <tr key={img.id} className="hover:bg-muted/15 transition-colors">
                         <td className="p-4 text-center">
-                          <button onClick={() => toggleSelect(img.id)} className="text-slate-400 hover:text-blue-600 outline-none">
+                          <button onClick={() => toggleSelect(img.id)} className="text-muted-foreground hover:text-primary transition-colors outline-none">
                             {selectedIds.has(img.id) ? (
-                              <CheckSquare className="h-5 w-5 text-blue-600" />
+                              <CheckSquare className="h-5 w-5 text-primary" />
                             ) : (
                               <Square className="h-5 w-5" />
                             )}
@@ -457,12 +494,12 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
                         </td>
                         <td className="p-4">
                           <div className="flex items-center gap-3">
-                            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md border border-slate-200 bg-slate-100 dark:border-slate-800 dark:bg-slate-900">
+                            <div className="h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-border bg-muted">
                               <img src={img.previewUrl} alt="" className="h-full w-full object-cover" />
                             </div>
-                            <div className="flex flex-col">
-                              <span className="font-medium text-slate-900 dark:text-white truncate max-w-[160px]">{img.file.name}</span>
-                              <span className="text-xs text-slate-500">{formatBytes(img.file.size)}</span>
+                            <div className="flex flex-col min-w-0">
+                              <span className="font-bold text-foreground truncate max-w-[180px]">{img.file.name}</span>
+                              <span className="text-xs font-semibold text-muted-foreground">{formatBytes(img.file.size)}</span>
                             </div>
                           </div>
                         </td>
@@ -470,53 +507,55 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
                           <div className="flex items-center gap-2">
                             {img.status === 'converting' ? (
                               <div className="flex items-center gap-2 w-full">
-                                <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden dark:bg-slate-800">
-                                  <div className="h-full bg-blue-600 rounded-full w-3/4 animate-pulse" />
+                                <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                                  <div className="h-full bg-primary rounded-full w-3/4 animate-pulse" />
                                 </div>
-                                <span className="text-xs font-bold text-blue-600">Converting...</span>
+                                <span className="text-xs font-bold text-primary animate-pulse">Converting...</span>
                               </div>
                             ) : img.status === 'error' ? (
-                              <span className="text-xs font-bold text-red-500">Failed</span>
+                              <span className="text-xs font-bold text-destructive">Failed</span>
                             ) : (
-                              <span className="text-xs text-slate-500 font-medium">Ready in queue</span>
+                              <span className="text-xs text-muted-foreground font-medium">Ready in queue</span>
                             )}
                           </div>
                         </td>
                         <td className="p-4">
-                          <div className="relative">
+                          <div className="relative inline-block min-w-[110px]">
                             <select 
                               value={img.targetFormat}
                               onChange={(e) => updateTargetFormat(img.id, e.target.value as OutputFormat)}
-                              className="w-full appearance-none rounded-md bg-blue-50 text-blue-800 font-bold px-3 py-1.5 text-xs outline-none border border-blue-200 focus:border-blue-400 pr-8 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800"
+                              className="w-full appearance-none rounded-xl border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-extrabold text-primary outline-none focus:ring-2 focus:ring-primary/25 pr-7 cursor-pointer"
                             >
                               {outputFormatOptions.map(opt => (
-                                <option key={opt.value} value={opt.value}>{opt.label.split(' ')[0]}</option>
+                                <option key={opt.value} value={opt.value} className="bg-background text-foreground font-semibold">
+                                  {opt.shortLabel}
+                                </option>
                               ))}
                             </select>
-                            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 text-blue-700 pointer-events-none dark:text-blue-300" />
+                            <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-primary" />
                           </div>
                         </td>
                         <td className="p-4">
-                          <div className="flex flex-col text-xs text-slate-600 dark:text-slate-400">
-                            <span className="font-semibold text-slate-900 dark:text-white">Quality {img.quality}%</span>
-                            <span className="text-[11px] text-slate-500">Browser canvas</span>
+                          <div className="flex flex-col text-xs">
+                            <span className="font-bold text-foreground">Quality {img.quality}%</span>
+                            <span className="text-[11px] text-muted-foreground">Auto-tuned</span>
                           </div>
                         </td>
                         <td className="p-4">
-                          <div className="flex items-center justify-center gap-2">
+                          <div className="flex items-center justify-center gap-1.5">
                             <button 
                               onClick={() => processConversion([img.id])}
                               disabled={img.status === 'converting'}
-                              className="rounded-md border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-700 shadow-sm hover:bg-blue-600 hover:text-white disabled:opacity-50 transition-colors dark:border-blue-800 dark:bg-blue-950/50 dark:text-blue-300"
+                              className="rounded-xl border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary hover:bg-primary hover:text-white disabled:opacity-50 transition-colors shadow-sm"
                             >
                               Convert
                             </button>
                             <button 
                               onClick={() => removeImage(img.id)}
-                              className="rounded-md border border-red-100 bg-red-50 p-1.5 text-red-500 hover:bg-red-100 dark:border-red-950 dark:bg-red-950/30"
+                              className="h-8 w-8 inline-flex items-center justify-center rounded-xl border border-border hover:bg-destructive/10 hover:border-destructive/40 hover:text-destructive text-muted-foreground transition-colors"
                               title="Remove"
                             >
-                              <Trash2 className="h-4 w-4" />
+                              <Trash2 className="h-3.5 w-3.5" />
                             </button>
                           </div>
                         </td>
@@ -528,22 +567,22 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
             </div>
           </div>
 
-          {/* Recently Converted */}
+          {/* Recently Converted Grid */}
           {doneImages.length > 0 && (
-            <div className="space-y-4">
+            <div className="space-y-4 pt-2">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <h3 className="text-xl font-black text-foreground flex items-center gap-2">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                     Recently Converted ({doneImages.length})
                   </h3>
-                  <p className="text-xs text-slate-500">Download individually or all at once</p>
+                  <p className="text-xs text-muted-foreground">Download files individually or packaged as a ZIP</p>
                 </div>
                 {doneImages.length > 1 && (
                   <button
                     onClick={downloadAllZip}
                     disabled={isZipping}
-                    className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-emerald-700 transition-colors"
+                    className="btn-3d shine inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-extrabold text-white shadow-md hover:bg-emerald-500 transition-colors"
                   >
                     <Download className="h-3.5 w-3.5" />
                     {isZipping ? "Packaging ZIP..." : "Download All (ZIP)"}
@@ -558,35 +597,39 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
                     : 0;
 
                   return (
-                    <div key={img.id} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col dark:border-slate-800 dark:bg-slate-950">
-                      <div className="h-32 w-full overflow-hidden rounded-lg bg-slate-100 mb-3 border border-slate-100 dark:border-slate-800 dark:bg-slate-900">
+                    <div key={img.id} className="card-3d rounded-2xl border border-border/70 bg-card p-4 shadow-sm flex flex-col">
+                      <div className="h-32 w-full overflow-hidden rounded-xl bg-muted mb-3 border border-border/50">
                          <img src={img.convertedUrl || img.previewUrl} alt="" className="h-full w-full object-cover" />
                       </div>
-                      <div className="flex items-start justify-between mb-2">
-                        <div className="min-w-0 pr-2">
-                          <p className="font-bold text-slate-900 dark:text-white truncate max-w-[180px]">
+                      
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <div className="min-w-0 flex-1">
+                          <p className="font-bold text-foreground text-sm truncate">
                             {img.file.name.replace(/\.[^.]+$/, `.${getOutputExtension(img.targetFormat)}`)}
                           </p>
                           <div className="flex items-center gap-2 text-xs mt-1">
-                            <span className="text-slate-500">{formatBytes(img.convertedBlob?.size || 0)}</span>
+                            <span className="text-muted-foreground font-semibold">{formatBytes(img.convertedBlob?.size || 0)}</span>
                             {savings > 0 ? (
-                              <span className="text-emerald-600 font-bold">-{savings}%</span>
+                              <span className="rounded-md bg-emerald-100 dark:bg-emerald-950/50 px-1.5 py-0.5 text-[10px] font-black text-emerald-700 dark:text-emerald-400">
+                                -{savings}%
+                              </span>
                             ) : (
-                              <span className="text-slate-500">Converted</span>
+                              <span className="text-muted-foreground text-[10px]">Optimized</span>
                             )}
                           </div>
                         </div>
+                        
                         <button 
                           onClick={() => downloadOne(img)}
-                          className="shrink-0 rounded-md bg-blue-50 border border-blue-200 p-2 text-blue-700 hover:bg-blue-600 hover:text-white transition-colors dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-300"
-                          title="Download Converted File"
+                          className="shrink-0 h-9 w-9 inline-flex items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-white transition-colors shadow-sm"
+                          title="Download Converted Image"
                         >
                           <Download className="h-4 w-4" />
                         </button>
                       </div>
                       
-                      <div className="mt-auto pt-2 border-t border-slate-100 dark:border-slate-800 text-xs flex justify-between items-center text-slate-500">
-                        <span>Format: <strong className="text-slate-700 dark:text-slate-300 uppercase">{getOutputExtension(img.targetFormat)}</strong></span>
+                      <div className="mt-auto pt-2.5 border-t border-border/50 text-[11px] flex justify-between items-center text-muted-foreground">
+                        <span className="font-medium">Format: <strong className="text-foreground uppercase">{getShortLabel(img.targetFormat)}</strong></span>
                         <span>{formatDate(img.date)}</span>
                       </div>
                     </div>
@@ -598,17 +641,27 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
           
         </div>
 
-        {/* Sidebar Controls */}
+        {/* Sidebar Settings Panel */}
         <div className="w-full lg:w-80 shrink-0">
-          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sticky top-6 dark:border-slate-800 dark:bg-slate-950">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Conversion Settings</h3>
+          <div className="card-3d rounded-[2rem] border border-border/70 bg-card p-6 shadow-sm sticky top-6 space-y-6">
+            <div className="flex items-center gap-2.5 border-b border-border/60 pb-4">
+              <div className="h-8 w-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <Sliders className="h-4 w-4" />
+              </div>
+              <div>
+                <h3 className="text-base font-extrabold text-foreground">Conversion Settings</h3>
+                <p className="text-xs text-muted-foreground">Batch output & compression</p>
+              </div>
+            </div>
             
             <div className="space-y-6">
-              {/* Quality */}
+              {/* Quality Slider */}
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <label className="text-sm font-semibold text-slate-800 dark:text-slate-200">Quality</label>
-                  <span className="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-md">{globalQuality}%</span>
+                <div className="flex justify-between items-center mb-3">
+                  <label className="text-xs font-extrabold uppercase tracking-wider text-muted-foreground">Quality</label>
+                  <span className="rounded-lg bg-primary px-2.5 py-0.5 text-xs font-black text-primary-foreground tabular-nums shadow-sm">
+                    {globalQuality}%
+                  </span>
                 </div>
                 <Slider 
                   min={10} 
@@ -623,15 +676,17 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
                   }} 
                   className="py-2"
                 />
-                <div className="flex justify-between text-xs text-slate-500 mt-2 font-medium">
-                  <span>Smaller Size</span>
+                <div className="flex justify-between text-[11px] font-semibold text-muted-foreground mt-1.5">
+                  <span>Lighter File</span>
                   <span>Maximum Quality</span>
                 </div>
               </div>
 
-              {/* Target Format */}
+              {/* Target Format Selector */}
               <div>
-                <label className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2 block">Target Export Format</label>
+                <label className="text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-2 block">
+                  Export Format
+                </label>
                 <div className="relative">
                   <select 
                     value={globalFormat}
@@ -642,28 +697,69 @@ export const SimpleFormatConverter = forwardRef<SimpleFormatConverterRef, Simple
                         setImages(curr => curr.map(img => selectedIds.has(img.id) ? {...img, targetFormat: newFormat} : img));
                       }
                       if (onModeChange) {
-                        onModeChange(currentSourceExt, getOutputExtension(newFormat).toUpperCase(), newFormat);
+                        onModeChange(currentSourceExt, getShortLabel(newFormat).toUpperCase(), newFormat);
                       }
                     }}
-                    className="w-full appearance-none rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 pr-10 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
+                    className="w-full appearance-none rounded-xl border border-border bg-background px-4 py-3 text-sm font-bold text-foreground outline-none focus:ring-2 focus:ring-primary/25 pr-10 shadow-sm cursor-pointer"
                   >
                     {outputFormatOptions.map(opt => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      <option key={opt.value} value={opt.value} className="bg-background text-foreground font-semibold">
+                        {opt.label}
+                      </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+                  <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 </div>
               </div>
 
-              {/* Bulk Convert Action */}
+              {/* Advanced Options */}
+              <div className="space-y-3 pt-1">
+                <label className="text-xs font-extrabold uppercase tracking-wider text-muted-foreground block">
+                  Advanced Options
+                </label>
+                
+                <div 
+                  onClick={() => setPreserveMetadata(!preserveMetadata)}
+                  className="flex items-center gap-3 p-3 rounded-xl border border-border/60 bg-muted/20 hover:bg-muted/40 cursor-pointer transition-colors"
+                >
+                  <div className={cn(
+                    "h-5 w-5 rounded-md border flex items-center justify-center transition-colors shrink-0",
+                    preserveMetadata ? "bg-primary border-primary text-primary-foreground" : "border-border bg-background"
+                  )}>
+                    {preserveMetadata && <Check className="h-3.5 w-3.5 stroke-[3]" />}
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-foreground block">Preserve Web Quality</span>
+                    <span className="text-[10px] text-muted-foreground">Maintains color gamut and aspect ratio</span>
+                  </div>
+                </div>
+
+                <div 
+                  onClick={() => setLossless(!lossless)}
+                  className="flex items-center gap-3 p-3 rounded-xl border border-border/60 bg-muted/20 hover:bg-muted/40 cursor-pointer transition-colors"
+                >
+                  <div className={cn(
+                    "h-5 w-5 rounded-md border flex items-center justify-center transition-colors shrink-0",
+                    lossless ? "bg-primary border-primary text-primary-foreground" : "border-border bg-background"
+                  )}>
+                    {lossless && <Check className="h-3.5 w-3.5 stroke-[3]" />}
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-foreground block">Lossless Color Profile</span>
+                    <span className="text-[10px] text-muted-foreground">Zero loss compression for sharp graphics</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bulk Convert Action Button */}
               <div className="pt-2">
                 <button 
                   onClick={() => processConversion(Array.from(selectedIds.size > 0 ? selectedIds : new Set(queuedImages.map(img => img.id))))}
                   disabled={queuedImages.length === 0 || queuedImages.some(img => img.status === 'converting')}
-                  className="w-full rounded-xl bg-blue-600 py-3.5 px-4 text-sm font-bold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-600/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                  className="btn-3d shine w-full py-3.5 px-5 rounded-2xl text-sm font-extrabold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 shadow-xl shadow-indigo-500/25 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
                 >
                   <Sparkles className="h-4 w-4" />
-                  Convert {queuedImages.length > 0 ? `(${queuedImages.length} Image${queuedImages.length > 1 ? 's' : ''})` : ''}
+                  Bulk Convert {queuedImages.length > 0 ? `(${queuedImages.length} Image${queuedImages.length > 1 ? 's' : ''})` : ''}
                 </button>
               </div>
 
