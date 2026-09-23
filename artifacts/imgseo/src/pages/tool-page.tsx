@@ -675,6 +675,54 @@ function GeoTaggerPage({ config }: { config: ToolPageConfig }) {
   );
 }
 
+const formatPairFaqs = (sourceFormat: string) => [
+  {
+    question: `Why should I convert ${sourceFormat} to WebP for my website?`,
+    answer: `WebP delivers up to 30-35% smaller file sizes than ${sourceFormat} while preserving crisp visual clarity. Smaller image assets load much faster on mobile networks and directly improve Google Core Web Vitals (LCP).`
+  },
+  {
+    question: `Does converting ${sourceFormat} to WebP preserve transparency?`,
+    answer: sourceFormat === "PNG"
+      ? "Yes! WebP fully supports 24-bit alpha transparency while slashing file sizes by up to 60-70% compared to heavy PNG-24 files."
+      : "JPG does not have transparency. When converting JPG to WebP, the photo retains full color depth and luminance while eliminating redundant compression artifacts."
+  },
+  {
+    question: "Is WebP supported by all modern web browsers?",
+    answer: "Yes. WebP is supported by Google Chrome, Safari, Firefox, Edge, Opera, and mobile browsers on iOS and Android, covering over 97% of global web users."
+  },
+  {
+    question: `Are my ${sourceFormat} images uploaded to an external server?`,
+    answer: "No. All conversion operations run locally inside your browser memory using HTML5 Canvas. Your files remain 100% private on your device."
+  },
+  {
+    question: `Can I convert multiple ${sourceFormat} files to WebP in bulk?`,
+    answer: "Yes. You can drag and drop multiple files at once, convert them simultaneously, and download all WebP assets as a convenient ZIP package."
+  }
+];
+
+const jpgCompressionFaqs = [
+  {
+    question: "How do I compress JPG images without losing quality?",
+    answer: "Our tool utilizes smart quantization matrix compression in your browser. Setting the quality between 75% and 85% typically reduces file size by 60% to 80% without noticeable visual artifacts."
+  },
+  {
+    question: "What is the recommended JPG file size for website hero images?",
+    answer: "For fast page loads and strong SEO, keep hero banners under 150KB–200KB, blog images under 100KB, and thumbnails under 30KB."
+  },
+  {
+    question: "Does compressing JPG images help Google search rankings?",
+    answer: "Yes. Compressing JPGs directly improves Largest Contentful Paint (LCP) and reduces page load times, which are proven Google ranking factors and decrease bounce rates."
+  },
+  {
+    question: "Can I compress multiple JPG files at once and download a ZIP?",
+    answer: "Yes. You can select dozens of JPG images, apply quality settings in bulk, and download individual files or a single consolidated ZIP archive."
+  },
+  {
+    question: "Are my photos uploaded or stored on your servers?",
+    answer: "No. All processing happens 100% locally in your browser sandbox using HTML5 Canvas. Your photos are never uploaded, stored, or viewed by anyone."
+  }
+];
+
 export function FormatPairPage({ sourceFormat }: { sourceFormat: "JPG" | "PNG" }) {
   const title = `${sourceFormat} to WebP Converter`;
   const path = sourceFormat === "JPG" ? "/jpg-to-webp" : "/png-to-webp";
@@ -705,6 +753,7 @@ export function FormatPairPage({ sourceFormat }: { sourceFormat: "JPG" | "PNG" }
       <RichCard eyebrow="PRIVACY AND LIMITS" title="What this conversion does" body="The converter uses browser image APIs to create a new WebP file. It does not promise a fixed percentage reduction: the result depends on dimensions, image content, source encoding, and selected quality. Review the output before publishing, especially for transparency or fine text.">
         <CTAAnchor href="#tool" label={`Start ${sourceFormat} to WebP conversion`} />
       </RichCard>
+      <FAQCard title={`Questions people ask about ${sourceFormat} to WebP conversion`} items={formatPairFaqs(sourceFormat)} />
     </PageShell>
   );
 }
@@ -719,6 +768,7 @@ export function JpgCompressionPage() {
       <RichCard eyebrow="JPG WORKFLOW" title="How to compress a JPG without guessing" body="Upload JPG files, choose a quality level, and compare the original and compressed byte sizes after processing. There is no fixed savings promise because output depends on the source dimensions, image detail, original encoding, and selected format.">
         <BulletRows items={["Use moderate quality for photographs and inspect text or fine detail before publishing.", "Keep JPG when compatibility matters; choose WebP when your publishing stack supports it.", "Batch processing and ZIP download help prepare multiple images in one browser session."]} />
       </RichCard>
+      <FAQCard title="Questions people ask about JPG compression" items={jpgCompressionFaqs} />
     </PageShell>
   );
 }

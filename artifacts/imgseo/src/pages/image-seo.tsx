@@ -1,11 +1,39 @@
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { SeoHead } from "@/components/seo/seo-head";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const sourceLinks = [
   ["Google Search Central: Image SEO best practices", "https://developers.google.com/search/docs/appearance/google-images"],
   ["web.dev: Optimize images", "https://web.dev/learn/performance/image-performance"],
   ["MDN: img element", "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img"],
+];
+
+const imageSeoFaqs = [
+  {
+    question: "What is image SEO and why is it important for Google ranking?",
+    answer: "Image SEO involves optimizing file names, ALT text, dimensions, formats (WebP/AVIF), and metadata so search engines can accurately index and rank your visual content. Well-optimized images drive qualified organic traffic from Google Images, improve accessibility, and accelerate Core Web Vitals."
+  },
+  {
+    question: "What is the best formula for writing image ALT text?",
+    answer: "Keep ALT text descriptive, concise (under 125 characters), and naturally aligned with the image subject. Describe what is visually depicted for screen readers without repeating generic keywords or stuffing phrases."
+  },
+  {
+    question: "How should I name image files for local SEO?",
+    answer: "Use lowercase, hyphen-separated words combining your primary service keyword, location/city, and brand name (e.g. 'emergency-plumber-doha-al-khor.jpg'). Avoid generic camera numbers like 'IMG_3920.jpg'."
+  },
+  {
+    question: "Why should websites use modern formats like WebP instead of JPG/PNG?",
+    answer: "WebP files are typically 25% to 35% smaller than equivalent JPEG and PNG files at identical visual fidelity. Serving WebP slashes byte transfer, speeding up mobile Largest Contentful Paint (LCP)."
+  },
+  {
+    question: "How do image dimensions prevent Cumulative Layout Shift (CLS)?",
+    answer: "Always declare explicit 'width' and 'height' attributes or CSS 'aspect-ratio' on your <img> tags. This allows the browser to reserve the required layout space before the image asset finishes downloading, eliminating sudden content shifts."
+  },
+  {
+    question: "Does Google read and index EXIF GPS metadata in photos?",
+    answer: "Yes. Google extracts EXIF location metadata to evaluate local relevance, especially for Google Business Profile photos and localized service landing pages."
+  }
 ];
 
 export default function ImageSeoPage() {
@@ -58,6 +86,24 @@ export default function ImageSeoPage() {
             <ul className="mt-5 grid gap-3 text-slate-700 md:grid-cols-2">
               {['The image has a clear purpose', 'Alt text is useful or intentionally empty', 'Filename describes the subject', 'Dimensions match the display need', 'Format and quality suit the content', 'The image sits near relevant copy'].map((item) => <li key={item} className="rounded-xl bg-white/70 p-3">✓ {item}</li>)}
             </ul>
+          </section>
+
+          {/* People Also Ask FAQ Section */}
+          <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-7 shadow-sm md:p-10">
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Frequently Asked Questions</p>
+            <h2 className="mt-2 text-2xl font-black text-slate-900 md:text-3xl">Questions People Ask About Image SEO</h2>
+            <Accordion type="single" collapsible className="mt-8 space-y-2">
+              {imageSeoFaqs.map((faq, index) => (
+                <AccordionItem key={faq.question} value={`faq-${index}`} className="border-slate-200">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:no-underline text-slate-900">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base leading-relaxed text-slate-600">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </section>
 
           <p className="mt-8 text-sm text-slate-600">Need location metadata? <a className="font-bold text-violet-700 hover:underline" href="/free-geo-tagger">Use the browser-based geo tagger →</a></p>

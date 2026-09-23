@@ -33,12 +33,24 @@ export const spanishToolConfigs: Record<string, ToolPageConfig> = {
     ],
     faqs: [
       {
-        q: "¿Por qué utilizar WebP en lugar de JPG o PNG?",
-        a: "WebP ofrece una compresión hasta un 35% más eficiente que JPEG manteniendo una fidelidad visual idéntica, lo que reduce drásticamente el tiempo de carga móvil.",
+        q: "¿Por qué utilizar el formato WebP en lugar de JPG o PNG para SEO?",
+        a: "WebP ofrece una compresión hasta un 35% más eficiente que JPEG manteniendo una fidelidad visual idéntica, lo que acelera el Largest Contentful Paint (LCP) y reduce drásticamente el tiempo de carga móvil.",
+      },
+      {
+        q: "¿Se reduce la calidad de la foto al convertirla a WebP?",
+        a: "No perceptiblemente. WebP utiliza algoritmos avanzados de codificación predictiva que conservan los detalles finos y degradados mientras eliminan datos innecesarios.",
+      },
+      {
+        q: "¿Es compatible el formato WebP con todos los navegadores modernos y Google?",
+        a: "Sí. WebP cuenta con compatibilidad total en Google Chrome, Safari, Firefox, Edge y dispositivos móviles Android e iOS (más del 97% del tráfico web mundial).",
       },
       {
         q: "¿Se suben mis fotos a algún servidor durante la conversión?",
-        a: "No. Toda la transformación se realiza mediante la memoria local de tu navegador y Canvas API. Máxima privacidad garantizada.",
+        a: "No. Toda la transformación se realiza mediante la memoria local de tu navegador y Canvas API. Máxima privacidad garantizada sin retención externa.",
+      },
+      {
+        q: "¿Puedo convertir varias imágenes a WebP en lote a la vez?",
+        a: "Sí. Puedes arrastrar decenas de imágenes simultáneamente y descargarlas todas juntas en un archivo comprimido ZIP.",
       },
     ],
   },
@@ -72,8 +84,24 @@ export const spanishToolConfigs: Record<string, ToolPageConfig> = {
     ],
     faqs: [
       {
-        q: "¿Cómo ayuda la geolocalización de fotos al SEO local?",
-        a: "Los metadatos GPS proporcionan a los motores de búsqueda una confirmación verificable de la ubicación geográfica de tu negocio.",
+        q: "¿Cómo ayuda la geolocalización de fotos (geotagging) al SEO local?",
+        a: "Los metadatos GPS incrustados en la cabecera EXIF proporcionan a Google y a los algoritmos de mapas una confirmación verificable de la ubicación física donde opera tu negocio o servicio.",
+      },
+      {
+        q: "¿Lee Google las coordenadas GPS EXIF para posicionar en Google Maps y GBP?",
+        a: "Sí. Google extrae metadatos EXIF en Google Business Profile y búsquedas locales. Al combinarse con nombres de archivo optimizados y páginas de destino locales, refuerza la relevancia geográfica.",
+      },
+      {
+        q: "¿Cómo añadir coordenadas GPS a fotos para Google Business Profile?",
+        a: "Selecciona tu ubicación en nuestro mapa, sube tus fotos de trabajos o local comercial, genera las etiquetas GPS y descarga el archivo JPEG listo para subir a tu ficha de negocio.",
+      },
+      {
+        q: "¿Qué formatos de imagen admiten metadatos GPS EXIF?",
+        a: "El formato estándar universal para metadatos EXIF GPS es JPEG/JPG. Nuestra herramienta convierte y optimiza automáticamente las fotos en JPEG con compatibilidad EXIF total.",
+      },
+      {
+        q: "¿Son privadas y seguras mis fotos y datos de localización?",
+        a: "100% privadas. El procesamiento se ejecuta en el entorno seguro de tu navegador. Ninguna imagen o coordenada se envía a servidores de terceros.",
       },
     ],
   },
@@ -107,8 +135,24 @@ export const spanishToolConfigs: Record<string, ToolPageConfig> = {
     ],
     faqs: [
       {
-        q: "¿Existe límite en la cantidad de fotos que puedo comprimir?",
-        a: "No, puedes comprimir lotes enteros de imágenes ya que el procesamiento corre sobre los recursos de tu propio dispositivo.",
+        q: "¿Cómo reduce este compresor el tamaño en KB sin perder calidad visual?",
+        a: "Utiliza algoritmos inteligentes de compresión en Canvas que eliminan información redundante de píxeles imperceptible para el ojo humano, reduciendo drásticamente el peso del archivo.",
+      },
+      {
+        q: "¿Cuál es el peso recomendado en KB para imágenes de un sitio web?",
+        a: "Para banners y cabeceras principales, se recomienda mantener el peso por debajo de 150KB–200KB; para fotos de artículos y galerías, entre 50KB y 100KB; y para miniaturas, menos de 30KB.",
+      },
+      {
+        q: "¿Mejora la compresión de imágenes la puntuación en Google PageSpeed Insights?",
+        a: "Sí. Las imágenes pesadas son la principal causa de retraso en la métrica Largest Contentful Paint (LCP). Comprimir tus fotos puede reducir el peso total de la página hasta un 80%.",
+      },
+      {
+        q: "¿Existe límite en la cantidad de fotos o tamaño que puedo comprimir?",
+        a: "No hay límites. La compresión corre localmente con el hardware de tu propio dispositivo, sin suscripciones, marcas de agua ni colas de espera.",
+      },
+      {
+        q: "¿Es seguro comprimir fotos confidenciales de clientes?",
+        a: "Totalmente seguro. Tus fotos nunca salen de tu ordenador ni se transfieren por internet.",
       },
     ],
   },

@@ -114,19 +114,34 @@ export const toolPageConfigs: Record<ToolMode, ToolPageConfig> = {
     ],
     faq: [
       {
-        question: "Is this WebP converter free?",
+        question: "Is this WebP converter completely free and unlimited?",
         answer:
-          "Yes. The converter runs in the browser, requires no login, and does not charge for conversions.",
+          "Yes. The converter runs 100% locally in your browser sandbox, requires no account or subscription, and allows unlimited conversions with zero file queues.",
       },
       {
-        question: "Does the converter upload my images?",
+        question: "Does converting JPG or PNG to WebP reduce image quality?",
         answer:
-          "No. Image conversion happens locally in the browser so files do not get sent to a remote server.",
+          "WebP delivers up to 30-35% smaller file sizes compared to standard JPEG while preserving indistinguishable visual sharpness. You can also tune the quality slider to match your exact visual requirements.",
       },
       {
-        question: "Why use WebP instead of JPG for SEO pages?",
+        question: "Are WebP images supported by Google and all modern browsers?",
         answer:
-          "WebP usually delivers smaller file sizes at similar visual quality, which helps pages load faster and supports stronger performance signals.",
+          "Yes. WebP is fully supported across Google Chrome, Apple Safari, Mozilla Firefox, Microsoft Edge, Opera, and iOS/Android mobile browsers (covering over 97% of global web users).",
+      },
+      {
+        question: "How does WebP format improve Google Core Web Vitals and SEO rankings?",
+        answer:
+          "Because WebP files are significantly lighter, they accelerate Largest Contentful Paint (LCP) and First Contentful Paint (FCP), decreasing mobile bounce rates and providing direct positive ranking signals.",
+      },
+      {
+        question: "Does the WebP converter upload my images to any server?",
+        answer:
+          "No. All encoding happens in your browser memory using HTML5 Canvas APIs. Your private images and confidential client assets never leave your computer.",
+      },
+      {
+        question: "Can I convert multiple images to WebP in bulk and download a ZIP?",
+        answer:
+          "Yes. You can drag and drop multiple JPG, PNG, AVIF, or BMP files simultaneously and download all converted WebP files in a single organized ZIP archive.",
       },
     ],
   },
@@ -198,19 +213,34 @@ export const toolPageConfigs: Record<ToolMode, ToolPageConfig> = {
     ],
     faq: [
       {
-        question: "Does this geo tagger require ExifTool or extra software?",
+        question: "What is image geo tagging and how does it help local SEO?",
         answer:
-          "No. You can select a location and embed GPS metadata directly in the browser without installing desktop software.",
+          "Geo tagging embeds latitude and longitude coordinates into your image's EXIF metadata header. Search engines and map algorithms use this geographical data to verify that your service photos were captured in your target service area or city.",
       },
       {
-        question: "Can I geo-tag multiple images at once?",
+        question: "Does Google read GPS EXIF coordinates in photos for ranking?",
         answer:
-          "Yes. The tool supports batch processing so you can apply the same location to multiple files in one workflow.",
+          "Google's image search and local entity algorithms extract and parse EXIF metadata. When combined with localized filenames, ALT text, and matching landing page content, geotagged images provide a cohesive trust signal for local pack rankings.",
       },
       {
-        question: "Are my photos uploaded during geo-tagging?",
+        question: "How do I add GPS coordinates to photos for Google Business Profile (GBP)?",
         answer:
-          "No. The geo-tagging process runs locally in your browser and keeps your images on your machine.",
+          "Use our interactive map to pin your business address, upload your storefront or completed job photos, click embed GPS, and upload the exported JPEG directly to your Google Business Profile photo library.",
+      },
+      {
+        question: "Which image formats support GPS EXIF embedding?",
+        answer:
+          "JPEG/JPG natively supports the EXIF standard for GPS latitude, longitude, and altitude tags. PNG and WebP formats use different chunk formats, so our tool automatically outputs optimized JPEG files with full EXIF compliance.",
+      },
+      {
+        question: "Are my uploaded photos and business coordinates private?",
+        answer:
+          "Yes 100%. All EXIF manipulation occurs client-side inside your browser sandbox. No photo or location data is ever transmitted, logged, or saved on our servers.",
+      },
+      {
+        question: "Can I geotag photos in batch and download them all at once?",
+        answer:
+          "Yes. You can select multiple images, apply a single location pin or coordinates, and download all geotagged images individually or packed into a ZIP file.",
       },
     ],
   },
@@ -282,19 +312,34 @@ export const toolPageConfigs: Record<ToolMode, ToolPageConfig> = {
     ],
     faq: [
       {
-        question: "Will compression ruin image quality?",
+        question: "How does this image compressor reduce file size without losing quality?",
         answer:
-          "Not if you choose balanced settings. Moderate compression usually preserves visual clarity while cutting file size substantially.",
+          "The tool uses intelligent lossy and lossless Canvas compression algorithms to remove redundant color and pixel data that the human eye cannot perceive, drastically reducing byte size while retaining crisp clarity.",
       },
       {
-        question: "Is this compressor private?",
+        question: "What is the recommended image file size for website SEO?",
         answer:
-          "Yes. Compression happens in the browser, so the original images are not uploaded to a remote server.",
+          "For optimal page speed and Google PageSpeed Insights scores, aim for banner/hero images under 150KB–200KB, blog illustrations under 100KB, and thumbnails under 30KB.",
       },
       {
-        question: "Can I compress several images at once?",
+        question: "Does compressing images improve Google PageSpeed Insights and Core Web Vitals?",
         answer:
-          "Yes. You can upload multiple images, process them together, and export them individually or as a ZIP.",
+          "Yes. Image weight is the #1 cause of slow Largest Contentful Paint (LCP). Compressing your media can slash total page weight by 60–80%, immediately lifting your PageSpeed scores.",
+      },
+      {
+        question: "Which image formats can I compress with this tool?",
+        answer:
+          "You can compress JPG, JPEG, PNG, and WebP files. You can also convert between formats during compression (e.g. converting heavy PNG to lightweight WebP).",
+      },
+      {
+        question: "Is there any limit on file quantity or image dimensions?",
+        answer:
+          "No. Because compression runs locally using your device hardware, there are no artificial file upload limits, subscription barriers, or daily quotas.",
+      },
+      {
+        question: "Are my photos uploaded to any server or stored anywhere?",
+        answer:
+          "Never. All compression operations run 100% on the client side in your web browser. Your private images are never transferred over the network.",
       },
     ],
   },

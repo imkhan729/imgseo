@@ -7,20 +7,28 @@ import { Sliders, ShieldCheck, Zap, FileCheck } from "lucide-react";
 
 const faqItems = [
   {
-    question: "How does the target-size compressor reach an exact KB limit?",
-    answer: "Our tool runs an iterative binary-search algorithm directly in your browser. It calculates the optimal quality setting and dimension scaling required to ensure the final output byte size is strictly at or below your target (e.g. 50 KB, 100 KB, or 200 KB) without sacrificing unnecessary visual sharpness."
+    question: "How does the target-size compressor reach an exact KB limit (20KB, 50KB, 100KB, 200KB)?",
+    answer: "Our tool executes an iterative binary-search optimization algorithm in your browser memory. It automatically calculates the optimal compression ratio and canvas resolution to guarantee your final file is strictly at or below your target KB limit without unnecessary degradation."
   },
   {
-    question: "Are my photos uploaded to an external server?",
-    answer: "No. All compression, analysis, and downloads execute 100% locally inside your browser memory using HTML5 Canvas. Your files are never uploaded, stored, or tracked."
+    question: "Are my confidential photos or passport scans uploaded to an external server?",
+    answer: "No. All compression, analysis, and downloads execute 100% locally inside your browser memory using HTML5 Canvas. Your sensitive identity files, visa scans, and personal documents never leave your computer."
   },
   {
-    question: "Which formats are supported?",
-    answer: "You can upload JPEG, PNG, or WebP images and export them as either compressed JPEG or modern WebP files."
+    question: "Which image formats are supported for exact KB compression?",
+    answer: "You can upload JPEG, JPG, PNG, and WebP images and export them as either universally accepted JPEG files or lightweight modern WebP files."
   },
   {
-    question: "Can I compress multiple images to the same KB target at once?",
-    answer: "Yes. You can drag and drop dozens of images, apply your target limit (e.g. 100KB), and download them individually or as a single bulk ZIP archive."
+    question: "Can I compress multiple images to the same KB target at once and download a ZIP?",
+    answer: "Yes. You can drag and drop dozens of images, select your preset target limit (e.g. 50KB or 100KB), and download them individually or as a single batch ZIP archive."
+  },
+  {
+    question: "Why do government job portals and visa applications enforce strict KB limits?",
+    answer: "Government portals and application forms handle millions of submissions and strictly cap file sizes (such as 20KB for signatures or 50KB for passport photos) to prevent database overload and ensure fast document validation."
+  },
+  {
+    question: "How does compressing images below 100KB boost SEO and Core Web Vitals?",
+    answer: "Serving images under 100KB dramatically reduces mobile data transfer, speeds up Largest Contentful Paint (LCP), and prevents Cumulative Layout Shift (CLS), improving Google search rankings."
   }
 ];
 

@@ -22,7 +22,26 @@ export const portugueseToolConfigs: Record<string, ToolPageConfig> = {
       { title: "Baixe instantaneamente", body: "Salve os arquivos WebP individualmente ou em arquivo ZIP compacto." },
     ],
     faqs: [
-      { q: "Por que converter imagens para WebP?", a: "O formato WebP gera arquivos até 35% menores que o JPEG com a mesma qualidade visual." },
+      {
+        q: "Por que converter imagens para WebP no SEO?",
+        a: "O formato WebP gera arquivos até 35% menores que o JPEG com a mesma fidelidade visual, melhorando o Largest Contentful Paint (LCP) e a velocidade mobile.",
+      },
+      {
+        q: "A qualidade da imagem diminui ao converter para WebP?",
+        a: "Não perceptivelmente. O WebP utiliza algoritmos preditivos avançados que preservam bordas e gradientes removendo dados redundantes.",
+      },
+      {
+        q: "O formato WebP é compatível com todos os navegadores modernos?",
+        a: "Sim. Google Chrome, Safari, Firefox, Edge e navegadores mobile no Android e iOS oferecem suporte completo ao WebP (mais de 97% dos usuários globais).",
+      },
+      {
+        q: "As minhas fotos são enviadas para algum servidor durante a conversão?",
+        a: "Não. Toda a conversão ocorre localmente na memória do seu navegador via HTML5 Canvas. Total privacidade e segurança.",
+      },
+      {
+        q: "Posso converter várias imagens para WebP em lote de uma só vez?",
+        a: "Sim. Você pode arrastar dezenas de fotos simultaneamente e baixá-las em um único arquivo ZIP consolidado.",
+      },
     ],
   },
   "geo-tagger": {
@@ -45,7 +64,26 @@ export const portugueseToolConfigs: Record<string, ToolPageConfig> = {
       { title: "Injete os dados EXIF e baixe", body: "Baixe os arquivos JPEG com as coordenadas GPS embutidas." },
     ],
     faqs: [
-      { q: "Como o geotag ajuda no SEO local?", a: "Os metadados GPS confirmam para os motores de busca onde o serviço ou foto foi realizado." },
+      {
+        q: "Como o geotagging de fotos ajuda no SEO local?",
+        a: "As coordenadas GPS embutidas no cabeçalho EXIF confirmam para os motores de busca o local geográfico real onde seu serviço ou empresa opera.",
+      },
+      {
+        q: "O Google lê dados GPS EXIF para ranquear no Google Maps e Perfil da Empresa?",
+        a: "Sim. O Google analisa metadados EXIF como um sinal de relevância geográfica, especialmente quando combinado com nomes de arquivo locais e páginas correspondentes.",
+      },
+      {
+        q: "Como adicionar coordenadas GPS em fotos do Google Meu Negócio?",
+        a: "Defina o local no mapa interativo, carregue as fotos do seu estabelecimento, gere as tags GPS e faça upload das imagens JPEG geradas no seu perfil.",
+      },
+      {
+        q: "Quais formatos de imagem suportam metadados EXIF GPS?",
+        a: "O padrão universal com suporte nativo a EXIF GPS é o JPEG/JPG. Nossa ferramenta gera arquivos JPEG perfeitamente compatíveis.",
+      },
+      {
+        q: "Minhas fotos e dados de localização ficam salvos em algum lugar?",
+        a: "Não. Toda a inserção de metadados ocorre 100% no seu próprio navegador. Nada é enviado para a nuvem.",
+      },
     ],
   },
   "online-image-compressor": {
@@ -68,7 +106,26 @@ export const portugueseToolConfigs: Record<string, ToolPageConfig> = {
       { title: "Baixe com um clique", body: "Baixe individualmente ou em arquivo ZIP consolidado." },
     ],
     faqs: [
-      { q: "As fotos são enviadas para algum servidor?", a: "Não. Todo o processamento ocorre no próprio navegador via HTML5 Canvas." },
+      {
+        q: "Como este compressor reduz o tamanho do arquivo sem perder qualidade?",
+        a: "Ele utiliza algoritmos inteligentes de compressão Canvas que removem dados imperceptíveis ao olho humano, reduzindo os KBs drasticamente.",
+      },
+      {
+        q: "Qual o tamanho de arquivo recomendado para imagens de websites?",
+        a: "Imagens de destaque e banners devem ficar abaixo de 150KB–200KB; fotos de artigos abaixo de 100KB; e ícones ou miniaturas abaixo de 30KB.",
+      },
+      {
+        q: "Comprimir imagens melhora o PageSpeed Insights do Google?",
+        a: "Sim. O peso das imagens é a causa mais comum de lentidão no LCP. A compressão pode reduzir o peso total da página em até 80%.",
+      },
+      {
+        q: "Existe limite no número de fotos ou tamanho para comprimir?",
+        a: "Não há limites. A ferramenta roda com o poder de processamento do seu próprio aparelho, sem planos pagos nem cadastros.",
+      },
+      {
+        q: "É seguro comprimir fotos comerciais e confidenciais?",
+        a: "Totalmente seguro. Os arquivos nunca saem da memória local do seu navegador.",
+      },
     ],
   },
 };
@@ -95,7 +152,26 @@ export const arabicToolConfigs: Record<string, ToolPageConfig> = {
       { title: "حمّل الصور فورًا", body: "احفظ الصور بصيغة WebP بشكل فردي أو في ملف ZIP." },
     ],
     faqs: [
-      { q: "لماذا يفضل استخدام صيغة WebP؟", a: "توفر صيغة WebP ضغطًا أعلى بنسبة 35% مقارنة بـ JPEG مع الحفاظ الكامل على نقاء الصورة." },
+      {
+        q: "لماذا يفضل استخدام صيغة WebP لتحسين السيو وتجربة المستخدم؟",
+        a: "توفر صيغة WebP ضغطًا أعلى بنسبة تصل إلى 35% مقارنة بـ JPEG مع الحفاظ الكامل على نقاء الصورة، مما يسرع تحميل الموقع ويحسن مؤشرات Core Web Vitals.",
+      },
+      {
+        q: "هل تقل جودة الصورة عند تحويلها إلى صيغة WebP؟",
+        a: "لا، تحافظ خوارزميات WebP على وضوح التفاصيل الدقيقة والألوان مع التخلص الذكي من البيانات غير الضرورية.",
+      },
+      {
+        q: "هل تدعم جميع المتصفحات الحديثة صيغة WebP؟",
+        a: "نعم، تدعم متصفحات Google Chrome وSafari وFirefox وEdge وجميع متصفحات الهواتف الذكية صيغة WebP بنسبة تتجاوز 97%.",
+      },
+      {
+        q: "هل يتم رفع صوري إلى أي خادم خارجي أثناء التحويل؟",
+        a: "لا على الإطلاق. تتم كل عمليات التحويل والمعالجة محليًا داخل ذاكرة متصفحك لضمان أقصى درجات الخصوصية والأمان.",
+      },
+      {
+        q: "هل يمكنني تحويل مجموعة صور معًا وتنزيلها في ملف مضغوط؟",
+        a: "نعم، يمكنك سحب عشرات الصور دفعة واحدة وتحويلها وتنزيلها معًا في ملف ZIP بضغطة زر.",
+      },
     ],
   },
   "geo-tagger": {
@@ -118,7 +194,26 @@ export const arabicToolConfigs: Record<string, ToolPageConfig> = {
       { title: "احفظ وحمّل الصور", body: "حمّل الصور الجاهزة المدمج بها بيانات الموقع الجغرافي." },
     ],
     faqs: [
-      { q: "كيف يساعد Geotagging في السيو المحلي؟", a: "تمنح بيانات GPS محركات البحث دليلاً جغرافيًا موثوقًا على موقع التقاط الصور ونشاطك التجاري." },
+      {
+        q: "كيف تساعد إضافة إحداثيات GPS للصور (Geotagging) في السيو المحلي؟",
+        a: "تمنح بيانات GPS المدمجة في ترويسة EXIF محركات البحث دليلاً جغرافيًا موثوقًا على موقع التقاط الصور ومقر نشاطك التجاري لتعزيز الظهور المحلي.",
+      },
+      {
+        q: "هل يقرأ جوجل إحداثيات GPS في الصور لتحسين ترتيب الخرائط ونشاطي التجاري؟",
+        a: "نعم، يستخرج جوجل بيانات EXIF في الملفات المرفوعة إلى Google Business Profile لدعم الثقة الجغرافية وتطابق الموقع.",
+      },
+      {
+        q: "كيف أضيف إحداثيات GPS لصور الملف التجاري في جوجل؟",
+        a: "حدد عنوان متجرك على الخريطة التفاعلية، ارفع صور المتجر أو الأعمال المنجزة، ثم اضغط حفظ وحمّل ملفات JPEG المدمجة لرفعها مباشرة إلى صفحتك.",
+      },
+      {
+        q: "ما هي صيغ الصور التي تدعم بيانات EXIF GPS؟",
+        a: "صيغة JPEG/JPG هي المعيار العالمي الأساسي لبيانات EXIF GPS، وتقوم أداتنا بتصدير صور JPEG متوافقة تمامًا.",
+      },
+      {
+        q: "هل صوري وموقعي الجغرافي في أمان وسرية تامة؟",
+        a: "نعم بنسبة 100%، تتم كافة العمليات داخل متصفحك دون إرسال أي ملف أو إحداثيات إلى خوادمنا.",
+      },
     ],
   },
   "online-image-compressor": {
@@ -141,7 +236,26 @@ export const arabicToolConfigs: Record<string, ToolPageConfig> = {
       { title: "حمّل الصور بنقرة واحدة", body: "احفظ الصور فورًا على جهازك بأمان تام." },
     ],
     faqs: [
-      { q: "هل تبقى صوري آمنة وخاصة؟", a: "نعم، تتم جميع العمليات داخل جهازك عبر المتصفح دون إرسال أي بايت إلى خوادم خارجية." },
+      {
+        q: "كيف يقوم هذا البرنامج بضغط الصور دون الإضرار بجودتها؟",
+        a: "يستخدم خوارزميات ضغط ذكية تتخلص من درجات البكسل والبيانات غير المرئية للعين البشرية، مما يقلل الحجم بالكيلوبايت بنسبة هائلة مع الحفاظ على صفاء الصورة.",
+      },
+      {
+        q: "ما هو الحجم المثالي لصور صفحات المواقع والمتاجر الإلكترونية؟",
+        a: "ينصح بإبقاء صور البانر الرئيسية أقل من 150-200 كيلوبايت، وصور المقالات والمنتجات أقل من 100 كيلوبايت، والرموز والأيقونات أقل من 30 كيلوبايت.",
+      },
+      {
+        q: "هل يساعد ضغط الصور في رفع تقييم Google PageSpeed؟",
+        a: "نعم، الصور الثقيلة هي المسبب الأكبر لبطء تحميل الصفحات. ضغط الصور يقلل استهلاك الباندويث ويسرع مؤشر Largest Contentful Paint (LCP).",
+      },
+      {
+        q: "هل توجد أي حدود لعدد الصور أو حد أقصى للحجم؟",
+        a: "لا توجد أي قيود، فالضغط يعتمد على معالج جهازك مباشرة، ومتاح مجانًا بدون اشتراكات أو علامات مائية.",
+      },
+      {
+        q: "هل يتم الاحتفاظ بصوري أو رفعها إلى أي مكان؟",
+        a: "أبدًا، جميع عمليات المعالجة تجري محليًا داخل متصفحك ولا تمر عبر الإنترنت مطلقًا.",
+      },
     ],
   },
 };
@@ -168,7 +282,26 @@ export const indonesianToolConfigs: Record<string, ToolPageConfig> = {
       { title: "Unduh file WebP", body: "Download file WebP secara instan tanpa batas kuota." },
     ],
     faqs: [
-      { q: "Mengapa harus menggunakan format WebP?", a: "WebP berukuran hingga 35% lebih kecil dibandingkan JPG dengan kualitas visual yang sama tajamnya." },
+      {
+        q: "Mengapa format WebP sangat direkomendasikan untuk SEO?",
+        a: "WebP berukuran hingga 35% lebih kecil dibandingkan JPG dengan kualitas visual yang sama tajamnya, mempercepat waktu loading dan skor Core Web Vitals Google.",
+      },
+      {
+        q: "Apakah kualitas gambar berkurang saat dikonversi ke WebP?",
+        a: "Tidak secara kasat mata. Format WebP menggunakan algoritma canggih yang mempertahankan ketajaman detail dan warna gambar.",
+      },
+      {
+        q: "Apakah semua browser dan perangkat mendukung format WebP?",
+        a: "Ya. Google Chrome, Safari, Firefox, Edge, serta browser HP Android dan iPhone mendukung penuh WebP (mencakup lebih dari 97% pengguna internet).",
+      },
+      {
+        q: "Apakah foto saya diunggah ke server saat proses konversi?",
+        a: "Tidak. Seluruh proses konversi berjalan 100% di memori browser perangkat Anda menggunakan HTML5 Canvas. Privasi Anda terjamin aman.",
+      },
+      {
+        q: "Bisakah saya mengonversi banyak gambar ke WebP sekaligus?",
+        a: "Ya, Anda bisa drag-and-drop puluhan gambar secara massal dan mengunduh semuanya dalam satu file ZIP.",
+      },
     ],
   },
   "geo-tagger": {
@@ -191,7 +324,26 @@ export const indonesianToolConfigs: Record<string, ToolPageConfig> = {
       { title: "Simpan data GPS", body: "Unduh foto JPEG yang telah disematkan metadata lokasi GPS." },
     ],
     faqs: [
-      { q: "Apa manfaat geotag untuk SEO lokal?", a: "Data koordinat GPS membantu Google memvalidasi keberadaan fisik dan lokasi usaha Anda." },
+      {
+        q: "Apa manfaat geotagging foto untuk SEO lokal?",
+        a: "Data koordinat GPS pada header EXIF memberikan bukti fisik yang valid kepada Google bahwa layanan atau foto Anda benar-benar berada di lokasi target.",
+      },
+      {
+        q: "Apakah Google membaca koordinat GPS EXIF untuk peringkat Google Maps & Profil Bisnis?",
+        a: "Ya. Google mengekstrak metadata EXIF untuk mencocokkan relevansi geografis foto dengan alamat bisnis Anda.",
+      },
+      {
+        q: "Bagaimana cara menyematkan lokasi GPS pada foto Google Bisnisku (GBP)?",
+        a: "Cari lokasi usaha Anda pada peta interaktif, unggah foto, pasang tag GPS, dan unduh foto JPEG yang siap diunggah ke profil bisnis Anda.",
+      },
+      {
+        q: "Format foto apa yang mendukung metadata GPS EXIF?",
+        a: "Format standar yang mendukung EXIF GPS secara universal adalah JPEG/JPG. Alat kami otomatis menghasilkan output JPEG yang kompatibel.",
+      },
+      {
+        q: "Apakah foto dan data lokasi saya disimpan di server?",
+        a: "Tidak. Semua proses penulisan metadata dilakukan 100% secara lokal di browser Anda.",
+      },
     ],
   },
   "online-image-compressor": {
@@ -214,7 +366,26 @@ export const indonesianToolConfigs: Record<string, ToolPageConfig> = {
       { title: "Unduh langsung", body: "Download hasil foto satu per satu atau dalam file ZIP." },
     ],
     faqs: [
-      { q: "Apakah foto saya diunggah ke server?", a: "Tidak. Semua pemrosesan berlangsung di browser Anda secara offline/lokal." },
+      {
+        q: "Bagaimana cara kerja kompresor ini mengecilkan file tanpa pecah?",
+        a: "Menggunakan algoritma kompresi Canvas cerdas yang membuang data warna tak terlihat mata, sehingga ukuran KB berkurang drastis namun gambar tetap jernih.",
+      },
+      {
+        q: "Berapa ukuran file foto yang ideal untuk website?",
+        a: "Foto banner disarankan di bawah 150KB–200KB; foto produk dan artikel di bawah 100KB; dan ikon atau thumbnail di bawah 30KB.",
+      },
+      {
+        q: "Apakah kompresi gambar meningkatkan skor Google PageSpeed?",
+        a: "Ya. Gambar yang terlalu berat adalah faktor utama loading lambat. Kompresi dapat menghemat hingga 80% total ukuran halaman web.",
+      },
+      {
+        q: "Apakah ada batasan jumlah foto atau ukuran file?",
+        a: "Tidak ada batasan sama sekali karena proses menggunakan tenaga perangkat Anda sendiri, tanpa biaya langganan.",
+      },
+      {
+        q: "Apakah aman mengompres foto sensitif dan penting?",
+        a: "Sangat aman. Foto Anda tidak pernah dikirim ke internet atau disimpan di server mana pun.",
+      },
     ],
   },
 };
@@ -241,7 +412,26 @@ export const hindiToolConfigs: Record<string, ToolPageConfig> = {
       { title: "तुरंत डाउनलोड करें", body: "बिना किसी सीमा के WebP फाइलें तुरंत सेव करें।" },
     ],
     faqs: [
-      { q: "WebP फॉर्मेट का क्या फ़ायदा है?", a: "WebP फॉर्मेट समान क्वालिटी में JPG से 35% तक हल्का होता है, जिससे वेबसाइट बहुत तेज़ी से खुलती है।" },
+      {
+        q: "वेबसाइट एसईओ के लिए WebP फॉर्मेट का क्या फ़ायदा है?",
+        a: "WebP फॉर्मेट समान विज़ुअल क्वालिटी में JPG की तुलना में 35% तक हल्का होता है, जिससे वेबसाइट लोडिंग स्पीड और Core Web Vitals स्कोर काफी बेहतर होता है।",
+      },
+      {
+        q: "क्या WebP में बदलने से फ़ोटो की क्वालिटी कम हो जाती है?",
+        a: "नहीं, WebP के आधुनिक एल्गोरिदम तस्वीर की शार्पनेस और रंगों को बनाए रखते हुए अनावश्यक बाइट्स को हटा देते हैं।",
+      },
+      {
+        q: "क्या सभी ब्राउज़र और मोबाइल डिवाइस WebP को सपोर्ट करते हैं?",
+        a: "हाँ, Google Chrome, Safari, Firefox, Edge और सभी आधुनिक Android व iOS मोबाइल ब्राउज़र WebP को 100% सपोर्ट करते हैं।",
+      },
+      {
+        q: "क्या कन्वर्शन के दौरान मेरी फ़ोटो किसी सर्वर पर अपलोड होती है?",
+        a: "बिल्कुल नहीं। सभी कन्वर्शन आपके ब्राउज़र की लोकल मेमोरी में होते हैं, जिससे आपकी प्राइवेसी पूरी तरह सुरक्षित रहती है।",
+      },
+      {
+        q: "क्या मैं एक साथ कई फ़ोटो को WebP में बदल सकता हूँ?",
+        a: "हाँ, आप एक साथ दर्जनों फ़ोटो चुनकर उन्हें बल्क में कन्वर्ट कर सकते हैं और एक ZIP फ़ाइल में डाउनलोड कर सकते हैं।",
+      },
     ],
   },
   "geo-tagger": {
@@ -264,14 +454,33 @@ export const hindiToolConfigs: Record<string, ToolPageConfig> = {
       { title: "GPS डेटा जोड़ें और डाउनलोड करें", body: "लोकेशन टैग की गई JPG फ़ाइल डाउनलोड करें।" },
     ],
     faqs: [
-      { q: "जियोटैगिंग से लोकल एसईओ में क्या मदद मिलती है?", a: "GPS डेटा से गूगल को प्रमाणित होता है कि फ़ोटो वास्तव में उसी शहर या दुकान पर खींची गई है।" },
+      {
+        q: "जियोटैगिंग से लोकल एसईओ और गूगल मैप्स में क्या मदद मिलती है?",
+        a: "तस्वीर के EXIF हेडर में GPS कोऑर्डिनेट्स (अक्षांश और देशांतर) जोड़ने से सर्च इंजन को प्रमाणित होता है कि आपका काम उसी शहर में हुआ है।",
+      },
+      {
+        q: "क्या गूगल फ़ोटो के GPS EXIF डेटा को रैंकिंग के लिए पढ़ता है?",
+        a: "हाँ, गूगल बिज़नेस प्रोफ़ाइल और लोकल सर्च एल्गोरिदम इमेज मेटाडेटा को सत्यापित लोकेशन सिग्नल के रूप में इस्तेमाल करते हैं।",
+      },
+      {
+        q: "Google Business Profile के लिए फ़ोटो में लोकेशन कैसे जोड़ें?",
+        a: "मैप पर अपनी दुकान या सर्विस एरिया चुनें, फ़ोटो अपलोड करें, GPS टैग इंजेक्ट करें और तैयार JPEG फ़ोटो को गूगल प्रोफ़ाइल पर अपलोड करें।",
+      },
+      {
+        q: "कौन-से इमेज फॉर्मेट GPS EXIF मेटाडेटा को सपोर्ट करते हैं?",
+        a: "EXIF GPS स्टैंडर्ड को मुख्य रूप से JPEG/JPG फॉर्मेट सपोर्ट करता है, और हमारा टूल पूरी तरह अनुकूलित JPEG फ़ाइल जनरेट करता है।",
+      },
+      {
+        q: "क्या मेरी तस्वीरें और लोकेशन डेटा सुरक्षित रहते हैं?",
+        a: "हाँ 100% सुरक्षित। सारा काम आपके ब्राउज़र में होता है, कोई भी फ़ाइल हमारे सर्वर पर नहीं भेजी जाती।",
+      },
     ],
   },
   "online-image-compressor": {
     path: "/hi/free-online-image-compressor",
     navLabel: "फोटो कम्प्रेसर",
     metaTitle: "फोटो का साइज कम करें — मुफ़्त इमेज कम्प्रेसर ऑनलाइन | ImageSEO",
-    metaDescription: "JPG, PNG और WebP तस्वीरों को एक साथ कम्प्रेस करें बिना क्लेरिटी खोए। सरकारी फॉर्म, जॉब पोर्टल और वेबसाइट के लिए तुरंत साइज़ कम करें।",
+    metaDescription: "JPG, PNG और WebP तस्वीरों को एक साथ कम्प्रेस करें बिना क्लेرिटी खोए। सरकारी फॉर्म, जॉब पोर्टल और वेबसाइट के लिए तुरंत साइज़ कम करें।",
     h1: "फोटो का साइज कम करने का मुफ़्त ऑनलाइन टूल",
     heroEyebrow: "ब्राउज़र में तेज़ फोटो कम्प्रेशन",
     heroBody: "सरकारी फॉर्म, प्रतियोगी परीक्षाओं और वेबसाइट के लिए कई JPG, PNG तस्वीरों का साइज़ एक साथ KB में कम करें। 100% मुफ़्त और सुरक्षित।",
@@ -287,7 +496,26 @@ export const hindiToolConfigs: Record<string, ToolPageConfig> = {
       { title: "एक क्लिक में डाउनलोड करें", body: "कम्प्रेस की गई तस्वीरें तुरंत डाउनलोड करें।" },
     ],
     faqs: [
-      { q: "क्या मेरी तस्वीरें सर्वर पर अपलोड होती हैं?", a: "बिल्कुल नहीं। पूरा प्रोसेस केवल आपके अपने फ़ोन या कंप्यूटर के ब्राउज़र में होता है।" },
+      {
+        q: "यह इमेज कम्प्रेसर फ़ोटो की क्लेरिटी बनाए रखते हुए साइज़ कैसे घटाता है?",
+        a: "यह टूल स्मार्ट कैनवास एल्गोरिदम का उपयोग करके अनदेखे पिक्सेल डेटा को हटाता है, जिससे बिना क्वालिटी खोए फ़ाइल साइज़ KB में बहुत कम हो जाता है।",
+      },
+      {
+        q: "वेबसाइट के लिए फ़ोटो का आदर्श साइज़ (KB) कितना होना चाहिए?",
+        a: "वेबसाइट बैनर के लिए 150KB–200KB से कम, ब्लॉग और प्रोडक्ट फ़ोटो के लिए 50KB–100KB, और थंबनेल के लिए 30KB से कम साइज़ सबसे अच्छा माना जाता है।",
+      },
+      {
+        q: "क्या फ़ोटो का साइज़ कम करने से Google PageSpeed स्कोर बढ़ता है?",
+        a: "हाँ, भारी फ़ोटो वेबसाइट धीमी होने का सबसे बड़ा कारण हैं। कम्प्रेस करने से कुल पेज वेट 80% तक घट जाता है और स्पीड बढ़ जाती है।",
+      },
+      {
+        q: "क्या फ़ोटो कम्प्रेस करने की कोई दैनिक सीमा या शुल्क है?",
+        a: "कोई सीमा नहीं है। यह टूल आपके अपने डिवाइस की पावर पर चलता है और पूरी तरह मुफ़्त है।",
+      },
+      {
+        q: "क्या सरकारी फॉर्म या रिज़्यूमे की तस्वीरें अपलोड करना सुरक्षित है?",
+        a: "पूरी तरह सुरक्षित। आपकी तस्वीरें कभी भी इंटरनेट पर किसी सर्वर पर नहीं भेजी जाती हैं।",
+      },
     ],
   },
 };
