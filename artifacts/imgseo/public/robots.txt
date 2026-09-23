@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://imageseo.cc/sitemap.xml

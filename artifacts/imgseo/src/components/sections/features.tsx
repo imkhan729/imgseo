@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { Minimize2, FileImage, Tag, Type, Files, MapPin } from "lucide-react";
+import { FileImage, Files, MapPin, Minimize2, Tag, Type } from "lucide-react";
 
 const features = [
   {
@@ -49,50 +48,42 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="py-24 bg-muted/25">
+    <section id="features" className="bg-muted/25 py-24">
       <div className="container mx-auto px-4">
-
-        <div className="text-center mb-14">
+        <div className="mb-14 text-center">
           <p className="eyebrow mb-3">What you get</p>
-          <h2 className="text-3xl font-black tracking-tight mb-4 md:text-4xl lg:text-5xl">
-            Six tools. One browser tab.
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+          <h2 className="mb-4 text-3xl font-black tracking-tight md:text-4xl lg:text-5xl">Six tools. One browser tab.</h2>
+          <p className="mx-auto max-w-xl text-lg text-muted-foreground">
             Everything a local business needs to rank higher in Google image search — no installs, no accounts.
           </p>
         </div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-          {features.map((f, idx) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.07, duration: 0.4 }}
-              className={`card-3d group relative bg-background rounded-3xl border border-border/60 overflow-hidden p-7 flex flex-col gap-5 ${
-                f.wide ? "md:col-span-2 lg:col-span-1" : ""
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature) => (
+            <div
+              key={feature.title}
+              className={`card-3d group relative flex flex-col gap-5 overflow-hidden rounded-3xl border border-border/60 bg-background p-7 ${
+                feature.wide ? "md:col-span-2 lg:col-span-1" : ""
               }`}
             >
-              {/* Decorative number */}
-              <span className="absolute top-5 right-6 text-6xl font-black text-foreground/4 select-none leading-none" style={{ fontFamily: "var(--app-font-display)" }}>
-                {f.num}
+              <span
+                className="absolute right-6 top-5 select-none text-6xl font-black leading-none text-foreground/4"
+                style={{ fontFamily: "var(--app-font-display)" }}
+              >
+                {feature.num}
               </span>
 
-              {/* Icon */}
-              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${f.gradient} shadow-lg`}>
-                <f.icon className="h-5.5 w-5.5 text-white" />
+              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg`}>
+                <feature.icon className="h-5.5 w-5.5 text-white" />
               </div>
 
               <div>
-                <h3 className="font-bold text-lg mb-2 leading-snug">{f.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
+                <h3 className="mb-2 text-lg font-bold leading-snug">{feature.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
               </div>
 
-              {/* Hover accent line */}
-              <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${f.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-200`} />
-            </motion.div>
+              <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${feature.gradient} opacity-0 transition-opacity duration-200 group-hover:opacity-100`} />
+            </div>
           ))}
         </div>
       </div>

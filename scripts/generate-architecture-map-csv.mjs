@@ -1,0 +1,265 @@
+import fs from 'node:fs';
+
+const siteMapEntries = [
+  {
+    url: "/",
+    page_type: "Core / Homepage",
+    primary_keyword: "free image seo tools",
+    cluster: "core",
+    intent: "Transactional / Hub",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/",
+    prerender_status: "Rendered shell; expand body depth",
+    schema_type: "WebApplication + Organization",
+    internal_links_in: "Site logo, breadcrumbs, all footers, legal pages",
+    internal_links_out: "All tool pages, /image-seo pillar, latest blog posts",
+    notes: "Main entry point and multi-utility dashboard."
+  },
+  {
+    url: "/free-webp-converter",
+    page_type: "Primary Tool",
+    primary_keyword: "webp converter",
+    cluster: "conversion",
+    intent: "Transactional / Tool",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/free-webp-converter",
+    prerender_status: "Rendered shell; expand body depth",
+    schema_type: "WebApplication + FAQPage + HowTo",
+    internal_links_in: "Header nav, homepage tools grid, /image-seo, /blog/webp-vs-jpg-local-seo",
+    internal_links_out: "/jpg-to-webp, /png-to-webp, /free-online-image-compressor, /image-seo",
+    notes: "Primary converter for all supported formats to WebP."
+  },
+  {
+    url: "/jpg-to-webp",
+    page_type: "Tool Variant",
+    primary_keyword: "jpg to webp",
+    cluster: "conversion",
+    intent: "Transactional / Task",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/jpg-to-webp",
+    prerender_status: "Rendered shell; expand body depth",
+    schema_type: "WebApplication + FAQPage + BreadcrumbList",
+    internal_links_in: "Homepage, /free-webp-converter, /blog/webp-vs-jpg-local-seo, /image-seo",
+    internal_links_out: "/free-webp-converter, /png-to-webp, /compress-jpg",
+    notes: "Targeted JPG->WebP task page with photographic compression guidance."
+  },
+  {
+    url: "/png-to-webp",
+    page_type: "Tool Variant",
+    primary_keyword: "png to webp",
+    cluster: "conversion",
+    intent: "Transactional / Task",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/png-to-webp",
+    prerender_status: "Rendered shell; expand body depth",
+    schema_type: "WebApplication + FAQPage + BreadcrumbList",
+    internal_links_in: "Homepage, /free-webp-converter, /image-seo",
+    internal_links_out: "/free-webp-converter, /jpg-to-webp, /free-online-image-compressor",
+    notes: "Dedicated transparency and graphic asset conversion page."
+  },
+  {
+    url: "/free-geo-tagger",
+    page_type: "Primary Tool",
+    primary_keyword: "free geo tagger",
+    cluster: "metadata/geotagging",
+    intent: "Transactional / Tool",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/free-geo-tagger",
+    prerender_status: "Rendered shell; expand body depth",
+    schema_type: "WebApplication + FAQPage + HowTo",
+    internal_links_in: "Header nav, homepage tools grid, /image-seo, /blog/free-geo-tagger-fast-location-seo",
+    internal_links_out: "/blog/free-geo-tagger-fast-location-seo, /blog/google-business-profile-photo-optimization, /image-seo",
+    notes: "Core browser-local GPS EXIF editor with Leaflet map."
+  },
+  {
+    url: "/free-online-image-compressor",
+    page_type: "Primary Tool",
+    primary_keyword: "image compressor",
+    cluster: "compression",
+    intent: "Transactional / Tool",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/free-online-image-compressor",
+    prerender_status: "Rendered shell; expand body depth",
+    schema_type: "WebApplication + FAQPage + HowTo",
+    internal_links_in: "Header nav, homepage tools grid, /image-seo, /compress-jpg",
+    internal_links_out: "/compress-jpg, /free-webp-converter, /image-seo",
+    notes: "Multi-format batch image compression utility."
+  },
+  {
+    url: "/compress-jpg",
+    page_type: "Tool Variant",
+    primary_keyword: "compress jpg",
+    cluster: "compression",
+    intent: "Transactional / Task",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/compress-jpg",
+    prerender_status: "Rendered shell; expand body depth",
+    schema_type: "WebApplication + FAQPage + BreadcrumbList",
+    internal_links_in: "Homepage, /free-online-image-compressor, /jpg-to-webp, /image-seo",
+    internal_links_out: "/free-online-image-compressor, /jpg-to-webp",
+    notes: "Dedicated JPEG image compression task page."
+  },
+  {
+    url: "/image-seo",
+    page_type: "Pillar Guide Hub",
+    primary_keyword: "image seo",
+    cluster: "knowledge hub",
+    intent: "Informational / Pillar",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/image-seo",
+    prerender_status: "Rendered shell; inject full pillar HTML",
+    schema_type: "Article + BreadcrumbList + FAQPage",
+    internal_links_in: "Header nav, footer, all tool pages, all blog posts",
+    internal_links_out: "All tools (/free-webp-converter, /free-geo-tagger, /free-online-image-compressor, /jpg-to-webp, /png-to-webp, /compress-jpg), all 6 blog posts",
+    notes: "Comprehensive topical authority pillar connecting theory to tools."
+  },
+  {
+    url: "/blog/free-geo-tagger-fast-location-seo",
+    page_type: "Blog Spoke",
+    primary_keyword: "geo tagger fast location seo",
+    cluster: "metadata/geotagging",
+    intent: "Informational",
+    action: "KEEP & IMPROVE (P0 Blocker Fix)",
+    canonical_url: "https://imageseo.cc/blog/free-geo-tagger-fast-location-seo",
+    prerender_status: "MISSING FROM PRERENDER -> Must generate static HTML",
+    schema_type: "Article + BreadcrumbList",
+    internal_links_in: "/image-seo, /free-geo-tagger, blog index/footer",
+    internal_links_out: "/free-geo-tagger, /image-seo, /blog/google-business-profile-photo-optimization",
+    notes: "Workflow guide on geotagging photos locally."
+  },
+  {
+    url: "/blog/image-file-names-local-seo",
+    page_type: "Blog Spoke",
+    primary_keyword: "image file names seo",
+    cluster: "knowledge hub",
+    intent: "Informational",
+    action: "KEEP & IMPROVE (P0 Blocker Fix)",
+    canonical_url: "https://imageseo.cc/blog/image-file-names-local-seo",
+    prerender_status: "MISSING FROM PRERENDER -> Must generate static HTML",
+    schema_type: "Article + BreadcrumbList",
+    internal_links_in: "/image-seo, homepage, blog index",
+    internal_links_out: "/image-seo, /free-webp-converter, /blog/alt-text-local-seo-formula",
+    notes: "Actionable file naming formulas and hyphenation rules."
+  },
+  {
+    url: "/blog/google-business-profile-photo-optimization",
+    page_type: "Blog Spoke",
+    primary_keyword: "google business profile photo optimization",
+    cluster: "knowledge hub",
+    intent: "Informational",
+    action: "KEEP & IMPROVE (P0 Blocker Fix)",
+    canonical_url: "https://imageseo.cc/blog/google-business-profile-photo-optimization",
+    prerender_status: "MISSING FROM PRERENDER -> Must generate static HTML",
+    schema_type: "Article + BreadcrumbList",
+    internal_links_in: "/image-seo, /free-geo-tagger, blog index",
+    internal_links_out: "/free-geo-tagger, /image-seo, /free-online-image-compressor",
+    notes: "Photo dimensions, quality, and upload best practices for GBP."
+  },
+  {
+    url: "/blog/webp-vs-jpg-local-seo",
+    page_type: "Blog Spoke",
+    primary_keyword: "webp vs jpg",
+    cluster: "conversion",
+    intent: "Informational",
+    action: "KEEP & IMPROVE (P0 Blocker Fix)",
+    canonical_url: "https://imageseo.cc/blog/webp-vs-jpg-local-seo",
+    prerender_status: "MISSING FROM PRERENDER -> Must generate static HTML",
+    schema_type: "Article + BreadcrumbList",
+    internal_links_in: "/image-seo, /free-webp-converter, /jpg-to-webp, blog index",
+    internal_links_out: "/free-webp-converter, /jpg-to-webp, /image-seo",
+    notes: "In-depth format comparison with speed and compatibility data."
+  },
+  {
+    url: "/blog/alt-text-local-seo-formula",
+    page_type: "Blog Spoke",
+    primary_keyword: "alt text seo formula",
+    cluster: "knowledge hub",
+    intent: "Informational",
+    action: "KEEP & IMPROVE (P0 Blocker Fix)",
+    canonical_url: "https://imageseo.cc/blog/alt-text-local-seo-formula",
+    prerender_status: "MISSING FROM PRERENDER -> Must generate static HTML",
+    schema_type: "Article + BreadcrumbList",
+    internal_links_in: "/image-seo, blog index",
+    internal_links_out: "/image-seo, /blog/image-file-names-local-seo",
+    notes: "Accessible and SEO-compliant alt text copywriting guidelines."
+  },
+  {
+    url: "/blog/image-seo-checklist-local-business",
+    page_type: "Blog Spoke",
+    primary_keyword: "image seo checklist",
+    cluster: "knowledge hub",
+    intent: "Informational",
+    action: "KEEP & IMPROVE (P0 Blocker Fix)",
+    canonical_url: "https://imageseo.cc/blog/image-seo-checklist-local-business",
+    prerender_status: "MISSING FROM PRERENDER -> Must generate static HTML",
+    schema_type: "Article + BreadcrumbList",
+    internal_links_in: "/image-seo, footer, blog index",
+    internal_links_out: "/image-seo, /free-webp-converter, /free-geo-tagger, /free-online-image-compressor",
+    notes: "Actionable pre-publish checklist for website and local images."
+  },
+  {
+    url: "/privacy",
+    page_type: "Legal",
+    primary_keyword: "privacy policy",
+    cluster: "legal",
+    intent: "Informational / Trust",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/privacy",
+    prerender_status: "Rendered; add to sitemap.xml",
+    schema_type: "WebPage",
+    internal_links_in: "Footer on all pages",
+    internal_links_out: "/",
+    notes: "Explains local browser canvas processing and zero server retention."
+  },
+  {
+    url: "/terms",
+    page_type: "Legal",
+    primary_keyword: "terms of use",
+    cluster: "legal",
+    intent: "Informational / Trust",
+    action: "KEEP & IMPROVE",
+    canonical_url: "https://imageseo.cc/terms",
+    prerender_status: "Rendered; fix regex quote escaping & add to sitemap.xml",
+    schema_type: "WebPage",
+    internal_links_in: "Footer on all pages",
+    internal_links_out: "/",
+    notes: "Browser tool licensing and terms."
+  }
+];
+
+function generate() {
+  const header = [
+    'url',
+    'page_type',
+    'primary_keyword',
+    'cluster',
+    'intent',
+    'action',
+    'canonical_url',
+    'prerender_status',
+    'schema_type',
+    'internal_links_in',
+    'internal_links_out',
+    'notes'
+  ].join(',');
+
+  const rows = siteMapEntries.map(e => [
+    `"${e.url}"`,
+    `"${e.page_type}"`,
+    `"${e.primary_keyword}"`,
+    `"${e.cluster}"`,
+    `"${e.intent}"`,
+    `"${e.action}"`,
+    `"${e.canonical_url}"`,
+    `"${e.prerender_status.replace(/"/g, '""')}"`,
+    `"${e.schema_type.replace(/"/g, '""')}"`,
+    `"${e.internal_links_in.replace(/"/g, '""')}"`,
+    `"${e.internal_links_out.replace(/"/g, '""')}"`,
+    `"${e.notes.replace(/"/g, '""')}"`
+  ].join(','));
+
+  fs.writeFileSync('docs/seo/architecture-map.csv', [header, ...rows].join('\n'), 'utf8');
+  console.log('Successfully wrote docs/seo/architecture-map.csv');
+}
+
+generate();

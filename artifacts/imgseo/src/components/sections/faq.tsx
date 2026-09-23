@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 const faqs = [
-  // About IMGSEO
   {
     category: "About IMGSEO",
     q: "Does this tool upload my images anywhere?",
@@ -19,7 +17,6 @@ const faqs = [
     q: "What image formats does IMGSEO support?",
     a: "You can upload JPG, PNG, WebP, GIF, BMP, TIFF, AVIF, and HEIC. Output formats are WebP (recommended), JPEG, or PNG. GPS EXIF embedding always outputs JPEG since that's the only format with native GPS EXIF support.",
   },
-  // Image SEO
   {
     category: "Image SEO",
     q: "How does image SEO improve Google ranking?",
@@ -40,7 +37,6 @@ const faqs = [
     q: "How do I reduce image size without losing quality?",
     a: "Use lossy compression at 70–85% quality and convert to WebP. IMGSEO processes images locally using the Canvas API — no upload required, zero privacy risk. A 2MB JPG typically becomes a 150–200KB WebP at the same perceived quality.",
   },
-  // Google Business
   {
     category: "Google Business Profile",
     q: "Can I use this for Google Business Profile photos?",
@@ -55,89 +51,67 @@ const faqs = [
 
 function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
   const [open, setOpen] = useState(false);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: Math.min(index * 0.035, 0.22) }}
-      className="border-b border-border/50 last:border-0"
-      data-testid={`faq-item-${index}`}
-    >
+    <div className="border-b border-border/50 last:border-0" data-testid={`faq-item-${index}`}>
       <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between py-5 text-left gap-5 group"
+        onClick={() => setOpen((value) => !value)}
+        className="group flex w-full items-center justify-between gap-5 py-5 text-left"
         aria-expanded={open}
       >
-        <span className={`font-bold text-base leading-snug transition-colors duration-150 ${open ? "text-primary" : "group-hover:text-primary"}`}>
+        <span className={`text-base font-bold leading-snug transition-colors duration-150 ${open ? "text-primary" : "group-hover:text-primary"}`}>
           {q}
         </span>
-        <span className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-all duration-200 ${
-          open
-            ? "bg-primary text-primary-foreground"
-            : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
-        }`}>
+        <span
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-200 ${
+            open
+              ? "bg-primary text-primary-foreground"
+              : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
+          }`}
+        >
           {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
         </span>
       </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            key="answer"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.22, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="pb-5 pl-4 border-l-2 border-primary/30">
-              <p className="text-sm text-muted-foreground leading-relaxed">{a}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+      {open && (
+        <div className="overflow-hidden">
+          <div className="border-l-2 border-primary/30 pb-5 pl-4">
+            <p className="text-sm leading-relaxed text-muted-foreground">{a}</p>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
 export function FAQ() {
   return (
-    <section id="faq" className="py-24 bg-background">
+    <section id="faq" className="bg-background py-24">
       <div className="container mx-auto px-4">
-
-        <div className="text-center mb-14">
+        <div className="mb-14 text-center">
           <p className="eyebrow mb-3">Got questions?</p>
-          <h2 className="text-3xl font-black tracking-tight mb-4 md:text-4xl lg:text-5xl">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+          <h2 className="mb-4 text-3xl font-black tracking-tight md:text-4xl lg:text-5xl">Frequently Asked Questions</h2>
+          <p className="mx-auto max-w-xl text-lg text-muted-foreground">
             Everything you need to know about IMGSEO and image SEO for local business.
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          {faqs.map((faq, i) => (
-            <FAQItem key={faq.q} q={faq.q} a={faq.a} index={i} />
+        <div className="mx-auto max-w-3xl">
+          {faqs.map((faq, index) => (
+            <FAQItem key={faq.q} q={faq.q} a={faq.a} index={index} />
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-14 max-w-xl mx-auto rounded-3xl overflow-hidden bg-gradient-to-br from-violet-600 via-violet-500 to-indigo-600 p-8 text-white text-center"
-        >
-          <p className="text-xs font-bold uppercase tracking-widest opacity-70 mb-2">Ready to start?</p>
-          <h3 className="text-2xl font-extrabold mb-2">Optimize your images for free</h3>
-          <p className="text-sm opacity-75 mb-6">No account. No upload. 60 seconds.</p>
+        <div className="mx-auto mt-14 max-w-xl overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600 via-violet-500 to-indigo-600 p-8 text-center text-white">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest opacity-70">Ready to start?</p>
+          <h3 className="mb-2 text-2xl font-extrabold">Optimize your images for free</h3>
+          <p className="mb-6 text-sm opacity-75">No account. No upload. 60 seconds.</p>
           <a
             href="#tool"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-violet-700 text-sm font-bold hover:bg-white/90 transition-colors shadow-lg"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-violet-700 shadow-lg transition-colors hover:bg-white/90"
           >
             Launch Free Tool →
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

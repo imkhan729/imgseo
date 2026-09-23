@@ -1,6 +1,7 @@
 export interface BlogSection {
   h2: string;
   paragraphs?: string[];
+  htmlParagraphs?: string[];
   list?: string[];
   tip?: string;
   code?: string;
@@ -13,6 +14,7 @@ export interface BlogPost {
   metaTitle: string;
   metaDescription: string;
   excerpt: string;
+  image: string;
   readTime: string;
   date: string;
   dateISO: string;
@@ -22,12 +24,59 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "free-geo-tagger-fast-location-seo",
+    tag: "Google Business",
+    title: "How to Use a Free Geo Tagger to Dominate Local SEO Fast",
+    metaTitle: "Free Geo Tagger Tool: Fast Geo Tag Images for Local SEO",
+    metaDescription: "Looking for a fast geo tagger? Discover how a free geo tag tool can embed GPS coordinates in your photos instantly and boost your Google Maps rankings.",
+    excerpt: "Adding GPS metadata to your images is a powerful local SEO signal. Learn how to use a free geo tagger tool to process images instantly and securely in your browser.",
+    image: "/images/blog/free_geotagger.webp",
+    readTime: "4 min read",
+    date: "May 2025",
+    dateISO: "2025-05-15",
+    author: "IMGSEO Team",
+    body: [
+      {
+        h2: "Why Every Local Business Needs a Fast Geo Tag Workflow",
+        paragraphs: [
+          "When you upload an image to Google Business Profile or your website, Google analyzes every piece of data attached to it. One of the strongest trust signals for local relevance is GPS metadata (EXIF data). If you claim to be a roofing company in Dallas, but your images have zero location data, you're missing a critical relevance signal.",
+          "Traditionally, adding GPS data required complicated desktop software or expensive SEO subscriptions. Today, a fast geo tagger can embed exact latitude and longitude coordinates into your JPEGs in seconds—giving you a competitive edge over local rivals who still upload blank files."
+        ]
+      },
+      {
+        h2: "The Benefits of Using a Free Geo Tagger",
+        htmlParagraphs: [
+          "Using a <strong>free geo tag</strong> solution doesn't mean compromising on quality or privacy. IMGSEO provides an instant, map-driven interface that embeds accurate location coordinates directly into your photo's EXIF metadata.",
+          "Because this is a completely client-side, <strong>free geotagger</strong>, your images are never uploaded to a remote server. The metadata injection happens entirely inside your browser. This makes it the perfect <strong>fast geotagger</strong> for photographers, local businesses, and agencies handling sensitive client photos."
+        ]
+      },
+      {
+        h2: "How to Geo Tag Your Images for Maximum SEO Impact",
+        list: [
+          "Find your exact business location or service area on the interactive map.",
+          "Drop the pin to capture the precise latitude and longitude coordinates.",
+          "Upload your local business photos into the free geo tagger interface.",
+          "Click 'Embed GPS' to instantly write the location data into the image EXIF.",
+          "Upload the newly tagged JPEG to your Google Business Profile."
+        ]
+      },
+      {
+        h2: "Geo Tagging Pro Tips",
+        paragraphs: [
+          "While it's tempting to drop your pin exactly on your office building for every photo, it's often more effective to geo tag images based on where the work was actually performed. If you're a plumber who serviced a home in a neighboring suburb, use a fast geo tag to pin that specific suburb. Over time, this builds a heat map of relevance across your entire service area."
+        ],
+        tip: "Always ensure your image is in JPEG format before trying to geo tag it. EXIF GPS data is most widely supported and read by Google when embedded in standard .jpg files."
+      }
+    ]
+  },
+  {
     slug: "image-file-names-local-seo",
     tag: "Image SEO",
-    title: "Why Image File Names Are the #1 Ignored Local SEO Factor",
-    metaTitle: "Image File Names for Local SEO: The Complete Guide (2025)",
-    metaDescription: "Most local businesses upload images with names like IMG_4392.jpg — costing them Google rankings. Learn the exact SEO file naming formula to rank higher in local search.",
-    excerpt: "Most local businesses upload photos straight from their camera with names like IMG_4392.jpg. Here's why that's costing them rankings — and how to fix it in 60 seconds.",
+    title: "Why Image File Names Are the #1 Ignored Local SEO Ranking Factor",
+    metaTitle: "Image File Naming for Local SEO: Rank Higher in Google Maps & Image Search",
+    metaDescription: "Boost your local search rankings by optimizing image file names. Learn the proven SEO naming formula to outrank local competitors on Google.",
+    excerpt: "Most businesses use generic file names like IMG_4392.jpg. Discover the exact SEO naming structure to increase organic local traffic and Google Maps visibility.",
+    image: "/images/blog/filenames.webp",
     readTime: "4 min read",
     date: "May 2025",
     dateISO: "2025-05-01",
@@ -90,10 +139,11 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "google-business-profile-photo-optimization",
     tag: "Google Business",
-    title: "How to Optimize Google Business Profile Photos for Maximum Local Visibility",
-    metaTitle: "GBP Photo Optimization Guide: Rank Higher in Google Maps (2025)",
-    metaDescription: "Your Google Business Profile photos directly influence local rankings and click-through rate. Learn exactly which photos to upload, the right sizes, and how to name them for SEO.",
-    excerpt: "Your GBP photos influence both rankings and click-through rate. We break down exactly which images to upload, what sizes to use, and how to name them for maximum impact.",
+    title: "How to Optimize Google Business Profile Photos for High Local Visibility",
+    metaTitle: "GBP Photo Optimization Guide: Maximize Local SEO & Google Maps Traffic",
+    metaDescription: "Optimize your Google Business Profile (GBP) photos to improve click-through rates and local rankings. Learn the best image sizes, formats, and geo-tagging tips.",
+    excerpt: "Your GBP photos directly influence Google Maps rankings and customer conversions. Learn the exact sizes, keywords, and metadata to use for maximum visibility.",
+    image: "/images/blog/gbp.webp",
     readTime: "6 min read",
     date: "Apr 2025",
     dateISO: "2025-04-01",
@@ -161,10 +211,11 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "webp-vs-jpg-local-seo",
     tag: "Performance",
-    title: "WebP vs JPG for Local Business Websites: Which Format Ranks Better?",
-    metaTitle: "WebP vs JPG for Local SEO: Which Image Format Ranks Higher in 2025?",
-    metaDescription: "WebP images load up to 34% faster than JPG and directly improve your Google Core Web Vitals score — a confirmed ranking factor. Here's how to switch without breaking anything.",
-    excerpt: "WebP images load up to 34% faster than JPG. Google's Core Web Vitals score directly affects local ranking. Here's how to switch formats without breaking your site.",
+    title: "WebP vs JPG for SEO: Which Image Format Ranks Better in Google?",
+    metaTitle: "WebP vs JPG for SEO: Speed Up Your Site & Improve Core Web Vitals",
+    metaDescription: "Switching to WebP improves site speed and Core Web Vitals. Discover why next-gen image formats are critical for local business SEO and search engine rankings.",
+    excerpt: "WebP images load up to 34% faster than JPG, directly improving Core Web Vitals. Find out how faster image loading speeds boost local SEO and mobile rankings.",
+    image: "/images/blog/webp.webp",
     readTime: "5 min read",
     date: "Mar 2025",
     dateISO: "2025-03-01",
@@ -223,10 +274,11 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "alt-text-local-seo-formula",
     tag: "ALT Text",
-    title: "Writing ALT Text for Local SEO: The Formula That Actually Works",
-    metaTitle: "ALT Text for Local SEO: The Formula That Drives Rankings (2025)",
-    metaDescription: "ALT text is free ranking real estate that most local businesses ignore. Learn the exact formula for writing ALT text that boosts Google image rankings and improves accessibility.",
-    excerpt: "ALT text is free ranking real estate — and almost no local business uses it correctly. The exact formula we use to generate ALT text that drives image search traffic.",
+    title: "Writing Image ALT Text for SEO: The Formula That Actually Works",
+    metaTitle: "Image ALT Text Best Practices for Local SEO & Accessibility",
+    metaDescription: "Write optimized image ALT text to improve local search visibility and accessibility. Learn the exact keyword formula to drive high-quality organic traffic.",
+    excerpt: "ALT text is free SEO real estate that most businesses ignore. Learn the perfect keyword formula to optimize your images for Google Images and screen readers.",
+    image: "/images/blog/alttext.webp",
     readTime: "3 min read",
     date: "Feb 2025",
     dateISO: "2025-02-01",
@@ -289,10 +341,11 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "image-seo-checklist-local-business",
     tag: "Strategy",
-    title: "The 5-Minute Image SEO Checklist Every Local Business Owner Should Use",
-    metaTitle: "5-Minute Image SEO Checklist for Local Businesses (2025 Edition)",
-    metaDescription: "A simple 5-step image SEO checklist every local business should run before uploading any photo to their website or Google Business Profile. Takes 5 minutes, improves rankings.",
-    excerpt: "Before uploading any image to your website or GBP, run through this 5-step checklist. It takes 5 minutes and can dramatically improve your local rankings.",
+    title: "The Ultimate 5-Minute Image SEO Checklist for Local Businesses",
+    metaTitle: "Complete Image SEO Checklist: Optimize Photos for Local Search",
+    metaDescription: "Boost your organic visibility with our 5-minute image SEO checklist. Cover file naming, WebP compression, ALT text, and GPS geo-tagging all in one workflow.",
+    excerpt: "Follow this comprehensive 5-step image optimization checklist before uploading photos. Improve your local rankings with perfect file names, WebP, and GPS data.",
+    image: "/images/blog/checklist.webp",
     readTime: "3 min read",
     date: "Jan 2025",
     dateISO: "2025-01-01",

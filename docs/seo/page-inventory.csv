@@ -1,0 +1,13 @@
+url,source_or_live,status,template,indexability,canonical,metadata,h1,notes
+/,source+live,200,home,index,https://imageseo.cc/,static shell + client SEO,client-only,live raw HTML has no H1
+/free-webp-converter,source+live,200,tool,index,https://imageseo.cc/free-webp-converter,client-only,client-only,live raw HTML is homepage shell
+/free-geo-tagger,source+live,200,tool,index,https://imageseo.cc/free-geo-tagger,client-only,client-only,live raw HTML is homepage shell
+/free-online-image-compressor,source+live,200,tool,index,https://imageseo.cc/free-online-image-compressor,client-only,client-only,live raw HTML is homepage shell
+/blog/free-geo-tagger-fast-location-seo,source+live,200,blog,index,route-derived,client-only,client-only,live raw HTML is homepage shell
+/blog/image-file-names-local-seo,source+live,200,blog,index,route-derived,client-only,client-only,live raw HTML is homepage shell
+/blog/google-business-profile-photo-optimization,source+live,200,blog,index,route-derived,client-only,client-only,live raw HTML is homepage shell
+/blog/webp-vs-jpg-local-seo,source+live,200,blog,index,route-derived,client-only,client-only,live raw HTML is homepage shell
+/blog/alt-text-local-seo-formula,source+live,200,blog,index,route-derived,client-only,client-only,live raw HTML is homepage shell
+/blog/image-seo-checklist-local-business,source+live,200,blog,index,route-derived,client-only,client-only,live raw HTML is homepage shell
+/privacy,source,unknown,missing-route,unknown,unknown,footer link only,unknown,not in sitemap or App route table
+/terms,source,unknown,missing-route,unknown,unknown,footer link only,unknown,not in sitemap or App route table

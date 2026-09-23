@@ -107,12 +107,31 @@ export default function BlogPost() {
             transition={{ duration: 0.45, delay: 0.1 }}
             className="space-y-12"
           >
+            {post.image && (
+              <div className="w-full aspect-[2/1] md:aspect-[2.5/1] overflow-hidden rounded-[2rem] border border-border/60 shadow-sm bg-muted/20 mb-12">
+                <img 
+                  src={post.image} 
+                  alt={post.title} 
+                  decoding="async"
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+            )}
+
             {post.body.map((section, idx) => (
               <section key={idx} className="space-y-4">
                 <h2 className="text-xl font-black tracking-tight md:text-2xl">{section.h2}</h2>
 
                 {section.paragraphs?.map((p, i) => (
                   <p key={i} className="text-base text-muted-foreground leading-relaxed">{p}</p>
+                ))}
+
+                {section.htmlParagraphs?.map((p, i) => (
+                  <p 
+                    key={`html-${i}`} 
+                    className="text-base text-muted-foreground leading-relaxed" 
+                    dangerouslySetInnerHTML={{ __html: p }} 
+                  />
                 ))}
 
                 {section.code && (
@@ -175,16 +194,23 @@ export default function BlogPost() {
                       href={`/blog/${rel.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="card-3d group block rounded-2xl border border-border/60 bg-background p-5 hover:border-primary/30 transition-colors"
+                      className="card-3d group flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-background hover:border-primary/30 transition-colors"
                     >
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className={`h-1.5 w-1.5 rounded-full ${relCfg.dot}`} />
-                        <span className="text-xs font-bold text-muted-foreground">{rel.tag}</span>
+                      {rel.image && (
+                        <div className="h-32 w-full overflow-hidden border-b border-border/60 bg-muted/20">
+                          <img src={rel.image} alt={rel.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        </div>
+                      )}
+                      <div className="p-5 flex flex-col flex-1">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className={`h-1.5 w-1.5 rounded-full ${relCfg.dot}`} />
+                          <span className="text-xs font-bold text-muted-foreground">{rel.tag}</span>
+                        </div>
+                        <h3 className="font-bold text-sm leading-snug mb-3 group-hover:text-primary transition-colors flex-1">{rel.title}</h3>
+                        <span className="inline-flex items-center gap-1 text-xs text-primary font-semibold mt-auto">
+                          Read <ArrowRight className="h-3 w-3" />
+                        </span>
                       </div>
-                      <h3 className="font-bold text-sm leading-snug mb-2 group-hover:text-primary transition-colors">{rel.title}</h3>
-                      <span className="inline-flex items-center gap-1 text-xs text-primary font-semibold">
-                        Read <ArrowRight className="h-3 w-3" />
-                      </span>
                     </a>
                   );
                 })}

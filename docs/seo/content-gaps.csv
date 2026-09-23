@@ -1,0 +1,8 @@
+topic_or_query,cluster,intent,evidence,existing_coverage,gap,priority,proposed_url,notes
+JPG to WebP,conversion,task/SERP tool intent,competitor format-pair coverage + product capability, broad WebP page only,no dedicated intent URL or format-specific explanation,P1,/jpg-to-webp,validate route and rendered template before scaling
+PNG to WebP,conversion,task/SERP tool intent,competitor format-pair coverage + product capability, broad WebP page only,no dedicated transparency guidance,P1,/png-to-webp,only publish if actual converter preserves/handles transparency as documented
+Compress JPG,compression,task intent,format-specific competitor coverage, broad compressor page only,no JPEG-specific workflow guidance,P1,/compress-jpg,avoid doorway page; require unique utility and copy
+Compress to exact KB,compression,task intent,competitor coverage,not present,tool does not appear to expose exact target-size control,P2,none,do not create until capability exists and is tested
+EXIF viewer/remover,metadata,task intent,seed topic and competitor feature evidence,not present,missing viewer/removal functionality,P2,none,do not create a page for unsupported functionality
+Image SEO guide,knowledge hub,informational,Google Search Central guidance,homepage/blog snippets only,no canonical guide hub or primary-source citations,P1,/image-seo,technical rendering should be fixed before publishing
+Image alt text,knowledge hub,informational,Google Search Central guidance + existing blog URL,existing blog post exists,needs evidence-led review and internal-link mapping,P2,/blog/alt-text-local-seo-formula,improve existing URL rather than duplicate page

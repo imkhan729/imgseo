@@ -1,115 +1,149 @@
-import { motion } from "framer-motion";
-import { FileSearch, Gauge, MapPin, Image, ArrowRight } from "lucide-react";
+import { FileSearch, Gauge, Image, MapPin, Sparkles } from "lucide-react";
 
 const pillars = [
   {
+    number: "01",
     icon: FileSearch,
-    gradient: "from-violet-500 to-indigo-600",
-    bg: "bg-violet-50 dark:bg-violet-950/30",
-    border: "border-violet-200/60 dark:border-violet-800/40",
-    title: "SEO File Naming",
+    accent: "text-violet-700 dark:text-violet-300",
+    wash: "from-violet-500/16 via-indigo-500/8 to-transparent",
+    ring: "border-violet-300/60 dark:border-violet-700/50",
+    title: "Name Images Like Search Terms",
+    summary: "Google reads the file name before it reads your page. Put the service and place name first.",
     points: [
-      "Use lowercase with hyphens, never spaces",
-      "Format: keyword-city-business.webp",
-      "Include your primary service keyword first",
-      "Add location — city and country/state",
+      "Use lowercase words separated with hyphens",
+      "Lead with the service keyword, then location",
+      "Add business name only if it helps clarity",
     ],
-    example: "best-plumber-doha-qatar.webp",
+    exampleLabel: "Example filename",
+    example: "emergency-plumber-doha-qatar-quickfix.webp",
   },
   {
+    number: "02",
     icon: Image,
-    gradient: "from-blue-500 to-cyan-600",
-    bg: "bg-blue-50 dark:bg-blue-950/30",
-    border: "border-blue-200/60 dark:border-blue-800/40",
-    title: "ALT Text & Compression",
+    accent: "text-sky-700 dark:text-sky-300",
+    wash: "from-sky-500/16 via-cyan-500/8 to-transparent",
+    ring: "border-sky-300/60 dark:border-sky-700/50",
+    title: "Write ALT Text for Humans First",
+    summary: "Describe what is actually in the image, then naturally connect it to the service and place.",
     points: [
-      "Describe image naturally — no keyword stuffing",
-      "Always include service + location in ALT",
-      "Target 70–85% quality for WebP/JPG",
-      "WebP is 30–50% smaller than JPG",
+      "Keep it plain, specific, and readable",
+      "Mention the business type and location once",
+      "Avoid repeating the same keyword unnaturally",
     ],
-    example: '"Professional plumber in Doha Qatar by QuickFix"',
+    exampleLabel: "Example ALT text",
+    example: '"Emergency plumber repairing a kitchen pipe in Doha, Qatar"',
   },
   {
+    number: "03",
     icon: Gauge,
-    gradient: "from-emerald-500 to-teal-600",
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
-    border: "border-emerald-200/60 dark:border-emerald-800/40",
-    title: "Page Speed & Format",
+    accent: "text-emerald-700 dark:text-emerald-300",
+    wash: "from-emerald-500/16 via-teal-500/8 to-transparent",
+    ring: "border-emerald-300/60 dark:border-emerald-700/50",
+    title: "Compress Before You Publish",
+    summary: "Fast-loading pages rank better locally because heavy image payloads drag down Core Web Vitals.",
     points: [
-      "Core Web Vitals directly affect local ranking",
-      "Convert JPG/PNG to WebP before publishing",
-      "Keep images under 150KB for web pages",
-      "Use 720×720px for Google Business Profile",
+      "Export in WebP for smaller public-facing images",
+      "Aim for roughly 70-85% quality on most photos",
+      "Keep common page images lean enough to load fast",
     ],
-    example: "2MB JPG → 180KB WebP (same quality)",
+    exampleLabel: "Compression target",
+    example: "2 MB original -> 180 KB WebP",
   },
   {
+    number: "04",
     icon: MapPin,
-    gradient: "from-amber-500 to-orange-600",
-    bg: "bg-amber-50 dark:bg-amber-950/30",
-    border: "border-amber-200/60 dark:border-amber-800/40",
-    title: "Geo Tagging",
+    accent: "text-amber-700 dark:text-amber-300",
+    wash: "from-amber-500/16 via-orange-500/8 to-transparent",
+    ring: "border-amber-300/60 dark:border-amber-700/50",
+    title: "Attach Location Signals",
+    summary: "Geo metadata reinforces place relevance when you are optimizing images for local intent and GBP usage.",
     points: [
-      "Embed GPS coordinates in image EXIF data",
-      "Reinforces location relevance for local Google",
-      "IMGSEO embeds EXIF directly in your browser",
-      "Upload geo-tagged images to Google Business",
+      "Embed GPS coordinates before download",
+      "Use the actual business location when possible",
+      "Pair geo data with strong filenames and ALT text",
     ],
-    example: "GPSLatitude: 25.285447, GPSLong: 51.531040",
+    exampleLabel: "Example GPS data",
+    example: "25.285447, 51.531040",
   },
 ];
 
 export function SEOContent() {
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
-            Image SEO for Local Business
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A practical guide to optimizing images for Google ranking — file names, ALT text, compression, and geo tagging explained.
-          </p>
-        </div>
+    <section className="relative overflow-hidden py-24">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.08),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(245,158,11,0.10),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,250,252,0.88))] dark:bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.08),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(245,158,11,0.08),transparent_26%),linear-gradient(180deg,rgba(8,13,23,0.92),rgba(8,13,23,0.84))]" />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
-          {pillars.map((p, idx) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className={`card-3d ${p.bg} ${p.border} border rounded-2xl p-5 flex flex-col gap-4`}
-            >
-              <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${p.gradient} shadow-md`}>
-                <p.icon className="h-5 w-5 text-white" />
+      <div className="container relative mx-auto px-4">
+        <div className="rounded-[2.4rem] border border-border/60 bg-background/78 p-6 shadow-[0_34px_90px_-46px_rgba(15,23,42,0.42)] backdrop-blur md:p-8 lg:p-10">
+          <div className="grid gap-8 border-b border-border/60 pb-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/6 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.2em] text-primary">
+                <Sparkles className="h-3.5 w-3.5" />
+                Local SEO Playbook
               </div>
-              <h3 className="font-bold text-base">{p.title}</h3>
-              <ul className="space-y-1.5 flex-1">
-                {p.points.map((pt) => (
-                  <li key={pt} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <ArrowRight className="h-3.5 w-3.5 mt-0.5 shrink-0 text-primary/50" />
-                    {pt}
-                  </li>
-                ))}
-              </ul>
-              <div className="bg-background/70 border rounded-lg px-3 py-2 text-xs font-mono text-primary/80 break-all">
-                {p.example}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              <h2 className="mt-5 max-w-3xl text-3xl font-black tracking-tight md:text-4xl lg:text-5xl">Image SEO for Local Business</h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
+                The highest-impact image signals are simple: better names, better ALT text, smaller files, and stronger local relevance. This section turns them into a clean operating system your team can repeat.
+              </p>
+            </div>
 
-        <div className="text-center">
-          <a
-            href="#tool"
-            className="btn-3d shine inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl text-sm font-bold text-white bg-gradient-to-br from-violet-500 to-indigo-600 hover:from-violet-500 hover:to-indigo-700 transition-colors shadow-lg shadow-violet-500/20"
-            data-testid="button-seo-cta"
-          >
-            Try the Free Image SEO Tool <ArrowRight className="h-4 w-4" />
-          </a>
+            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+              <div className="rounded-[1.5rem] border border-border/60 bg-muted/30 p-4">
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground">Framework</p>
+                <p className="mt-2 text-lg font-black">4 signals</p>
+                <p className="mt-1 text-sm text-muted-foreground">Name, describe, compress, geo-tag.</p>
+              </div>
+              <div className="rounded-[1.5rem] border border-border/60 bg-muted/30 p-4">
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground">Best Output</p>
+                <p className="mt-2 text-lg font-black">Compressed WebP</p>
+                <p className="mt-1 text-sm text-muted-foreground">Lighter pages and cleaner delivery.</p>
+              </div>
+              <div className="rounded-[1.5rem] border border-border/60 bg-muted/30 p-4">
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground">Best Use</p>
+                <p className="mt-2 text-lg font-black">Local landing pages</p>
+                <p className="mt-1 text-sm text-muted-foreground">Service, city, and GBP-oriented assets.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-5 lg:grid-cols-2">
+            {pillars.map((pillar) => (
+              <article key={pillar.title} className="group relative overflow-hidden rounded-[2rem] border border-border/60 bg-background">
+                <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${pillar.wash} opacity-80`} />
+                <div className="relative p-6 md:p-7">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <div className="text-4xl font-black leading-none text-foreground/12" style={{ fontFamily: "var(--app-font-display)" }}>
+                        {pillar.number}
+                      </div>
+                      <div className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border bg-background/85 ${pillar.ring}`}>
+                        <pillar.icon className={`h-5 w-5 ${pillar.accent}`} />
+                      </div>
+                    </div>
+                    <span className={`inline-flex rounded-full border bg-background/85 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] ${pillar.accent} ${pillar.ring}`}>
+                      Priority
+                    </span>
+                  </div>
+
+                  <h3 className="mt-5 text-xl font-black leading-tight">{pillar.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{pillar.summary}</p>
+
+                  <ul className="mt-5 grid gap-2.5">
+                    {pillar.points.map((point) => (
+                      <li key={point} className="flex items-start gap-3 rounded-2xl bg-background/78 px-4 py-3 text-sm text-foreground/88">
+                        <span className={`mt-1 h-2 w-2 shrink-0 rounded-full ${pillar.accent.replace("text-", "bg-").replace(" dark:bg-", "")}`} />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-5 rounded-[1.4rem] border border-border/60 bg-foreground px-4 py-4 text-background">
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-background/60">{pillar.exampleLabel}</p>
+                    <p className="mt-2 break-all font-mono text-sm text-background/88">{pillar.example}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
