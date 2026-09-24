@@ -2291,14 +2291,19 @@ for (const post of blogPosts) {
 const template = await readFile(join(outputDir, "index.html"), "utf8");
 
 // Clean base template: extract base shell without hardcoded tags
-const cleanTemplate = template
+let cleanTemplate = template
   .replace(/<title>[\s\S]*?<\/title>/i, "{{TITLE}}")
   .replace(/<meta\s+name=["']description["']\s+content=["'][^"']*["']\s*\/?>/i, "{{DESCRIPTION}}")
   .replace(/<link\s+rel=["']canonical["']\s+href=["'][^"']*["']\s*\/?>/i, "{{CANONICAL}}")
   .replace(/<link\s+rel=["']alternate["']\s+hreflang=["'][^"']*["']\s+href=["'][^"']*["']\s*\/?>\n?\s*/gi, "")
   .replace(/<!--\s*Open Graph[\s\S]*?(?=<link\s+rel=["']icon)/i, "{{SOCIAL_META}}\n    ")
-  .replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/gi, "{{SCHEMA}}")
-  .replace(/<div\s+id=["']root["']>[\s\S]*?<\/div>/i, "{{ROOT_CONTENT}}");
+  .replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>\n?\s*/gi, "")
+  .replace(/<div\s+id=["']root["']>[\s\S]*?<\/div>(\s*<noscript>[\s\S]*?<\/noscript>)?/i, "{{ROOT_CONTENT}}");
+
+if (cleanTemplate.includes("{{SCHEMA}}")) {
+  cleanTemplate = cleanTemplate.replaceAll("{{SCHEMA}}", "");
+}
+cleanTemplate = cleanTemplate.replace(/<\/head>/i, "    {{SCHEMA}}\n  </head>");
 
 const supportedLangCodes = ["en", "es", "pt", "ar", "id", "hi"];
 
