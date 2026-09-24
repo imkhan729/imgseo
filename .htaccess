@@ -6,6 +6,12 @@
   RewriteRule ^sitemap\.xml$ - [L]
   RewriteRule ^robots\.txt$ - [L]
 
+  # Reject legacy/case-variant sitemap submissions instead of serving the SPA shell.
+  # This makes old Search Console entries clearly unavailable while preserving the
+  # canonical lowercase /sitemap.xml endpoint above.
+  RewriteRule ^sitemap[0-9]+\.xml$ - [G,L,NC]
+  RewriteRule ^sitemap\.xml$ - [G,L,NC]
+
   # 2. Force HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://imageseo.cc/$1 [R=301,L]
