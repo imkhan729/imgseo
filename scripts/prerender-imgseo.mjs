@@ -2559,7 +2559,7 @@ for (const [route, page] of Object.entries(pages)) {
     .replace("{{DESCRIPTION}}", descTag)
     .replace("{{CANONICAL}}", `${canonicalTag}${hreflangTags}`)
     .replace("{{SOCIAL_META}}", socialMeta)
-    .replace("{{SCHEMA}}", schemaTag)
+    .replaceAll("{{SCHEMA}}", schemaTag)
     .replace("{{ROOT_CONTENT}}", rootContent);
 
   // Set html lang and dir attribute
@@ -2607,7 +2607,7 @@ let notFoundHtml = cleanTemplate
   .replace("{{DESCRIPTION}}", `<meta name="description" content="${notFoundDesc}" />`)
   .replace("{{CANONICAL}}", `<link rel="canonical" href="${notFoundCanonical}" />`)
   .replace("{{SOCIAL_META}}", notFoundOg)
-  .replace("{{SCHEMA}}", "")
+  .replaceAll("{{SCHEMA}}", "")
   .replace("{{ROOT_CONTENT}}", '<div id="root"></div>\n    <noscript><main><h1>Page Not Found</h1><p>The requested page could not be found.</p><p><a href="/">Return to IMGSEO Home</a></p></main></noscript>');
 
 notFoundHtml = notFoundHtml.replace(/<html[^>]*>/i, '<html lang="en" dir="ltr">');
@@ -2618,5 +2618,4 @@ if (outputDir !== process.cwd()) {
 }
 
 console.log(`Successfully prerendered ${Object.keys(pages).length} routes + 404.html to ${outputDir} and root directory`);
-
 
