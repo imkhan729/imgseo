@@ -2295,6 +2295,7 @@ const cleanTemplate = template
   .replace(/<title>[\s\S]*?<\/title>/i, "{{TITLE}}")
   .replace(/<meta\s+name=["']description["']\s+content=["'][^"']*["']\s*\/?>/i, "{{DESCRIPTION}}")
   .replace(/<link\s+rel=["']canonical["']\s+href=["'][^"']*["']\s*\/?>/i, "{{CANONICAL}}")
+  .replace(/<link\s+rel=["']alternate["']\s+hreflang=["'][^"']*["']\s+href=["'][^"']*["']\s*\/?>\n?\s*/gi, "")
   .replace(/<!--\s*Open Graph[\s\S]*?(?=<link\s+rel=["']icon)/i, "{{SOCIAL_META}}\n    ")
   .replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/gi, "{{SCHEMA}}")
   .replace(/<div\s+id=["']root["']>[\s\S]*?<\/div>/i, "{{ROOT_CONTENT}}");
@@ -2568,6 +2569,13 @@ for (const [route, page] of Object.entries(pages)) {
   const targetDir = join(outputDir, relativeDir);
   await mkdir(targetDir, { recursive: true });
   await writeFile(join(targetDir, "index.html"), html, "utf8");
+
+  // Sync to root workspace if root is not outputDir
+  const rootTargetDir = join(process.cwd(), relativeDir);
+  if (rootTargetDir !== targetDir) {
+    await mkdir(rootTargetDir, { recursive: true });
+    await writeFile(join(rootTargetDir, "index.html"), html, "utf8");
+  }
 }
 
 // Generate 404.html
@@ -2605,6 +2613,10 @@ let notFoundHtml = cleanTemplate
 notFoundHtml = notFoundHtml.replace(/<html[^>]*>/i, '<html lang="en" dir="ltr">');
 
 await writeFile(join(outputDir, "404.html"), notFoundHtml, "utf8");
+if (outputDir !== process.cwd()) {
+  await writeFile(join(process.cwd(), "404.html"), notFoundHtml, "utf8");
+}
 
-console.log(`Successfully prerendered ${Object.keys(pages).length} routes + 404.html to ${outputDir}`);
+console.log(`Successfully prerendered ${Object.keys(pages).length} routes + 404.html to ${outputDir} and root directory`);
+
 
